@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>《MySQL 实战 45 讲》拾遗 - /home/wpchou/site</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="wenpin" /><meta name="description" content="极客时间上林晓斌的《MySQL 实战 45 讲》针对日常开发碰到的常见问题都有非常高的实践指导意义，虽然说在这一系列文章也简述了一些数据库原理，但要" /><meta name="keywords" content="technic" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.68.3 with theme even" />
+
+
+<link rel="canonical" href="http://wpchou.github.io/post/2019-07-28-mysql-practice/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="《MySQL 实战 45 讲》拾遗" />
+<meta property="og:description" content="极客时间上林晓斌的《MySQL 实战 45 讲》针对日常开发碰到的常见问题都有非常高的实践指导意义，虽然说在这一系列文章也简述了一些数据库原理，但要" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://wpchou.github.io/post/2019-07-28-mysql-practice/" />
+<meta property="article:published_time" content="2019-07-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-07-28T00:00:00+00:00" />
+<meta itemprop="name" content="《MySQL 实战 45 讲》拾遗">
+<meta itemprop="description" content="极客时间上林晓斌的《MySQL 实战 45 讲》针对日常开发碰到的常见问题都有非常高的实践指导意义，虽然说在这一系列文章也简述了一些数据库原理，但要">
+<meta itemprop="datePublished" content="2019-07-28T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-07-28T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2555">
+
+
+
+<meta itemprop="keywords" content="mysql," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="《MySQL 实战 45 讲》拾遗"/>
+<meta name="twitter:description" content="极客时间上林晓斌的《MySQL 实战 45 讲》针对日常开发碰到的常见问题都有非常高的实践指导意义，虽然说在这一系列文章也简述了一些数据库原理，但要"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">/home/wpchou/site</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">/home/wpchou/site</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">《MySQL 实战 45 讲》拾遗</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-07-28 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#02-日志系统">02 日志系统</a></li>
+    <li><a href="#03-事务隔离">03 事务隔离</a></li>
+    <li><a href="#06-全局锁和表锁">06 全局锁和表锁</a></li>
+    <li><a href="#07-行锁功过">07 行锁功过</a></li>
+    <li><a href="#08-事务到底是隔离的还是不隔离的">08 事务到底是隔离的还是不隔离的</a></li>
+    <li><a href="#09-普通索引和唯一索引应该怎么选择">09 普通索引和唯一索引，应该怎么选择？</a></li>
+    <li><a href="#10-mysql-为什么会选错索引">10 MySQL 为什么会选错索引</a></li>
+    <li><a href="#12-为什么我的-mysql-会抖一下">12 为什么我的 MySQL 会抖一下</a></li>
+    <li><a href="#13-为什么表数据删掉一半表文件大小不变">13 为什么表数据删掉一半，表文件大小不变</a></li>
+    <li><a href="#14-count-这么慢我该怎么办">14 count(*) 这么慢，我该怎么办</a></li>
+    <li><a href="#16-order-by-是怎么工作的">16 &ldquo;order by&rdquo; 是怎么工作的</a></li>
+    <li><a href="#17-如何正确地显示随机消息">17 如何正确地显示随机消息</a></li>
+    <li><a href="#19-为什么我只查一行的语句也执行这么慢">19 为什么我只查一行的语句，也执行这么慢</a></li>
+    <li><a href="#21-为什么我只改一行的语句锁这么多">21 为什么我只改一行的语句，锁这么多</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#others">others</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>极客时间上林晓斌的《MySQL 实战 45 讲》针对日常开发碰到的常见问题都有非常高的实践指导意义，虽然说在这一系列文章也简述了一些数据库原理，但要把整个系列的文章消化下来还是要具备相当的数据库基础。我是在看过下面几本书才看这个系列文章的，一来使得理解起文章中的例子相对轻松，二来有了具体的可操作实例，对照起书中的原理，也经常有恍然大明白的感觉。</p>
+<ul>
+<li>罗摩克里希纳. 数据库管理系统原理与设计. 清华大学出版社, 2003. <a href="http://book.douban.com/subject/1146233/">http://book.douban.com/subject/1146233/</a>.</li>
+<li>施瓦茨, 扎伊采夫, and 特卡琴科. 高性能MySQL. Translated by 宁海元, 周振兴, 彭立勋, and 翟卫祥刘辉. 电子工业出版社, 2013. <a href="https://book.douban.com/subject/23008813/">https://book.douban.com/subject/23008813/</a>.</li>
+<li>姜承尧. MySQL技术内幕. 机械工业出版社, 2010. <a href="https://book.douban.com/subject/5373022/">https://book.douban.com/subject/5373022/</a>.</li>
+<li>MICK, ［ 日］. SQL进阶教程. Translated by 吴炎昌. 人民邮电出版社, 2017. <a href="https://book.douban.com/subject/27194738/">https://book.douban.com/subject/27194738/</a>.</li>
+</ul>
+<p>下面并不是非常详细的笔记，仅仅是记录个人在学习中认为需要注意的一些点。</p>
+<h2 id="02-日志系统">02 日志系统</h2>
+<p><code>innodb_flush_log_at_trx_commit</code> 为 1 时每次完成事务后 redo log 写到磁盘。</p>
+<p><code>sync_binlog</code> 为 1 时每次完成事务后 binlog 写到磁盘。</p>
+<h2 id="03-事务隔离">03 事务隔离</h2>
+<p>可以用下面的语句查找持续时间超过 60s 的事务。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">innodb_trx</span> <span class="k">where</span> <span class="n">TIME_TO_SEC</span><span class="p">(</span><span class="n">timediff</span><span class="p">(</span><span class="n">now</span><span class="p">(),</span><span class="n">trx_started</span><span class="p">))</span><span class="o">&gt;</span><span class="mi">60</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="06-全局锁和表锁">06 全局锁和表锁</h2>
+<p>在可重复读隔离等级下用 <code>mysqldump -single-transaction</code> 可以得到一致性的数据备份。</p>
+<p>innodb 的表级锁包括表锁和元数据锁(meta data lock, MDL), 元数据锁包括读锁和写锁。对表做增删改查时加读锁，对表结构进行修改时加写锁。</p>
+<h2 id="07-行锁功过">07 行锁功过</h2>
+<p>TODO 绘制 mysql 单行自增写速率曲线</p>
+<h2 id="08-事务到底是隔离的还是不隔离的">08 事务到底是隔离的还是不隔离的</h2>
+<p>undo log 指的是数据的事务快照和当前版本的差值，注意不要和 redo log 记混名字。</p>
+<h2 id="09-普通索引和唯一索引应该怎么选择">09 普通索引和唯一索引，应该怎么选择？</h2>
+<p>redo log 节省了把随机写转成了顺序写，change buffer 起的是数据缓存的作用，节省了随机读磁盘的 IO 消耗。</p>
+<h2 id="10-mysql-为什么会选错索引">10 MySQL 为什么会选错索引</h2>
+<p>文中的第一个案例一直复现不出来。</p>
+<h2 id="12-为什么我的-mysql-会抖一下">12 为什么我的 MySQL 会抖一下</h2>
+<p>设置好 <code>innodb_io_capacity</code> 等于实际硬盘性能很重要。可以用 <code>fio</code> 测量。</p>
+<p>控制脏页比例，可以从全局状态获取 <code>Innodb_buffer_pool_pages_dirty</code> 和 <code>Innodb_buffer_pool_pages_total</code>.</p>
+<p><code>innodb_flush_neighbors</code> 不适用于 SSD。</p>
+<h2 id="13-为什么表数据删掉一半表文件大小不变">13 为什么表数据删掉一半，表文件大小不变</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">t</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以用于重建表，压缩空间。</p>
+<p><code>gh-ost</code>, aka, github online schema migration for mysql. 好东西，实现原理是使用 binlog 而不是 trigger.</p>
+<h2 id="14-count-这么慢我该怎么办">14 count(*) 这么慢，我该怎么办</h2>
+<p>由于使用 MVCC, innodb 会取出数据进行计数。优化器会进行一定的优化，比如使用较小的索引树。</p>
+<p>要快速得到精确的 count 只能另外存储。用 redis 会有分布式一致性问题。可以在 mysql 另表存储，解决一致性问题。</p>
+<p>速度上，count(字段) &lt; count(主键) &lt; count(1) ≈ count(*). count(*) 有优化过的语义，表示统计行数。其它都是按字面意思执行。</p>
+<h2 id="16-order-by-是怎么工作的">16 &ldquo;order by&rdquo; 是怎么工作的</h2>
+<p>这篇文章介绍了optimizer_trace, 比起 explain，能得到更详细的信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="cm">/* 打开 optimizer_trace，只对本线程有效 */</span>
+<span class="k">SET</span> <span class="n">optimizer_trace</span><span class="o">=</span><span class="s1">&#39;enabled=on&#39;</span><span class="p">;</span> 
+
+<span class="cm">/* @a 保存 Innodb_rows_read 的初始值 */</span>
+<span class="k">select</span> <span class="n">VARIABLE_VALUE</span> <span class="k">into</span> <span class="o">@</span><span class="n">a</span> <span class="k">from</span>  <span class="n">performance_schema</span><span class="p">.</span><span class="n">session_status</span> <span class="k">where</span> <span class="n">variable_name</span> <span class="o">=</span> <span class="s1">&#39;Innodb_rows_read&#39;</span><span class="p">;</span>
+
+<span class="cm">/* 执行语句 */</span>
+<span class="k">select</span> <span class="n">city</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span><span class="n">age</span> <span class="k">from</span> <span class="n">t</span> <span class="k">where</span> <span class="n">city</span><span class="o">=</span><span class="s1">&#39;杭州&#39;</span> <span class="k">order</span> <span class="k">by</span> <span class="n">name</span> <span class="k">limit</span> <span class="mi">1000</span><span class="p">;</span> 
+
+<span class="cm">/* 查看 OPTIMIZER_TRACE 输出 */</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">information_schema</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">OPTIMIZER_TRACE</span><span class="o">`</span><span class="err">\</span><span class="k">G</span>
+
+<span class="cm">/* @b 保存 Innodb_rows_read 的当前值 */</span>
+<span class="k">select</span> <span class="n">VARIABLE_VALUE</span> <span class="k">into</span> <span class="o">@</span><span class="n">b</span> <span class="k">from</span> <span class="n">performance_schema</span><span class="p">.</span><span class="n">session_status</span> <span class="k">where</span> <span class="n">variable_name</span> <span class="o">=</span> <span class="s1">&#39;Innodb_rows_read&#39;</span><span class="p">;</span>
+
+<span class="cm">/* 计算 Innodb_rows_read 差值 */</span>
+<span class="k">select</span> <span class="o">@</span><span class="n">b</span><span class="o">-@</span><span class="n">a</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>max_length_for_sort_data</code> 控制 MySQL 排序时行数据的长度，单行长度小于该值，使用全字段排序，大于该值，使用 rowid 排序。</p>
+<h2 id="17-如何正确地显示随机消息">17 如何正确地显示随机消息</h2>
+<p>在 <code>sort_buffer_size</code> 足够大时，mysql 会优先使用优先队列处理 <code>SELECT ... LIMIT...</code> 类型的语句。</p>
+<h2 id="19-为什么我只查一行的语句也执行这么慢">19 为什么我只查一行的语句，也执行这么慢</h2>
+<p>查询数据量很少，但是却很慢的问题诊断过程。</p>
+<p>先找出问题线程及其相关信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span> <span class="n">processlist</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>查找表相关信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">sys</span><span class="p">.</span><span class="n">innodb_lock_waits</span> <span class="k">where</span> <span class="n">locked_table</span> <span class="o">=</span> <span class="n">t</span><span class="err">\</span><span class="k">G</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>查找搜索时间较长的语句。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">set</span> <span class="n">long_query_time</span><span class="o">=</span><span class="mi">0</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="21-为什么我只改一行的语句锁这么多">21 为什么我只改一行的语句，锁这么多</h2>
+<p>首先要说的是本章的规则和案例都非常珍贵，正如作者所说，可能在别的地方都找不到类似的总结。然而认真看完之后我却一改以前优先使用可重复读的观点了。在现实中，开发人员水平实在是太过参差不齐。即使是优秀的程序员也会在开发的时候顾此失彼。在缺少专业 DBA 的情况下，尽可能使用提交读。遇到无法克服的问题才使用可重复读。</p>
+<p>可重复读加锁经验规则：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">原则1: 加锁的过程的基本单位是 next-key lock.
+
+原则2: 查找过程中访问到的对象才会加锁。
+
+优化1: 索引上的等值查询，给唯一索引加锁的时候，next-key lock 退化为行锁。
+
+优化2: 索引上的等值查询，向右遍历时且最后一个值不满足等值条件的时候，next-key lock 退化为间隙。
+
+bug: 唯一索引上的范围查询会访问到不满足条件的第一个值为止。
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="23-mysql-是怎么保证数据不丢的">23 MySQL 是怎么保证数据不丢的</h1>
+<p>出现 IO 性能瓶颈时，可以将 <code>sync_binlog</code> 设成 N(常见100~1000). 设置 <code>binlog_group_commit_sync_delay</code> 和 <code>binlog_group_commit_sync_no_delay_count</code> 通过拉长响应时间来提高吞吐量，原理是组提交策略。</p>
+<h1 id="24-29-多库架构">24-29 多库架构</h1>
+<p>binlog 至少是 mixed 才能保证主备一致。</p>
+<p>这是一系列多库架构的文章，因为自己缺乏多库的经验，经常遇到读不懂。</p>
+<p>TODO 手动搭建主备分离结构。</p>
+<h1 id="30-用动态的观点看加锁">30 用动态的观点看加锁</h1>
+<p>怎么查看死锁，下面的语句可以查到最后检测到的死锁</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span> <span class="n">engine</span> <span class="n">innodb</span> <span class="n">status</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="others">others</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span> <span class="n">profiles</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以临时打开 profiling, 高精度地记录每个步骤的执行时间。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SET</span> <span class="k">global</span> <span class="n">profiling</span> <span class="o">=</span> <span class="k">ON</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="33-我查这么多数据会不会把数据库内存打爆">33 我查这么多数据，会不会把数据库内存打爆</h1>
+<p>innodb 的 buffer pool 管理使用改进的 LRU 算法，以对付类似全表扫描的极端情况。</p>
+<h1 id="35-join-语句怎么优化">35 join 语句怎么优化</h1>
+<p>基本的 JOIN 算法有两种：Index Nested-Loop Join(NLJ) 和 Block Nested-Loop Join(BNL).</p>
+<p>大表 join 操作对 buffer pool 即对内存命中率的影响是持续性的，innodb 改进过的 LRU 无法有效地应对这种情况。这时最基本的优化是在被驱动表上建立索引，以使用 BKA(batched key access) 算法进行 JOIN 操作。</p>
+<p>启用 BKA 之前需要设置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">set</span> <span class="n">optimizer_switch</span><span class="o">=</span><span class="s1">&#39;mrr=on,mrr_cost_based=off,batched_key_access=on&#39;</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>MRR: multi-range read</p>
+<p>当遇到不适合加索引的情况，可以使用带有索引的临时表，插入大表筛选过的数据，以此使用 BKA 算法。</p>
+<p>在目前 mysql 不支持 hash-join 的情况下，可以自己在业务层做一定程度的模拟，可能可以获得比临时表更佳的效率。</p>
+<h1 id="36-为什么临时表可以重名">36 为什么临时表可以重名</h1>
+<p><code>create temporary table</code> 可以创建临时表，只对当前 session 可见，与普通表同名时优先使用，但是 <code>show tables</code> 命令不显示临时表。临时表特别适用于 JOIN 优化。</p>
+<p>在 binlog_format='row&rsquo; 时临时表记录不记录到 binlog. 可以省去不少麻烦。</p>
+<h1 id="37-什么时候会使用内部临时表">37 什么时候会使用内部临时表</h1>
+<p><code>group by</code> 默认排序，加上 <code>order by null</code> 可以跳过排序。</p>
+<p>善加利用 <code>generated column</code> 加索引来优化查询。如下面查询可以增加 <code>id%100</code> generated column</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="n">id</span><span class="o">%</span><span class="mi">100</span> <span class="k">as</span> <span class="n">m</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">as</span> <span class="k">c</span> <span class="k">from</span> <span class="n">t1</span> <span class="k">group</span> <span class="k">by</span> <span class="n">m</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>对于 <code>group by</code>，还可以用 <code>SQL_BIG_RESULT</code> 作为 hint 使用数组(sort buffer)而不是临时表来存储，比如下面的查询。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="n">SQL_BIG_RESULT</span> <span class="n">id</span><span class="o">%</span><span class="mi">100</span> <span class="k">as</span> <span class="n">m</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">as</span> <span class="k">c</span> <span class="k">from</span> <span class="n">t1</span> <span class="k">group</span> <span class="k">by</span> <span class="n">m</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="38-都说-innodb-好那还要不要使用-memory-引擎">38 都说 InnoDB 好，那还要不要使用 Memory 引擎</h1>
+<p>InnoDB 是索引组织表，使用 B+ 树索引，Memory 引擎是堆组织表，使用哈希索引。</p>
+<p>除了临时表，都应该使用 Innodb 代替内存引擎。</p>
+<h1 id="39-自增主键为什么不是连续的">39 自增主键为什么不是连续的</h1>
+<p>自增主键不连续主要有以下三种原因</p>
+<ol>
+<li>唯一键冲突导致插入失败</li>
+<li>事务回滚</li>
+<li>批量插入预申请过多 ID.</li>
+</ol>
+<p>默认设置下，<code>innodb_autoinc_lock_mode</code> 值为 1, 表示对于普通插入语句，自增锁申请后马上释放，对于批量插入语句，自增锁需要等语句结束后才释放，以防主备不一致。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">wenpin</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-07-28
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/mysql/">mysql</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/2019-08-27-map-of-javascript/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">从 js 神奇的 map 说到函数的元数</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2019-07-28-mysql-practice.sync-conflict-20191127-235650-opstezq/">
+            <span class="next-text nav-default">《MySQL 实战 45 讲》拾遗</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'wenpin_chou';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="wpchou@outlook.com.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">wenpin</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

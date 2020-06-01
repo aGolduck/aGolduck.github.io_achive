@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sequelize on /home/wpchou/site</title>
+    <link>http://wpchou.github.io/tags/sequelize/</link>
+    <description>Recent content in sequelize on /home/wpchou/site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 07 Nov 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://wpchou.github.io/tags/sequelize/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>如何使用 Sequelize (自动)管理数据库事务</title>
+      <link>http://wpchou.github.io/post/2019-11-07-sequelize-transaction/</link>
+      <pubDate>Thu, 07 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://wpchou.github.io/post/2019-11-07-sequelize-transaction/</guid>
+      <description>到目前为止，Sequelize 仍然是 nodejs 最成熟的 ORM 库。相关的文档有 manual 和 api rereference. 但老实说，写得不算好，manual 只能算 tutorial. api reference 也很多语焉不详，很多用</description>
+    </item>
+    
+  </channel>
+</rss>

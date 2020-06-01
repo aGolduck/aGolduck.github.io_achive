@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>并发请求与 MySQL 事务隔离 - /home/wpchou/site</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="wenpin" /><meta name="description" content="旧文一则，记录处理数据异常的过程，借此阐述 MySQL 事务隔离的一些相关概念。 问题 在线做题是公司一个重要的业务。同一个用户可以对一张试卷(testpa" /><meta name="keywords" content="technic" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.68.3 with theme even" />
+
+
+<link rel="canonical" href="http://wpchou.github.io/post/2019-10-31-mysql-isolation-level/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="并发请求与 MySQL 事务隔离" />
+<meta property="og:description" content="旧文一则，记录处理数据异常的过程，借此阐述 MySQL 事务隔离的一些相关概念。 问题 在线做题是公司一个重要的业务。同一个用户可以对一张试卷(testpa" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://wpchou.github.io/post/2019-10-31-mysql-isolation-level/" />
+<meta property="article:published_time" content="2019-10-31T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-10-31T00:00:00+00:00" />
+<meta itemprop="name" content="并发请求与 MySQL 事务隔离">
+<meta itemprop="description" content="旧文一则，记录处理数据异常的过程，借此阐述 MySQL 事务隔离的一些相关概念。 问题 在线做题是公司一个重要的业务。同一个用户可以对一张试卷(testpa">
+<meta itemprop="datePublished" content="2019-10-31T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-10-31T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2403">
+
+
+
+<meta itemprop="keywords" content="mysql,database," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="并发请求与 MySQL 事务隔离"/>
+<meta name="twitter:description" content="旧文一则，记录处理数据异常的过程，借此阐述 MySQL 事务隔离的一些相关概念。 问题 在线做题是公司一个重要的业务。同一个用户可以对一张试卷(testpa"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">/home/wpchou/site</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">/home/wpchou/site</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">并发请求与 MySQL 事务隔离</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-10-31 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#问题">问题</a></li>
+    <li><a href="#事务隔离">事务隔离</a></li>
+    <li><a href="#接口设计">接口设计</a></li>
+    <li><a href="#并发测试与调试">并发测试与调试</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>旧文一则，记录处理数据异常的过程，借此阐述 MySQL 事务隔离的一些相关概念。</p>
+<h2 id="问题">问题</h2>
+<p>在线做题是公司一个重要的业务。同一个用户可以对一张试卷(testpaper)有多张答卷(result)，但是最多只能有一张正在进行(doing)的答卷(active result). 最近发现了同一用户一张试卷有两张 active 的 result 的情况。</p>
+<p>我们的提交答案接口兼有新开答卷的功能。当发现对于目标试卷当前用户没有答卷记录或者当前答卷状态已经是完成(finished) 状态，会新开一张卷子再提交答案。把这一过程简化一下，可以用以下步骤表示。</p>
+<ol>
+<li>find result of which active = 1</li>
+<li>unset all active results</li>
+<li>create new active result</li>
+<li>insert answers</li>
+</ol>
+<p>需要注意的是，我们的代码将这个过程放在了一个事务里，虽然是不加锁的。但是 MySQL innodb 会自动给所有 update, insert 操作加上写锁(exclude lock, aka, X lock)。所以除了第一步以外，其它步骤都是有锁的。</p>
+<p>什么情况下会造成这个接口的并发呢。一般情况下，请求都是顺序发出的。但是避免不了网络状况不佳等情况，导致两个请求同时到达或者重复调用。</p>
+<p>正常情况下是这样的。</p>
+<table>
+<thead>
+<tr>
+<th>request 1</th>
+<th>request 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. find result of which active = 1(<em>finished</em>)</td>
+<td></td>
+</tr>
+<tr>
+<td>2. unset all active results</td>
+<td></td>
+</tr>
+<tr>
+<td>3. create new active result</td>
+<td></td>
+</tr>
+<tr>
+<td>4. insert answers</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>5. find result of which active = 1(<em>doing</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td>6. insert answers</td>
+</tr>
+</tbody>
+</table>
+<p>但是也有可能是这样的。</p>
+<table>
+<thead>
+<tr>
+<th>request 1</th>
+<th>request 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. find result of which active = 1(<em>finished</em>)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>2. find result of which active = 1(<em>finished</em>)</td>
+</tr>
+<tr>
+<td>3X. unset all active results</td>
+<td></td>
+</tr>
+<tr>
+<td>4X. create new active result</td>
+<td></td>
+</tr>
+<tr>
+<td>5X. insert answers</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>6X. unset all active results</td>
+</tr>
+<tr>
+<td></td>
+<td>7X. create new active result</td>
+</tr>
+<tr>
+<td></td>
+<td>8X. insert answers</td>
+</tr>
+</tbody>
+</table>
+<p>或者这样。</p>
+<table>
+<thead>
+<tr>
+<th>request 1</th>
+<th>request 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. find result of which active = 1(<em>finished</em>)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>2. find result of which active = 1(<em>finished</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td>3X. unset all active results</td>
+</tr>
+<tr>
+<td></td>
+<td>4X. create new active result</td>
+</tr>
+<tr>
+<td></td>
+<td>5X. insert answers</td>
+</tr>
+<tr>
+<td>6X. unset all active results</td>
+<td></td>
+</tr>
+<tr>
+<td>7X. create new active result</td>
+<td></td>
+</tr>
+<tr>
+<td>8X. insert answers</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>因为 unset all active results 这一步需上一个写锁，仅一个事务能拿到，另一个必须等待，而且事务中的锁在提交时才会释放。所以仅可能出现以上三种情况。</p>
+<p>在第一步 find active result 之后人为加入延迟数秒，以便手动触发的先后请求能够模拟并发操作，得到以下结果。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">id</span><span class="p">,</span> <span class="n">testId</span><span class="p">,</span> <span class="n">userId</span><span class="p">,</span> <span class="n">active</span><span class="p">,</span> <span class="n">status</span> <span class="k">FROM</span> <span class="n">testpaper_result</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">id</span> <span class="k">DESC</span> <span class="k">limit</span> <span class="mi">5</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><table>
+<thead>
+<tr>
+<th>id</th>
+<th>testId</th>
+<th>userId</th>
+<th>active</th>
+<th>status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1227562</td>
+<td>1594</td>
+<td>238823</td>
+<td>1</td>
+<td>doing</td>
+</tr>
+<tr>
+<td>1227561</td>
+<td>1594</td>
+<td>238823</td>
+<td>0</td>
+<td>doing</td>
+</tr>
+<tr>
+<td>1227560</td>
+<td>1594</td>
+<td>238823</td>
+<td>0</td>
+<td>finished</td>
+</tr>
+<tr>
+<td>1227559</td>
+<td>1594</td>
+<td>238823</td>
+<td>0</td>
+<td>finished</td>
+</tr>
+<tr>
+<td>1227558</td>
+<td>1145</td>
+<td>120918</td>
+<td>1</td>
+<td>reviewing</td>
+</tr>
+</tbody>
+</table>
+<p>可以看到，多了一行 active = 0 但是 status = doing 的记录。这是符合并发预期的，因为两个请求都认为自己应该将其它所有的 result unset 掉，然后新建一张答卷，所以第二个请求将第一个请求的结果 unset 掉了，又新建了一张。这造成了一条作废的记录，不符合业务预期，也可能导致第一次请求携带的答案丢失。</p>
+<h2 id="事务隔离">事务隔离</h2>
+<p>我们已经在代码中使用了事务了，难道事务不应该就是支持 ACID，即原子性，一致性，隔离性，持久性吗？在这里，主要的关注点是隔离性。理想的情况下两个并发的事务执行的结果应该等价于两个事务串行化。然而，实际的数据库管理系统却没有做到，或者没有默认做到，即便 SQL 标准要求是这样的。</p>
+<p>举 MySQL 为例，必须将事务隔离等级手动设置成可串行化，innodb 会自动给每一个 SELECT 语句加上读锁(share lock, aka, S lock). 这时候，两个请求变成这样。</p>
+<table>
+<thead>
+<tr>
+<th>request 1</th>
+<th>request 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1S. find result of which active = 1(<em>finished</em>)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>2S. find result of which active = 1(<em>finished</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td>3X. unset all active results(<em>DEAD LOCK</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td><em>ROLL BACK</em></td>
+</tr>
+<tr>
+<td>6X. unset all active results</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>可以看到因为读锁之间互相不互斥，一直到 2S 都是没有问题的。但是 3X 需要获取写锁，与 1S 互斥，所以 3X 必须等待请求 1 执行完才能继续。然而 6X 必须等待请求 2 执行完。这就造成死锁。MySQL 检测到死锁后会回滚请求 2, 让请求 1 先执行完。可以看到，这种方式虽然达到了目的，但是死锁检测，回滚事务，一些非必要的加锁，都浪费了大量时间和资源，性能问题导致这种理论上完美的解决方案没有推行。</p>
+<p>MySQL 还支持另外三个事务隔离等级，分别是未提交读，提交读，可重复读，我们分别来看一下。</p>
+<p>未提交读会读取其它事务未提交的结果，总是读取最新结果，一般来说是不可靠的，又名浏览性读。</p>
+<p>提交读会读取事务开始时的数据快照，也即事务开始时其它事务已经提交的结果。未提交读和提交读默认都是非锁定的，是通过数据库的数据版本管理实现的。从前面的例子可以看到，仅仅是这样还是不够的。必须有锁的辅助。除了 INSERT, UPDATE, DELETE 语句会自动加上写锁，对于 SELECT 语句，可以用 SELECT &hellip; LOCK IN SHARE MODE, SELECT &hellip; FOR UPDATE 的方式加上读锁或者写锁。在提交读隔离等级下，innodb 会将选中的行锁定。我们看看是怎么通过写锁来解决之前的问题。</p>
+<table>
+<thead>
+<tr>
+<th>request 1</th>
+<th>request 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1X. find result of which active = 1(<em>finished</em>)</td>
+<td></td>
+</tr>
+<tr>
+<td>2X. unset all active results</td>
+<td></td>
+</tr>
+<tr>
+<td>3X. create new active result</td>
+<td></td>
+</tr>
+<tr>
+<td>4X. insert answers</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>5X. find result of which active = 1(<em>doing</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td>6X. unset all active results</td>
+</tr>
+<tr>
+<td></td>
+<td>7X. create new active result</td>
+</tr>
+<tr>
+<td></td>
+<td>8X. insert answers</td>
+</tr>
+</tbody>
+</table>
+<p>因为我们选中的 active result 有可能是要更新的，所以我们预先加了一个写锁，于是请求 2 的 5X 被阻塞，2X 也就不用等 request 2 结束，不会死锁，顺利结束。</p>
+<p>到此为止，问题得到了解决。什么时候应该加写锁，什么时候应该加读锁呢？如果在同一事务的后续操作中，记录有可能要修改，那就应该加上写锁。如果希望事务结束时，记录仍然保持不变，那就应该加上读锁。</p>
+<p>那么可重复读用来克服什么问题呢？我们想象一下有一个未知的操作，比如来自另一个客户端的请求，插入了一条新的记录。</p>
+<table>
+<thead>
+<tr>
+<th>APP request</th>
+<th>website request</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1X. find result of which active = 1(<em>finished</em>)</td>
+<td></td>
+</tr>
+<tr>
+<td>2X. unset all active results</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3X. create new active result</td>
+</tr>
+<tr>
+<td>4X. create new active result</td>
+<td></td>
+</tr>
+<tr>
+<td>5X. insert answers</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>那么会得到这样的结果。</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>testId</th>
+<th>userId</th>
+<th>active</th>
+<th>status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1227562</td>
+<td>1594</td>
+<td>238823</td>
+<td>1</td>
+<td>doing</td>
+</tr>
+<tr>
+<td>1227561</td>
+<td>1594</td>
+<td>238823</td>
+<td>1</td>
+<td>doing</td>
+</tr>
+<tr>
+<td>1227560</td>
+<td>1594</td>
+<td>238823</td>
+<td>0</td>
+<td>finished</td>
+</tr>
+<tr>
+<td>1227559</td>
+<td>1594</td>
+<td>238823</td>
+<td>0</td>
+<td>finished</td>
+</tr>
+<tr>
+<td>1227558</td>
+<td>1145</td>
+<td>120918</td>
+<td>1</td>
+<td>reviewing</td>
+</tr>
+</tbody>
+</table>
+<p>出现了两条 active 的 doing result. 为什么会这样呢？因为提交读的锁锁定的是具体的行，并不阻止新的记录产生。APP request 如果在 4X 前面重复了 1X 的查询，会发现前后读到的结果是不一样的，这就是幻读。为了达到避免这种情况，必须做到可重复读。innodb 使用行锁加区间锁来实现。这对事务的正确实现是非常重要的，而且相对提交读也没有太大性能负担，具体可见《MySQL 技术内幕》的论述。但值得注意的是，可重复读的区间锁分析起来相对复杂，对开发人员提出了更多的要求。</p>
+<h2 id="接口设计">接口设计</h2>
+<p>并发请求除了在数据库处理好事务以外，在客户端和服务器的交互上也需要注意。</p>
+<p>首先要注意的是 restful 的接口设计。restful 常用的动作是 GET, POST, PUT, PATCH, DELETE. 其中 GET, PUT, DELETE 都应当是幂等的，也即多次请求对数据的影响与一次请求一致。POST 与 PATCH 则不符合。对于这两个接口，都要特别注意重复调用接口造成的影响。有时候需要客户端收到服务器的回复后再继续后面的请求。</p>
+<p>在我们之前的例子中，由于新加答案的请求中混杂了新开答卷的操作，所以给业务逻辑也造成了困难。语义明确，用途单一的接口也有利于并发处理。</p>
+<h2 id="并发测试与调试">并发测试与调试</h2>
+<p>并发是测试与调试的难点。模拟并发对于代码触发和手工测试都是困难的事情。出了问题一般只能找线上日志。一个能够保存事发现场而且方便事后查找的日志是起码的支撑。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">wenpin</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-10-31
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/mysql/">mysql</a>
+          <a href="/tags/database/">database</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/2019-11-07-sequelize-transaction/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">如何使用 Sequelize (自动)管理数据库事务</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2019-10-29-sort-by-double/">
+            <span class="next-text nav-default">从「浮点数排序法」说到数的类型</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'wenpin_chou';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="wpchou@outlook.com.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">wenpin</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

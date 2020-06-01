@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>typescript on /home/wpchou/site</title>
+    <link>http://wpchou.github.io/tags/typescript/</link>
+    <description>Recent content in typescript on /home/wpchou/site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 03 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://wpchou.github.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>应用 typescript 严格模式</title>
+      <link>http://wpchou.github.io/post/2019-03-03-migrate-to-typescript-strict-mode/</link>
+      <pubDate>Sun, 03 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://wpchou.github.io/post/2019-03-03-migrate-to-typescript-strict-mode/</guid>
+      <description>最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移</description>
+    </item>
+    
+  </channel>
+</rss>

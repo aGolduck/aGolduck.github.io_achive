@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>连续抽奖号码与 MySQL 自增主键 - /home/wpchou/site</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="wenpin" /><meta name="description" content="最近运营要做一个简单的抽奖活动，要求从1开始产生连续的整数，作为抽奖号码发放出去，最后随机抽出一个号码作为幸运号码。一开始没多想，在 mongo 数据库" /><meta name="keywords" content="technic" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.68.3 with theme even" />
+
+
+<link rel="canonical" href="http://wpchou.github.io/post/2019-11-15-consecutive-integer-and-mysql-autoincremental-key/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="连续抽奖号码与 MySQL 自增主键" />
+<meta property="og:description" content="最近运营要做一个简单的抽奖活动，要求从1开始产生连续的整数，作为抽奖号码发放出去，最后随机抽出一个号码作为幸运号码。一开始没多想，在 mongo 数据库" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://wpchou.github.io/post/2019-11-15-consecutive-integer-and-mysql-autoincremental-key/" />
+<meta property="article:published_time" content="2019-11-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-11-15T00:00:00+00:00" />
+<meta itemprop="name" content="连续抽奖号码与 MySQL 自增主键">
+<meta itemprop="description" content="最近运营要做一个简单的抽奖活动，要求从1开始产生连续的整数，作为抽奖号码发放出去，最后随机抽出一个号码作为幸运号码。一开始没多想，在 mongo 数据库">
+<meta itemprop="datePublished" content="2019-11-15T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-11-15T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1095">
+
+
+
+<meta itemprop="keywords" content="mysql," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="连续抽奖号码与 MySQL 自增主键"/>
+<meta name="twitter:description" content="最近运营要做一个简单的抽奖活动，要求从1开始产生连续的整数，作为抽奖号码发放出去，最后随机抽出一个号码作为幸运号码。一开始没多想，在 mongo 数据库"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">/home/wpchou/site</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">/home/wpchou/site</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">连续抽奖号码与 MySQL 自增主键</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-11-15 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>最近运营要做一个简单的抽奖活动，要求从1开始产生连续的整数，作为抽奖号码发放出去，最后随机抽出一个号码作为幸运号码。一开始没多想，在 mongo 数据库里加了一个 counter, 需要的时候拿出来作为下一个抽奖号码同时原子自增。投入使用后却发现出了问题：产生的整数不连续。</p>
+<p>一开始还以为是 mongo 出了问题，细想这是因为中间出现了失败的情况。这种策略太过简单，在失败的情况下 counter 没有回滚，出现间隙几乎是必然的。</p>
+<p>这其实跟 MySQL 自增主键的问题非常像。假如 counter 的当前值为 2, 以上的业务过程如下：</p>
+<p>1.1 获取 counter 的当前值 2
+1.2 counter 同时原子自增为 3
+2. 记录用户 ID 与抽奖号码元组 (user2, 2)
+3. 将 (user2, 2) 插入数据库</p>
+<p>最后一步插入顺利的话，2 为有效号码，插入失败则 2 被跳过。</p>
+<p>对应的，我们初始化一个 MySQL 表。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">t</span><span class="o">`</span> <span class="p">(</span>
+  <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+  <span class="o">`</span><span class="k">c</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">d</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">UNIQUE</span> <span class="k">KEY</span> <span class="o">`</span><span class="k">c</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="k">c</span><span class="o">`</span><span class="p">)</span>
+<span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">t</span> <span class="k">values</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后插入下面这条数据。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">insert</span> <span class="k">into</span> <span class="n">t</span> <span class="k">values</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>过程如下：</p>
+<ol>
+<li>执行器调用 InnoDB 引擎接口写入一行，传入的这一行的值是 (0,1,1);</li>
+<li>InnoDB 发现用户没有指定自增 id 的值，获取表 t 当前的自增值 2;</li>
+<li>将传入的行的值改成 (2,1,1);</li>
+<li>将表的自增值改成 3</li>
+<li>继续执行插入数据操作，由于已经存在 c=1 的记录，所以报 Duplicate key error，语句返回。</li>
+</ol>
+<p>这样，主键值 2 就被跳过了。</p>
+<p>mongodb 4.0 以前是没有事务的，就没有所谓回滚的概念。那能不能在业务层回滚下呢？参考MySQL 的实现？但事实上 MySQL 同样没有对自增主键值回滚。</p>
+<p>原因在哪呢？假如有两个事务并发如下，transaction1 先获取到 id 2, transaction 3 获取到 id 3, 然后先提交，之后 transaction1 回滚了。</p>
+<table>
+<thead>
+<tr>
+<th>transaction1</th>
+<th>transaction2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id = 2</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>id = 3</td>
+</tr>
+<tr>
+<td></td>
+<td>commit</td>
+</tr>
+<tr>
+<td>rollback</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>假设自增主键回滚回 2, 后面再自增一定会跟 transaction2 插入的值冲突。或者以后获取自增主键时一定要确认未被使用，或者必须等一个事务执行完再执行另一个，如下。</p>
+<table>
+<thead>
+<tr>
+<th>transaction1</th>
+<th>transaction2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id = 2</td>
+<td></td>
+</tr>
+<tr>
+<td>rollback</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>id = 2(not 3)</td>
+</tr>
+<tr>
+<td></td>
+<td>commit</td>
+</tr>
+</tbody>
+</table>
+<p>每新增一条数据，都必须做一次主键查找，或者等待上一次插入完成，无疑极大地降低了写入效率，基本是不可接受的。所以，MySQL 干脆不管了。</p>
+<p>用更专业的说法，执行 insert 语句时，自增锁在申请后就马上释放了，并不属于事务的一部分。</p>
+<p>在遇到 <code>insert ... select ...</code> 语句的时候情况会更加复杂。如果两个 <code>insert ... select ... </code> 语句同时执行，主键值会相互交叉乱序产生。从库执行同样的语句不能保证每条记录获取主键值时与主库一致。所以默认情况下，对于 <code>insert ... select ...</code>， MySQL 会等待语句执行完再释放自增锁。为了提升性能，可以设置 <code>binlog_format=row</code> 的同时设置 <code>innodb_autoinc_lock_mode=2</code>。MySQL 对所有的插入都会马上释放自增锁，用 row binlog_format 保证主从一致。</p>
+<p>回到本文最初的问题，因为数据量不大，回滚加主键查找是比较好的方案。当然，最好抛弃 mongo 的原子自增，使用内存数据库。</p>
+<p>本文参考了极客时间林晓斌《MySQL 实战 45 讲──自增主键为什么不是连续的》。MySQL 的版本是 8.0.</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">wenpin</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-11-15
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/mysql/">mysql</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/2019-11-21-npm-install-multiple-versions-of-same-package/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">npm 安装同一个包的不同版本</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2019-11-07-sequelize-transaction/">
+            <span class="next-text nav-default">如何使用 Sequelize (自动)管理数据库事务</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'wenpin_chou';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="wpchou@outlook.com.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">wenpin</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

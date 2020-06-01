@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>从 shim-array 说到 javascript 的一些问题 - /home/wpchou/site</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="wenpin" /><meta name="description" content="我在两个旧的 javascript 项目都遇到一个很让人摸不着头脑的问题，使用数组的 find 无论能不能找到，总是返回 -1. 影响很大，不只自己的代码不能用，像 sequelize 这样的第三方包" /><meta name="keywords" content="technic" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.68.3 with theme even" />
+
+
+<link rel="canonical" href="http://wpchou.github.io/post/2019-06-15-evil-shim-array/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="从 shim-array 说到 javascript 的一些问题" />
+<meta property="og:description" content="我在两个旧的 javascript 项目都遇到一个很让人摸不着头脑的问题，使用数组的 find 无论能不能找到，总是返回 -1. 影响很大，不只自己的代码不能用，像 sequelize 这样的第三方包" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://wpchou.github.io/post/2019-06-15-evil-shim-array/" />
+<meta property="article:published_time" content="2019-06-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-06-15T00:00:00+00:00" />
+<meta itemprop="name" content="从 shim-array 说到 javascript 的一些问题">
+<meta itemprop="description" content="我在两个旧的 javascript 项目都遇到一个很让人摸不着头脑的问题，使用数组的 find 无论能不能找到，总是返回 -1. 影响很大，不只自己的代码不能用，像 sequelize 这样的第三方包">
+<meta itemprop="datePublished" content="2019-06-15T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-06-15T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="580">
+
+
+
+<meta itemprop="keywords" content="javascript," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="从 shim-array 说到 javascript 的一些问题"/>
+<meta name="twitter:description" content="我在两个旧的 javascript 项目都遇到一个很让人摸不着头脑的问题，使用数组的 find 无论能不能找到，总是返回 -1. 影响很大，不只自己的代码不能用，像 sequelize 这样的第三方包"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">/home/wpchou/site</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">/home/wpchou/site</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">从 shim-array 说到 javascript 的一些问题</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-06-15 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>我在两个旧的 javascript 项目都遇到一个很让人摸不着头脑的问题，使用数组的 <code>find</code> 无论能不能找到，总是返回 <code>-1</code>. 影响很大，不只自己的代码不能用，像 <code>sequelize</code> 这样的第三方包也用不了。有一段时间只能放弃，后来花了很长时间终于搞明白了是一个叫 <code>collections</code> 的依赖包使用所谓的 <code>shim-array</code> 覆盖修改了 <code>Array.prototype.find</code>, 使得所有的数组的行为都发生了改变。因为以前从来没有遇到过这种修改全局对象的情况，所以都没有起疑过是这里出了问题。</p>
+<p>项目需要导出 excel 表格，于是就用了 <code>excel-export</code> 包，<code>excel-export</code> 又依赖于 <code>collections</code>. 这都是相当老的项目了，至少在 es6 标准出来之前就存在的。两个包都是将近废弃的状态。但是现在仍有每周几万的下载量。事情的缘起在于在 es6 之前内置库的功能比较弱，所以 <code>collections</code> 就用直接修改 <code>prototype</code> 方法增强内置对象，加了个 <code>find</code> 方法，没想到 es6 自个儿给加上了。</p>
+<p>虽然理论上可以这么做，但是第一次碰到有人真在代码实践中这么做真是大跌眼镜。这真可以算是 javascript 天生的缺陷了。<code>修改内置全局</code>对象这样的事情都有人做。这样的包还有人用。有 <code>lodash</code> 这样的包在，还会有人用这种三角猫的包。也许 javascript 标准应该在这上面做些什么。</p>
+<p>看这两个包的下载量，就可以看到多蠢的包都会有很多人在用。有直接的，也有间接的。<code>npm 包质量参差不齐</code>一直都是个问题，依赖层级又都很深，使用第三方包一定要慎之又慎。</p>
+<p>代码三五年不更新，在有些语言像 C 语言来看根本就不是事。但在 javascript 这儿，却让代码用不上一些重要的包。<code>代码腐化的速度实在是太快了</code>。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">wenpin</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-06-15
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/javascript/">javascript</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/2019-06-19-koa-compose.sync-conflict-20191127-235620-opstezq/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">koa-compose</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2019-06-15-evil-shim-array.sync-conflict-20191127-235657-opstezq/">
+            <span class="next-text nav-default">从 shim-array 说到 javascript 的一些问题</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'wenpin_chou';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="wpchou@outlook.com.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">wenpin</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>npm 安装同一个包的不同版本 - /home/wpchou/site</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="wenpin" /><meta name="description" content="应用场景 不想升级老代码依赖 npm 无法同时安装同一个 package 的不同版本，以往遇到这种需求的时候，我的办法是自己新建一个包，然后在新建的包里安装目标包的一" /><meta name="keywords" content="technic" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.68.3 with theme even" />
+
+
+<link rel="canonical" href="http://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="npm 安装同一个包的不同版本" />
+<meta property="og:description" content="应用场景 不想升级老代码依赖 npm 无法同时安装同一个 package 的不同版本，以往遇到这种需求的时候，我的办法是自己新建一个包，然后在新建的包里安装目标包的一" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/" />
+<meta property="article:published_time" content="2019-11-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-11-21T00:00:00+00:00" />
+<meta itemprop="name" content="npm 安装同一个包的不同版本">
+<meta itemprop="description" content="应用场景 不想升级老代码依赖 npm 无法同时安装同一个 package 的不同版本，以往遇到这种需求的时候，我的办法是自己新建一个包，然后在新建的包里安装目标包的一">
+<meta itemprop="datePublished" content="2019-11-21T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-11-21T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="517">
+
+
+
+<meta itemprop="keywords" content="node,npm," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="npm 安装同一个包的不同版本"/>
+<meta name="twitter:description" content="应用场景 不想升级老代码依赖 npm 无法同时安装同一个 package 的不同版本，以往遇到这种需求的时候，我的办法是自己新建一个包，然后在新建的包里安装目标包的一"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">/home/wpchou/site</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">/home/wpchou/site</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">npm 安装同一个包的不同版本</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-11-21 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#应用场景">应用场景</a></li>
+    <li><a href="#同时使用多个版本">同时使用多个版本</a></li>
+    <li><a href="#补充">补充</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="应用场景">应用场景</h2>
+<p>不想升级老代码依赖</p>
+<p>npm 无法同时安装同一个 package 的不同版本，以往遇到这种需求的时候，我的办法是自己新建一个包，然后在新建的包里安装目标包的一个版本，然后暴露出去。这样，项目就可以依赖新建的包和另一个版本，实现同时依赖两个版本的目的。</p>
+<p>在 npm 6.9 以后，npm 可以为安装的包使用别名，可以近乎完美地解决这个问题了。<code>elasticsearch-js</code> 项目有<a href="https://github.com/elastic/elasticsearch-js/tree/v7.4.0#install-multiple-versions">一段</a>详细说明如何使用，我把这一段翻译了一下。</p>
+<h2 id="同时使用多个版本">同时使用多个版本</h2>
+<p>如果你同时使用多个版本的 Elasticsearch, 你需要使用对应的多个客户端。同时安装同一个包的多个版本在以前是不可能的，但是 <code>npm 6.9</code> 以后，你可以用别名达到目的。</p>
+<p>安装不同版本的客户端你必须运行以下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">npm install &lt;alias&gt;@npm:@elastic/elasticsearch@&lt;version&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>比方说要同时安装 <code>7.x</code> 和 <code>6.x</code>, 运行以下命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">npm install es6@npm:@elastic/elasticsearch@6
+npm install es7@npm:@elastic/elasticsearch@7
+</code></pre></td></tr></table>
+</div>
+</div><p><code>package.json</code> 文件就会多出下面的两行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34;dependencies&#34;: {
+  &#34;es6&#34;: &#34;npm:@elastic/elasticsearch@6.7.0&#34;,
+  &#34;es7&#34;: &#34;npm:@elastic/elasticsearch@7.0.0&#34;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>在代码中将刚刚定义的别名 <code>require</code> 进来。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="p">{</span><span class="nx">Client</span><span class="o">:</span> <span class="nx">Client6</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;es6&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="p">{</span><span class="nx">Client</span><span class="o">:</span> <span class="nx">Client7</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;es7&#39;</span><span class="p">)</span>
+
+<span class="kr">const</span> <span class="nx">client6</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client6</span><span class="p">({</span><span class="nx">node</span><span class="o">:</span> <span class="s1">&#39;http://localhost:9200&#39;</span><span class="p">})</span>
+<span class="kr">const</span> <span class="nx">client7</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client7</span><span class="p">({</span><span class="nx">node</span><span class="o">:</span> <span class="s1">&#39;http://localhost:9201&#39;</span><span class="p">})</span>
+
+<span class="nx">client6</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">)</span>
+<span class="nx">client7</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>最后，如果你想使用下一版本 Elasticsearch(即 Elasticsearch 的 master 分支) 的客户端，你可以运行下面的命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">npm install esmaster@github:elastic/elasticsearch-js
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="补充">补充</h2>
+<p>由上文的最后一条命令可看出，别名不局限于从 npm 下载的包。从 github 或者其它自定义 git 地址下载的包也可以使用别名。npm 如何安装其它来源的包可以参照<a href="https://docs.npmjs.com/cli/install">官方文档</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">wenpin</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-11-21
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/node/">node</a>
+          <a href="/tags/npm/">npm</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/2019-11-22-aliyun-security-groups/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default"></span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2019-11-15-consecutive-integer-and-mysql-autoincremental-key/">
+            <span class="next-text nav-default">连续抽奖号码与 MySQL 自增主键</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'wenpin_chou';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="wpchou@outlook.com.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">wenpin</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

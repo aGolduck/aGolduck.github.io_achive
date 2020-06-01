@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>从 js 神奇的 map 说到函数的元数 - /home/wpchou/site</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="wenpin" /><meta name="description" content="从 lujun9972 的博客看到一则博文, 说在 https://medium.com/dailyjs/parseint-mystery-7c4368ef7b21 看到 js 的 map 神奇的一面。 运行下面的 js 代码： 1 [&amp;#39;1&amp;#39;, &amp;#39;7&amp;#39;, &amp;#39;11&amp;#39;].map(parseInt) 得到的是 1 [1, NaN, 3] js 真是到处都是坑啊。原因在哪里呢？下面是 MDN array.prototype.map 和" /><meta name="keywords" content="technic" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.68.3 with theme even" />
+
+
+<link rel="canonical" href="http://wpchou.github.io/post/2019-08-27-map-of-javascript/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="从 js 神奇的 map 说到函数的元数" />
+<meta property="og:description" content="从 lujun9972 的博客看到一则博文, 说在 https://medium.com/dailyjs/parseint-mystery-7c4368ef7b21 看到 js 的 map 神奇的一面。 运行下面的 js 代码： 1 [&#39;1&#39;, &#39;7&#39;, &#39;11&#39;].map(parseInt) 得到的是 1 [1, NaN, 3] js 真是到处都是坑啊。原因在哪里呢？下面是 MDN array.prototype.map 和" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://wpchou.github.io/post/2019-08-27-map-of-javascript/" />
+<meta property="article:published_time" content="2019-08-27T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-08-27T00:00:00+00:00" />
+<meta itemprop="name" content="从 js 神奇的 map 说到函数的元数">
+<meta itemprop="description" content="从 lujun9972 的博客看到一则博文, 说在 https://medium.com/dailyjs/parseint-mystery-7c4368ef7b21 看到 js 的 map 神奇的一面。 运行下面的 js 代码： 1 [&#39;1&#39;, &#39;7&#39;, &#39;11&#39;].map(parseInt) 得到的是 1 [1, NaN, 3] js 真是到处都是坑啊。原因在哪里呢？下面是 MDN array.prototype.map 和">
+<meta itemprop="datePublished" content="2019-08-27T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-08-27T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="608">
+
+
+
+<meta itemprop="keywords" content="javascript,functional-programming," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="从 js 神奇的 map 说到函数的元数"/>
+<meta name="twitter:description" content="从 lujun9972 的博客看到一则博文, 说在 https://medium.com/dailyjs/parseint-mystery-7c4368ef7b21 看到 js 的 map 神奇的一面。 运行下面的 js 代码： 1 [&#39;1&#39;, &#39;7&#39;, &#39;11&#39;].map(parseInt) 得到的是 1 [1, NaN, 3] js 真是到处都是坑啊。原因在哪里呢？下面是 MDN array.prototype.map 和"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">/home/wpchou/site</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">/home/wpchou/site</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">从 js 神奇的 map 说到函数的元数</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-08-27 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>从 lujun9972 的博客看到一则<a href="http://blog.lujun9972.win/blog/2019/07/08/javascript%E4%B8%AD%E7%A5%9E%E5%A5%87%E7%9A%84map/">博文</a>, 说在 <a href="https://medium.com/dailyjs/parseint-mystery-7c4368ef7b21">https://medium.com/dailyjs/parseint-mystery-7c4368ef7b21</a> 看到 js 的 map 神奇的一面。</p>
+<p>运行下面的 js 代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="s1">&#39;11&#39;</span><span class="p">].</span><span class="nx">map</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>得到的是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="kc">NaN</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>js 真是到处都是坑啊。原因在哪里呢？下面是 MDN <code>array.prototype.map</code> 和 <code>parseInt</code> 的文档。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">new_array</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">currentValue</span><span class="p">[,</span> <span class="nx">index</span><span class="p">[,</span> <span class="nx">array</span><span class="p">]])</span> <span class="p">{</span>
+ <span class="c1">// Return element for new_array 
+</span><span class="c1"></span><span class="p">}[,</span> <span class="nx">thisArg</span><span class="p">])</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nb">parseInt</span><span class="p">(</span><span class="nx">string</span><span class="p">,</span> <span class="nx">radix</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到 map 的回调函数其实有三个参数：数组元素，元素的索引和完整的数组。parseInt 也是一个双参数的函数。
+那么实际上上面的代码的中间结果是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[</span><span class="nb">parseInt</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="nb">parseInt</span><span class="p">(</span><span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">parseInt</span><span class="p">(</span><span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>同样的，执行以下代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nx">map</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>打印出来是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">1 0 [ 1, 2, 3 ]
+2 1 [ 1, 2, 3 ]
+3 2 [ 1, 2, 3 ]
+[ undefined, undefined, undefined ]
+</code></pre></td></tr></table>
+</div>
+</div><p>js 实参跟形参数量是可以不对应，多余的实参被忽略，不够的用 undefined 补上。我们说 js 可以很灵活地进行函数式编程，但是这种参数特性其实和经典的 haskell 是相悖的。一个重要的原因是柯里化(curry)和函数的元数(arity)是息息相关的。使用受 haskell 影响比较大的 <code>ramdajs</code> 时，函数的元数是受到严格要求的。之前
+在我使用 ramda 结合 parseInt 时就遇到了坑。</p>
+<p>直接在 R.ifElse 里面使用 parseInt, 结果是得到函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">page</span> <span class="o">=</span> <span class="nx">ifElse</span><span class="p">(</span>
+  <span class="nx">identity</span><span class="p">,</span>
+  <span class="nb">Number</span><span class="p">.</span><span class="nb">parseInt</span><span class="p">,</span>
+  <span class="nx">always</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">)(</span><span class="k">this</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">page</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>但是如果是把 parseInt 包装一下就正常了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">page</span> <span class="o">=</span> <span class="nx">ifElse</span><span class="p">(</span>
+  <span class="nx">identity</span><span class="p">,</span>
+  <span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nb">Number</span><span class="p">.</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">s</span><span class="p">),</span>
+  <span class="nx">always</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">)(</span><span class="k">this</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">page</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我在 stackoverflow 上提了<a href="https://stackoverflow.com/questions/47196675/not-able-to-use-parseint-as-a-ontrue-or-onfalse-function-for-ifelse-of-ramdajs">问题</a>，得到很完美的回答。由于 ramdajs 的所有的函数都是柯里化的，总要有一个标准判断什么时候真正执行函数，这个标准就是参数个数是一个的时候。这里可以用 <code>Number</code> 函数来替代 <code>parseInt</code>(但是我后来发现这玩意也有坑，Number 和 parseInt 的语义并不完全一致). ramdajs 的<a href="https://github.com/CrossEye">作者之一</a>，还给出了另一个解决方案，就是用 R.unary 包装一个，其实也可以等价于说是我上面的方法的简写版了。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">wenpin</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-08-27
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/javascript/">javascript</a>
+          <a href="/tags/functional-programming/">functional-programming</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/2019-10-21-node-pool/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">阅读 node-pool 源码</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2019-07-28-mysql-practice/">
+            <span class="next-text nav-default">《MySQL 实战 45 讲》拾遗</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'wenpin_chou';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="wpchou@outlook.com.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">wenpin</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

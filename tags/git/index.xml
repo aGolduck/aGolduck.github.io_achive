@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git on /home/wpchou/site</title>
+    <link>http://wpchou.github.io/tags/git/</link>
+    <description>Recent content in git on /home/wpchou/site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 14 Apr 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://wpchou.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>正确使用 git revert</title>
+      <link>http://wpchou.github.io/post/2019-04-14-git-revert-done-right/</link>
+      <pubDate>Sun, 14 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://wpchou.github.io/post/2019-04-14-git-revert-done-right/</guid>
+      <description>最近同事不小心把没测试过特性分支 F 的代码合并到主分支 M 上了，就从 M 上切了个热 补丁分支 H，做了个 revert 操作合并到 M 上去了。之后要布署 F 到开发分支 D</description>
+    </item>
+    
+  </channel>
+</rss>

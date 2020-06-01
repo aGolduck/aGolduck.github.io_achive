@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>数据库自动迁移 - /home/wpchou/site</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="wenpin" /><meta name="description" content="一般来说，在小型应用以及应用原型快速开发阶段，关系数据库表定义 自动迁移是非常方便的特性。现在成熟的 ORM 都有所支持。一般来说， 我们进行一次成功的" /><meta name="keywords" content="technic" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.68.3 with theme even" />
+
+
+<link rel="canonical" href="http://wpchou.github.io/post/2020-05-18-atomic-ddl/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="数据库自动迁移" />
+<meta property="og:description" content="一般来说，在小型应用以及应用原型快速开发阶段，关系数据库表定义 自动迁移是非常方便的特性。现在成熟的 ORM 都有所支持。一般来说， 我们进行一次成功的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://wpchou.github.io/post/2020-05-18-atomic-ddl/" />
+<meta property="article:published_time" content="2020-05-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-18T00:00:00+00:00" />
+<meta itemprop="name" content="数据库自动迁移">
+<meta itemprop="description" content="一般来说，在小型应用以及应用原型快速开发阶段，关系数据库表定义 自动迁移是非常方便的特性。现在成熟的 ORM 都有所支持。一般来说， 我们进行一次成功的">
+<meta itemprop="datePublished" content="2020-05-18T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-05-18T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="953">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="数据库自动迁移"/>
+<meta name="twitter:description" content="一般来说，在小型应用以及应用原型快速开发阶段，关系数据库表定义 自动迁移是非常方便的特性。现在成熟的 ORM 都有所支持。一般来说， 我们进行一次成功的"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">/home/wpchou/site</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">/home/wpchou/site</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">数据库自动迁移</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-05-18 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>一般来说，在小型应用以及应用原型快速开发阶段，关系数据库表定义
+自动迁移是非常方便的特性。现在成熟的 ORM 都有所支持。一般来说，
+我们进行一次成功的数据库迁移需要包括下面几步。</p>
+<ol>
+<li>比较代码与数据库的表头定义，生成迁移脚本 <code>typeorm migration:generate -n</code></li>
+<li>编辑迁移脚本，使迁移过程更合理，更数据安全，有必要时可生成空脚本编辑 <code>typeorm migration:create</code></li>
+<li>运行迁移脚本，原理一般是数据库有一个迁移元数据表，记录已执行的脚本 <code>typeorm migration:run</code></li>
+<li>有必要的情况下回滚 <code>typeorm migration:revert</code></li>
+</ol>
+<p>typeorm 对数据库自动迁移有非常好的支持。所有与迁移相关的选项，
+与其它 typeorm 配置选项都可通过环境变量来直接配置。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">TYPEORM_ENTITIES=dist/**/*.entity.js    ## 表头定义代码文件
+TYPEORM_SYNCHRONIZE=false     ## 设置为 false, typeorm 才不会每次启动清空数据库
+TYPEORM_MIGRATIONS_RUN=true    ## 设置为 true, typeorm 在每次启动项目时都会自动执行迁移，无需手动
+TYPEORM_MIGRATIONS=dist/migrations/**/*.js    ## 编译成功迁移脚本，用于迁移
+TYPEORM_MIGRATIONS_DIR=src/migrations    ## typeorm 生成的 ts 文件放置的位置
+</code></pre></td></tr></table>
+</div>
+</div><p>TYPEORM_MIGRATIONS_RUN 提供了每次启动自动迁移的选项。
+如果是单机布署的话，十分方便，每次上线后可自动完成迁移工作。
+对于多机布署，本来就需要轮留更新使得应用保持一贯性。
+所以只要布署过程得当，一样可以做自动迁移的工作。</p>
+<p>[https://dev.mysql.com/doc/refman/8.0/en/atomic-ddl.html](mysql 文档)
+明确说了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Atomic DDL is not transactional DDL. DDL statements, atomic or otherwise, implicitly end any transaction that is active in the current session, as if you had done a COMMIT before executing the statement. This means that DDL statements cannot be performed within another transaction, within transaction control statements such as START TRANSACTION ... COMMIT, or combined with other statements within the same transaction.
+</code></pre></td></tr></table>
+</div>
+</div><p>任何的 DDL(数据定义语句)执行前都会自动作一个 <code>commit</code> 的动作. GAME OVER!
+流行的果然是辣鸡！我们来看看世界上最先进的开源数据库。</p>
+<p><img src="%7B%7Bsite.url%7D%7D/assets/google-postgresql.jpg" alt="postgresql"></p>
+<p>果然是最先进的开源数据库，请进入</p>
+<p><a href="https://wiki.postgresql.org/wiki/Transactional_DDL_in_PostgreSQL:_A_Competitive_Analysis">https://wiki.postgresql.org/wiki/Transactional_DDL_in_PostgreSQL:_A_Competitive_Analysis</a></p>
+<p>看 pg 吊打一众主流数据库，尤其是 mysql.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ psql mydb
+mydb=# DROP TABLE IF EXISTS foo;
+NOTICE: table &#34;foo&#34; does not exist
+DROP TABLE
+mydb=# BEGIN;
+BEGIN
+mydb=# CREATE TABLE foo (bar int);
+CREATE TABLE
+mydb=# INSERT INTO foo VALUES (1);
+INSERT 0 1
+mydb=# ROLLBACK;
+ROLLBACK
+mydb=# SELECT * FROM foo;
+ERROR: relation &#34;foo&#34; does not exist
+mydb=# SELECT version();
+version
+----------------------------------------------------------------------
+PostgreSQL 8.3.7 on i386-redhat-linux-gnu, compiled by GCC gcc (GCC) 4.3.2 20081105 (Red Hat 4.3.2-7)
+(1 row)
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">mysql&gt; drop table if exists foo;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt; begin;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt; create table foo (bar int) type=InnoDB;
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql&gt; insert into foo values (1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql&gt; rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt; select * from foo;
++------+
+| bar |
++------+
+| 1 |
++------+
+1 row in set (0.00 sec)
+
+mysql&gt; select version();
++--------------------------+
+| version() |
++--------------------------+
+| 5.0.32-Debian_7etch1-log |
++--------------------------+
+1 row in set (0.00 sec)
+</code></pre></td></tr></table>
+</div>
+</div><p>2016 年有一篇很有影响的 uber 的为什么放弃 pg 的文章。
+他们最终的选择是在 mysql 上加一层。具体可见
+<a href="https://eng.uber.com/postgres-to-mysql-migration/">https://eng.uber.com/postgres-to-mysql-migration/</a></p>
+<p>国内广泛地使用 mysql, 主要是历史惯性，积攒下了大量的优秀 mysql
+运维人才。近几种版本 mysql 的效率和特性都有很大改善。</p>
+<p>在应用原型阶段和中小应用，pg 仍不失为一种优秀的选择。
+至多用 ORM 保持数据库独立，需要的时候做次迁移就行了。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">wenpin</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-05-18
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/2020-05-15-integrate-sofa-into-nestjs/">
+            <span class="next-text nav-default">集成 SOFA 到 nestjs</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'wenpin_chou';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="wpchou@outlook.com.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">wenpin</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

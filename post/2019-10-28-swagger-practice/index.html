@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>swagger 在 node 项目中的实践 - /home/wpchou/site</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="wenpin" /><meta name="description" content="Swagger, 现在也称 openapi, 定义了规范的 RESTFUL 接口文档标准，围绕这个标准产生了一个很丰富的生态圈。本文谈谈在 node 项目中应用这些工具的一些经验。 首先最基础的是 swagger 的文" /><meta name="keywords" content="technic" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.68.3 with theme even" />
+
+
+<link rel="canonical" href="http://wpchou.github.io/post/2019-10-28-swagger-practice/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="swagger 在 node 项目中的实践" />
+<meta property="og:description" content="Swagger, 现在也称 openapi, 定义了规范的 RESTFUL 接口文档标准，围绕这个标准产生了一个很丰富的生态圈。本文谈谈在 node 项目中应用这些工具的一些经验。 首先最基础的是 swagger 的文" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://wpchou.github.io/post/2019-10-28-swagger-practice/" />
+<meta property="article:published_time" content="2019-10-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-10-28T00:00:00+00:00" />
+<meta itemprop="name" content="swagger 在 node 项目中的实践">
+<meta itemprop="description" content="Swagger, 现在也称 openapi, 定义了规范的 RESTFUL 接口文档标准，围绕这个标准产生了一个很丰富的生态圈。本文谈谈在 node 项目中应用这些工具的一些经验。 首先最基础的是 swagger 的文">
+<meta itemprop="datePublished" content="2019-10-28T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-10-28T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="508">
+
+
+
+<meta itemprop="keywords" content="swagger,openapi,nodejs," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="swagger 在 node 项目中的实践"/>
+<meta name="twitter:description" content="Swagger, 现在也称 openapi, 定义了规范的 RESTFUL 接口文档标准，围绕这个标准产生了一个很丰富的生态圈。本文谈谈在 node 项目中应用这些工具的一些经验。 首先最基础的是 swagger 的文"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">/home/wpchou/site</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">/home/wpchou/site</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">swagger 在 node 项目中的实践</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-10-28 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Swagger, 现在也称 openapi, 定义了规范的 RESTFUL 接口文档标准，围绕这个标准产生了一个很丰富的<a href="https://apis.guru/awesome-openapi3/">生态圈</a>。本文谈谈在 node 项目中应用这些工具的一些经验。</p>
+<p>首先最基础的是 swagger 的文档功能。如何展示 swagger 文档？swagger-ui 已经不错，有以下的优点。</p>
+<ul>
+<li>界面较为美观，而且能够交互性地操作。</li>
+<li>可以产生对应的 curl 命令，很大程度上可以取代 postman 等工具。</li>
+<li>提供了认证方法，需要登陆态的接口也可以在线试用。</li>
+</ul>
+<p>目前的缺点是接口数量多了没有办法有效组织，也缺乏搜索功能，导致查找不便的问题。在 swagger-ui 的文档里面提到了自定义布局的功能，有待挖掘。</p>
+<p>解决读的问题后，接着要解决如何写的问题。API文档往往会急骤膨胀，如果写在一个文件里会变得难以书写。可以使用 swagger jsdoc 书写具体的接口，分布于各个接口的具体文件里，也使得代码和文档容易保持一致。其它的 components 可以由多个 yaml 文件书写，swagger-jsdoc 能够将各个文件的内容组装起来。</p>
+<p>写文档的时候记得尽可能使用 $ref, allOf 等， 提高文档书写的可复用性。</p>
+<p>最后一个很重要的可以利用 swagger 对出参入参进行基本的类型和是否必须进行校验。可以用 oas-chow-chow. 进行校验的 openapi 必须严格遵守规范，最好使用 oas-validator 先进行校验。oas-validator 会在项目启动时检查 swagger 的语法，耗时比较长，可以在生产服务器禁用。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">wenpin</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-10-28
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/swagger/">swagger</a>
+          <a href="/tags/openapi/">openapi</a>
+          <a href="/tags/nodejs/">nodejs</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/2019-10-29-sort-by-double/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">从「浮点数排序法」说到数的类型</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2019-10-23-npm-util-packages/">
+            <span class="next-text nav-default">npm 包私藏</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'wenpin_chou';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="wpchou@outlook.com.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">wenpin</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
