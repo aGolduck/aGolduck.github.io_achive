@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>untag on /home/wpchou/site</title>
+    <title>untag on /home/wpchou/blog</title>
     <link>http://wpchou.github.io/tags/untag/</link>
-    <description>Recent content in untag on /home/wpchou/site</description>
+    <description>Recent content in untag on /home/wpchou/blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
+    <copyright>wenpin</copyright>
     <lastBuildDate>Sun, 09 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://wpchou.github.io/tags/untag/index.xml" rel="self" type="application/rss+xml" />

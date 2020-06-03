@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>node on /home/wpchou/site</title>
+    <title>node on /home/wpchou/blog</title>
     <link>http://wpchou.github.io/tags/node/</link>
-    <description>Recent content in node on /home/wpchou/site</description>
+    <description>Recent content in node on /home/wpchou/blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
+    <copyright>wenpin</copyright>
     <lastBuildDate>Thu, 21 Nov 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://wpchou.github.io/tags/node/index.xml" rel="self" type="application/rss+xml" />
