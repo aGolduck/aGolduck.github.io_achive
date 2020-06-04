@@ -2,32 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>node on /home/wpchou/blog</title>
-    <link>http://wpchou.github.io/tags/node/</link>
+    <link>https://wpchou.github.io/tags/node/</link>
     <description>Recent content in node on /home/wpchou/blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>wenpin</copyright>
     <lastBuildDate>Thu, 21 Nov 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://wpchou.github.io/tags/node/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://wpchou.github.io/tags/node/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>npm 安装同一个包的不同版本</title>
-      <link>http://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/</link>
+      <link>https://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/</link>
       <pubDate>Thu, 21 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/</guid>
+      <guid>https://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/</guid>
       <description>应用场景 不想升级老代码依赖 npm 无法同时安装同一个 package 的不同版本，以往遇到这种需求的时候，我的办法是自己新建一个包，然后在新建的包里安装目标包的一</description>
-    </item>
-    
-    <item>
-      <title>koa-compose</title>
-      <link>http://wpchou.github.io/post/2019-06-19-koa-compose.sync-conflict-20191127-235620-opstezq/</link>
-      <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/post/2019-06-19-koa-compose.sync-conflict-20191127-235620-opstezq/</guid>
-      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 // compose :: [Context -&amp;gt; Next -&amp;gt; Promise] -&amp;gt; (Context -&amp;gt; Promise) function compose (middleware) { // validate middleware // .. return function (context, next) { // last called middleware # let index = -1 return dispatch(0) function dispatch (i) { if (i &amp;lt;= index) return Promise.reject(new</description>
     </item>
     
   </channel>

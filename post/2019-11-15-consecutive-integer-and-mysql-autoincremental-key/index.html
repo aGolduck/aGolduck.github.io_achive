@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="wenpin" /><meta name="description" content="最近运营要做一个简单的抽奖活动，要求从1开始产生连续的整数，作为抽奖号码发放出去，最后随机抽出一个号码作为幸运号码。一开始没多想，在 mongo 数据库" /><meta name="keywords" content="technic" />
+<meta name="author" content="wenpin" /><meta name="description" content="最近运营要做一个简单的抽奖活动，要求从1开始产生连续的整数，作为抽奖号码发放出去，最后随机抽出一个号码作为幸运号码。一开始没多想，在 mongo 数据库" /><meta name="keywords" content="IT, blog" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.68.3 with theme even" />
 
 
-<link rel="canonical" href="http://wpchou.github.io/post/2019-11-15-consecutive-integer-and-mysql-autoincremental-key/" />
+<link rel="canonical" href="https://wpchou.github.io/post/2019-11-15-consecutive-integer-and-mysql-autoincremental-key/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -35,21 +35,21 @@
 
 
 
-<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="连续抽奖号码与 MySQL 自增主键" />
 <meta property="og:description" content="最近运营要做一个简单的抽奖活动，要求从1开始产生连续的整数，作为抽奖号码发放出去，最后随机抽出一个号码作为幸运号码。一开始没多想，在 mongo 数据库" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://wpchou.github.io/post/2019-11-15-consecutive-integer-and-mysql-autoincremental-key/" />
+<meta property="og:url" content="https://wpchou.github.io/post/2019-11-15-consecutive-integer-and-mysql-autoincremental-key/" />
 <meta property="article:published_time" content="2019-11-15T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-06-01T20:54:20+08:00" />
+<meta property="article:modified_time" content="2020-06-04T23:19:57+08:00" />
 <meta itemprop="name" content="连续抽奖号码与 MySQL 自增主键">
 <meta itemprop="description" content="最近运营要做一个简单的抽奖活动，要求从1开始产生连续的整数，作为抽奖号码发放出去，最后随机抽出一个号码作为幸运号码。一开始没多想，在 mongo 数据库">
 <meta itemprop="datePublished" content="2019-11-15T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-06-01T20:54:20&#43;08:00" />
-<meta itemprop="wordCount" content="1095">
+<meta itemprop="dateModified" content="2020-06-04T23:19:57&#43;08:00" />
+<meta itemprop="wordCount" content="1091">
 
 
 
@@ -70,7 +70,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">/home/wpchou/site</a>
+    <a href="/" class="logo">/home/wpchou/blog</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -94,7 +94,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">/home/wpchou/site</a>
+  <a href="/" class="logo">/home/wpchou/blog</a>
 </div>
 
 <nav class="site-navbar">
@@ -137,10 +137,11 @@
       <p>最近运营要做一个简单的抽奖活动，要求从1开始产生连续的整数，作为抽奖号码发放出去，最后随机抽出一个号码作为幸运号码。一开始没多想，在 mongo 数据库里加了一个 counter, 需要的时候拿出来作为下一个抽奖号码同时原子自增。投入使用后却发现出了问题：产生的整数不连续。</p>
 <p>一开始还以为是 mongo 出了问题，细想这是因为中间出现了失败的情况。这种策略太过简单，在失败的情况下 counter 没有回滚，出现间隙几乎是必然的。</p>
 <p>这其实跟 MySQL 自增主键的问题非常像。假如 counter 的当前值为 2, 以上的业务过程如下：</p>
-<p>1.1 获取 counter 的当前值 2
-1.2 counter 同时原子自增为 3
-2. 记录用户 ID 与抽奖号码元组 (user2, 2)
-3. 将 (user2, 2) 插入数据库</p>
+<ol>
+<li>获取 counter 的当前值 2, counter 同时原子自增为 3</li>
+<li>记录用户 ID 与抽奖号码元组 (user2, 2)</li>
+<li>将 (user2, 2) 插入数据库</li>
+</ol>
 <p>最后一步插入顺利的话，2 为有效号码，插入失败则 2 被跳过。</p>
 <p>对应的，我们初始化一个 MySQL 表。</p>
 <div class="highlight"><div class="chroma">
@@ -254,12 +255,15 @@
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2020-06-01
-        <a href="https://github.com/wpchou/blog.git/commit/9615527298b5b8bb4d252ac182519e35d3d5e233" title="import jekyll posts">(9615527)</a>
+        2020-06-04
+        <a href="https://github.com/wpchou/blog/commit/ee93564466a772d7e8b997e06e2f4bad91a8eb47" title="fix posts">(ee93564)</a>
     </span>
   </p>
   
-  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
 </div>
 <footer class="post-footer">
       <div class="post-tags">
@@ -314,7 +318,7 @@
       <div class="social-links">
       <a href="wpchou@outlook.com.com" class="iconfont icon-email" title="email"></a>
       <a href="http://github.com/wpchou" class="iconfont icon-github" title="github"></a>
-  <a href="http://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">

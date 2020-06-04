@@ -2,257 +2,212 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on /home/wpchou/blog</title>
-    <link>http://wpchou.github.io/post/</link>
+    <link>https://wpchou.github.io/post/</link>
     <description>Recent content in Posts on /home/wpchou/blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>wenpin</copyright>
     <lastBuildDate>Mon, 18 May 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://wpchou.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://wpchou.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>数据库自动迁移</title>
-      <link>http://wpchou.github.io/post/2020-05-18-atomic-ddl/</link>
+      <link>https://wpchou.github.io/post/2020-05-18-atomic-ddl/</link>
       <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2020-05-18-atomic-ddl/</guid>
-      <description>一般来说，在小型应用以及应用原型快速开发阶段，关系数据库表定义 自动迁移是非常方便的特性。现在成熟的 ORM 都有所支持。一般来说， 我们进行一次成功的</description>
+      <guid>https://wpchou.github.io/post/2020-05-18-atomic-ddl/</guid>
+      <description>在小型应用以及应用原型快速开发阶段，关系数据库表定义 自动迁移是非常方便的特性。现在成熟的 ORM 都有所支持。 以 typorm 为例，一般来说，我们进行一次成功的</description>
     </item>
     
     <item>
       <title>集成 SOFA 到 nestjs</title>
-      <link>http://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/</link>
+      <link>https://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/</link>
       <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/</guid>
+      <guid>https://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/</guid>
       <description>https://github.com/Urigo/SOFA 是一个 express 中间件， 可以将 graphql 查询转换成 restful 的 api. 最近将其集成到 nestjs 的时候遇到一些问题，下面记录下解决的过程。 有人在 SOFA github 的 https://github.com/Urigo/SOFA/issues/250 下直接提问过如何集成到 nestjs 中</description>
     </item>
     
     <item>
+      <title>正确使用 git revert</title>
+      <link>https://wpchou.github.io/post/2020-04-14-git-revert-done-right/</link>
+      <pubDate>Tue, 14 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2020-04-14-git-revert-done-right/</guid>
+      <description>最近同事不小心把没测试过特性分支 F 的代码合并到主分支 M 上了，就从 M 上切了个热 补丁分支 H，做了个 revert 操作合并到 M 上去了。之后要布署 F 到开发分支 D</description>
+    </item>
+    
+    <item>
       <title>oh-my-zsh gnu_utils 升级导致提示符路径名消失</title>
-      <link>http://wpchou.github.io/post/2020-02-29-debug-zsh-enviroment/</link>
+      <link>https://wpchou.github.io/post/2020-02-29-debug-zsh-enviroment/</link>
       <pubDate>Sat, 29 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2020-02-29-debug-zsh-enviroment/</guid>
+      <guid>https://wpchou.github.io/post/2020-02-29-debug-zsh-enviroment/</guid>
       <description>今天被自己的 zsh 环境坑到了。我用 antigen 来管理 zsh 插件，插件不多，主要是 oh-my-zsh 少量几个和 zsh-users 的仿 fish 插件。用 z 插件跳转到了一个同名的文件夹里，然后在编辑器使劲</description>
     </item>
     
     <item>
-      <title></title>
-      <link>http://wpchou.github.io/post/2019-11-22-aliyun-security-groups/</link>
+      <title>阿里云安全组策略</title>
+      <link>https://wpchou.github.io/post/2019-11-22-aliyun-security-groups/</link>
       <pubDate>Fri, 22 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-11-22-aliyun-security-groups/</guid>
+      <guid>https://wpchou.github.io/post/2019-11-22-aliyun-security-groups/</guid>
       <description></description>
     </item>
     
     <item>
       <title>npm 安装同一个包的不同版本</title>
-      <link>http://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/</link>
+      <link>https://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/</link>
       <pubDate>Thu, 21 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/</guid>
+      <guid>https://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/</guid>
       <description>应用场景 不想升级老代码依赖 npm 无法同时安装同一个 package 的不同版本，以往遇到这种需求的时候，我的办法是自己新建一个包，然后在新建的包里安装目标包的一</description>
     </item>
     
     <item>
       <title>连续抽奖号码与 MySQL 自增主键</title>
-      <link>http://wpchou.github.io/post/2019-11-15-consecutive-integer-and-mysql-autoincremental-key/</link>
+      <link>https://wpchou.github.io/post/2019-11-15-consecutive-integer-and-mysql-autoincremental-key/</link>
       <pubDate>Fri, 15 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-11-15-consecutive-integer-and-mysql-autoincremental-key/</guid>
+      <guid>https://wpchou.github.io/post/2019-11-15-consecutive-integer-and-mysql-autoincremental-key/</guid>
       <description>最近运营要做一个简单的抽奖活动，要求从1开始产生连续的整数，作为抽奖号码发放出去，最后随机抽出一个号码作为幸运号码。一开始没多想，在 mongo 数据库</description>
     </item>
     
     <item>
       <title>如何使用 Sequelize (自动)管理数据库事务</title>
-      <link>http://wpchou.github.io/post/2019-11-07-sequelize-transaction/</link>
+      <link>https://wpchou.github.io/post/2019-11-07-sequelize-transaction/</link>
       <pubDate>Thu, 07 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-11-07-sequelize-transaction/</guid>
+      <guid>https://wpchou.github.io/post/2019-11-07-sequelize-transaction/</guid>
       <description>到目前为止，Sequelize 仍然是 nodejs 最成熟的 ORM 库。相关的文档有 manual 和 api rereference. 但老实说，写得不算好，manual 只能算 tutorial. api reference 也很多语焉不详，很多用</description>
     </item>
     
     <item>
       <title>并发请求与 MySQL 事务隔离</title>
-      <link>http://wpchou.github.io/post/2019-10-31-mysql-isolation-level/</link>
+      <link>https://wpchou.github.io/post/2019-10-31-mysql-isolation-level/</link>
       <pubDate>Thu, 31 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-10-31-mysql-isolation-level/</guid>
+      <guid>https://wpchou.github.io/post/2019-10-31-mysql-isolation-level/</guid>
       <description>旧文一则，记录处理数据异常的过程，借此阐述 MySQL 事务隔离的一些相关概念。 问题 在线做题是公司一个重要的业务。同一个用户可以对一张试卷(testpa</description>
     </item>
     
     <item>
       <title>从「浮点数排序法」说到数的类型</title>
-      <link>http://wpchou.github.io/post/2019-10-29-sort-by-double/</link>
+      <link>https://wpchou.github.io/post/2019-10-29-sort-by-double/</link>
       <pubDate>Tue, 29 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-10-29-sort-by-double/</guid>
+      <guid>https://wpchou.github.io/post/2019-10-29-sort-by-double/</guid>
       <description>在开发管理界面时，经常会遇到这样的简单需求：对一串元素的列表进行手工排序并持久化。通常的做法是给每个元素加一个序号的字段，排序的时候就像数组</description>
     </item>
     
     <item>
-      <title>swagger 在 node 项目中的实践</title>
-      <link>http://wpchou.github.io/post/2019-10-28-swagger-practice/</link>
+      <title>swagger/openapi 在 node 项目中的实践</title>
+      <link>https://wpchou.github.io/post/2019-10-28-swagger-practice/</link>
       <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-10-28-swagger-practice/</guid>
+      <guid>https://wpchou.github.io/post/2019-10-28-swagger-practice/</guid>
       <description>Swagger, 现在也称 openapi, 定义了规范的 RESTFUL 接口文档标准，围绕这个标准产生了一个很丰富的生态圈。本文谈谈在 node 项目中应用这些工具的一些经验。 首先最基础的是 swagger 的文</description>
     </item>
     
     <item>
       <title>npm 包私藏</title>
-      <link>http://wpchou.github.io/post/2019-10-23-npm-util-packages/</link>
+      <link>https://wpchou.github.io/post/2019-10-23-npm-util-packages/</link>
       <pubDate>Wed, 23 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-10-23-npm-util-packages/</guid>
+      <guid>https://wpchou.github.io/post/2019-10-23-npm-util-packages/</guid>
       <description>稍微有点开发实战经验的都知道 DRY(Do not Repeat Yourself). 说白了就是能抄就抄。如果有第三方模块能够使用，就用。其次改。实在不行再考虑自己写。但事情到了 js 这里稍有些</description>
     </item>
     
     <item>
       <title>阅读 node-pool 源码</title>
-      <link>http://wpchou.github.io/post/2019-10-21-node-pool/</link>
+      <link>https://wpchou.github.io/post/2019-10-21-node-pool/</link>
       <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-10-21-node-pool/</guid>
+      <guid>https://wpchou.github.io/post/2019-10-21-node-pool/</guid>
       <description>简介 generic-pool 是一个基于 Promise 的资源管理器，适用于单位是整数个的资源对象，比如数据库连接数。调度算法支持简单的优先级和先进先出/先进后出策略。seque</description>
     </item>
     
     <item>
       <title>从 js 神奇的 map 说到函数的元数</title>
-      <link>http://wpchou.github.io/post/2019-08-27-map-of-javascript/</link>
+      <link>https://wpchou.github.io/post/2019-08-27-map-of-javascript/</link>
       <pubDate>Tue, 27 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-08-27-map-of-javascript/</guid>
-      <description>从 lujun9972 的博客看到一则博文, 说在 https://medium.com/dailyjs/parseint-mystery-7c4368ef7b21 看到 js 的 map 神奇的一面。 运行下面的 js 代码： 1 [&amp;#39;1&amp;#39;, &amp;#39;7&amp;#39;, &amp;#39;11&amp;#39;].map(parseInt) 得到的是 1 [1, NaN, 3] js 真是到处都是坑啊。原因在哪里呢？下面是 MDN array.prototype.map 和</description>
+      <guid>https://wpchou.github.io/post/2019-08-27-map-of-javascript/</guid>
+      <description>从 lujun9972 的博客看到一则博文, 说在 https://medium.com/dailyjs/parseint-mystery-7c4368ef7b21 看到 js 的 map 神奇的一面。 运行下面的 js 代码： 1 [&amp;#39;1&amp;#39;, &amp;#39;7&amp;#39;, &amp;#39;11&amp;#39;].map(parseInt) 得到的是 1 [1, NaN, 3] ？？？ js 真是到处都是坑啊。原因在哪里呢？下面是</description>
     </item>
     
     <item>
       <title>《MySQL 实战 45 讲》拾遗</title>
-      <link>http://wpchou.github.io/post/2019-07-28-mysql-practice/</link>
+      <link>https://wpchou.github.io/post/2019-07-28-mysql-practice/</link>
       <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-07-28-mysql-practice/</guid>
-      <description>极客时间上林晓斌的《MySQL 实战 45 讲》针对日常开发碰到的常见问题都有非常高的实践指导意义，虽然说在这一系列文章也简述了一些数据库原理，但要</description>
-    </item>
-    
-    <item>
-      <title>《MySQL 实战 45 讲》拾遗</title>
-      <link>http://wpchou.github.io/post/2019-07-28-mysql-practice.sync-conflict-20191127-235650-opstezq/</link>
-      <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/post/2019-07-28-mysql-practice.sync-conflict-20191127-235650-opstezq/</guid>
+      <guid>https://wpchou.github.io/post/2019-07-28-mysql-practice/</guid>
       <description>极客时间上林晓斌的《MySQL 实战 45 讲》针对日常开发碰到的常见问题都有非常高的实践指导意义，虽然说在这一系列文章也简述了一些数据库原理，但要</description>
     </item>
     
     <item>
       <title>Bypass quirk of Swagger-UI try-it-out</title>
-      <link>http://wpchou.github.io/post/2019-07-11-swagger-ui-try-it-out/</link>
+      <link>https://wpchou.github.io/post/2019-07-11-swagger-ui-try-it-out/</link>
       <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-07-11-swagger-ui-try-it-out/</guid>
+      <guid>https://wpchou.github.io/post/2019-07-11-swagger-ui-try-it-out/</guid>
       <description>Swagger-UI 有一个很有用的特性，就是可以用 Try it out 按钮直接试用，配置好授权策略以后，还可以直接使用登陆态。但是我自己在使用的过程中经常会遇到一个问题。经</description>
     </item>
     
     <item>
       <title>koa-compose</title>
-      <link>http://wpchou.github.io/post/2019-06-19-koa-compose/</link>
+      <link>https://wpchou.github.io/post/2019-06-19-koa-compose/</link>
       <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-06-19-koa-compose/</guid>
-      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 // compose :: [Context -&amp;gt; Next -&amp;gt; Promise] -&amp;gt; (Context -&amp;gt; Promise) function compose (middleware) { // validate middleware // .. return function (context, next) { // last called middleware # let index = -1 return dispatch(0) function dispatch (i) { if (i &amp;lt;= index) return Promise.reject(new</description>
-    </item>
-    
-    <item>
-      <title>koa-compose</title>
-      <link>http://wpchou.github.io/post/2019-06-19-koa-compose.sync-conflict-20191127-235620-opstezq/</link>
-      <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/post/2019-06-19-koa-compose.sync-conflict-20191127-235620-opstezq/</guid>
-      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 // compose :: [Context -&amp;gt; Next -&amp;gt; Promise] -&amp;gt; (Context -&amp;gt; Promise) function compose (middleware) { // validate middleware // .. return function (context, next) { // last called middleware # let index = -1 return dispatch(0) function dispatch (i) { if (i &amp;lt;= index) return Promise.reject(new</description>
+      <guid>https://wpchou.github.io/post/2019-06-19-koa-compose/</guid>
+      <description>koa 的精华统共就这么几行。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 // compose :: [Context -&amp;gt; Next -&amp;gt; Promise] -&amp;gt; (Context -&amp;gt; Promise) function compose (middleware) { // validate middleware // .. return function (context, next) { // last called middleware # let index = -1</description>
     </item>
     
     <item>
       <title>从 shim-array 说到 javascript 的一些问题</title>
-      <link>http://wpchou.github.io/post/2019-06-15-evil-shim-array/</link>
+      <link>https://wpchou.github.io/post/2019-06-15-evil-shim-array/</link>
       <pubDate>Sat, 15 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-06-15-evil-shim-array/</guid>
+      <guid>https://wpchou.github.io/post/2019-06-15-evil-shim-array/</guid>
       <description>我在两个旧的 javascript 项目都遇到一个很让人摸不着头脑的问题，使用数组的 find 无论能不能找到，总是返回 -1. 影响很大，不只自己的代码不能用，像 sequelize 这样的第三方包</description>
     </item>
     
     <item>
-      <title>从 shim-array 说到 javascript 的一些问题</title>
-      <link>http://wpchou.github.io/post/2019-06-15-evil-shim-array.sync-conflict-20191127-235657-opstezq/</link>
-      <pubDate>Sat, 15 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/post/2019-06-15-evil-shim-array.sync-conflict-20191127-235657-opstezq/</guid>
-      <description>我在两个旧的 javascript 项目都遇到一个很让人摸不着头的问题，使用数组的 find 无论能不能找到，总是返回 -1. 影响很大，不只自己不能用，像 sequelize 这样的包也用不了。有一</description>
-    </item>
-    
-    <item>
       <title>最左前缀原则</title>
-      <link>http://wpchou.github.io/post/2019-06-13-left-prefix-index-rule/</link>
+      <link>https://wpchou.github.io/post/2019-06-13-left-prefix-index-rule/</link>
       <pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-06-13-left-prefix-index-rule/</guid>
+      <guid>https://wpchou.github.io/post/2019-06-13-left-prefix-index-rule/</guid>
       <description>数据库的索引有个最左前缀原则，英文称为 Left-Prefix Index Rule, 意即如果某个表有 &amp;lt;k1, k2,..., kn&amp;gt; 的复合键顺序索引，那么它逻辑上同时也有 &amp;lt;k1&amp;gt;, &amp;lt;k1, k2&amp;gt;, &amp;hellip;, &amp;lt;k1, k2, ..., km&amp;gt; (m &amp;lt; n) 等最左前缀的索</description>
     </item>
     
     <item>
       <title>MySQL 命令行客户端指令</title>
-      <link>http://wpchou.github.io/post/2019-06-11-mysql-client-commands/</link>
+      <link>https://wpchou.github.io/post/2019-06-11-mysql-client-commands/</link>
       <pubDate>Tue, 11 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-06-11-mysql-client-commands/</guid>
+      <guid>https://wpchou.github.io/post/2019-06-11-mysql-client-commands/</guid>
       <description>MySQL 的 GUI 客户端有非常多的选择，自带的，开源的，商业的……GUI 客户端比自带的命令行客户端 mysql 方便友好很多，但是在批量处理等长连接操作上经常会卡住</description>
     </item>
     
     <item>
       <title>Distinct and Group By</title>
-      <link>http://wpchou.github.io/post/2019-06-10-distinct-and-group-by/</link>
+      <link>https://wpchou.github.io/post/2019-06-10-distinct-and-group-by/</link>
       <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-06-10-distinct-and-group-by/</guid>
+      <guid>https://wpchou.github.io/post/2019-06-10-distinct-and-group-by/</guid>
       <description>在 MySQL 里面, DISTINCT 原则上可以用 GROUP BY 替换。 比如以下的 question 表是我们实际生产数据一个表的简化。 1 SHOW FULL COLUMNS FROM question; Field Type id int(10) unsigned type enum(&amp;lsquo;choice&amp;rsquo;,&amp;lsquo;single_choice&amp;rsquo;,&amp;lsquo;uncertain_choice&amp;rsquo;,&amp;lsquo;determine&amp;rsquo;,&amp;lsquo;fill&amp;rsquo;,&amp;lsquo;essay&amp;rsquo;,&amp;lsquo;material&amp;rsquo;) score float(10,1) unsigned 1 SHOW INDEX FROM question; Table Non_unique Key_name Seq_in_index Column_name Index_type question 0 PRIMARY</description>
     </item>
     
     <item>
       <title>Hello, World</title>
-      <link>http://wpchou.github.io/post/2019-06-09-hello-world/</link>
+      <link>https://wpchou.github.io/post/2019-06-09-hello-world/</link>
       <pubDate>Sun, 09 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-06-09-hello-world/</guid>
+      <guid>https://wpchou.github.io/post/2019-06-09-hello-world/</guid>
       <description>first post.</description>
-    </item>
-    
-    <item>
-      <title>正确使用 git revert</title>
-      <link>http://wpchou.github.io/post/2019-04-14-git-revert-done-right/</link>
-      <pubDate>Sun, 14 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/post/2019-04-14-git-revert-done-right/</guid>
-      <description>最近同事不小心把没测试过特性分支 F 的代码合并到主分支 M 上了，就从 M 上切了个热 补丁分支 H，做了个 revert 操作合并到 M 上去了。之后要布署 F 到开发分支 D</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://wpchou.github.io/post/2019-03-07-typeorm-migration/</link>
-      <pubDate>Thu, 07 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/post/2019-03-07-typeorm-migration/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>应用 typescript 严格模式</title>
-      <link>http://wpchou.github.io/post/2019-03-03-migrate-to-typescript-strict-mode/</link>
-      <pubDate>Sun, 03 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/post/2019-03-03-migrate-to-typescript-strict-mode/</guid>
-      <description>最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移</description>
     </item>
     
   </channel>

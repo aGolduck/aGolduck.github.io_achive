@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ORM on /home/wpchou/blog</title>
+    <link>https://wpchou.github.io/tags/orm/</link>
+    <description>Recent content in ORM on /home/wpchou/blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>wenpin</copyright>
+    <lastBuildDate>Mon, 18 May 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://wpchou.github.io/tags/orm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>数据库自动迁移</title>
+      <link>https://wpchou.github.io/post/2020-05-18-atomic-ddl/</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2020-05-18-atomic-ddl/</guid>
+      <description>在小型应用以及应用原型快速开发阶段，关系数据库表定义 自动迁移是非常方便的特性。现在成熟的 ORM 都有所支持。 以 typorm 为例，一般来说，我们进行一次成功的</description>
+    </item>
+    
+  </channel>
+</rss>

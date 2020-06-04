@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>swagger 在 node 项目中的实践 - /home/wpchou/blog</title>
+  <title>swagger/openapi 在 node 项目中的实践 - /home/wpchou/blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="wenpin" /><meta name="description" content="Swagger, 现在也称 openapi, 定义了规范的 RESTFUL 接口文档标准，围绕这个标准产生了一个很丰富的生态圈。本文谈谈在 node 项目中应用这些工具的一些经验。 首先最基础的是 swagger 的文" /><meta name="keywords" content="technic" />
+<meta name="author" content="wenpin" /><meta name="description" content="Swagger, 现在也称 openapi, 定义了规范的 RESTFUL 接口文档标准，围绕这个标准产生了一个很丰富的生态圈。本文谈谈在 node 项目中应用这些工具的一些经验。 首先最基础的是 swagger 的文" /><meta name="keywords" content="IT, blog" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.68.3 with theme even" />
 
 
-<link rel="canonical" href="http://wpchou.github.io/post/2019-10-28-swagger-practice/" />
+<link rel="canonical" href="https://wpchou.github.io/post/2019-10-28-swagger-practice/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -35,26 +35,26 @@
 
 
 
-<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="swagger 在 node 项目中的实践" />
+<meta property="og:title" content="swagger/openapi 在 node 项目中的实践" />
 <meta property="og:description" content="Swagger, 现在也称 openapi, 定义了规范的 RESTFUL 接口文档标准，围绕这个标准产生了一个很丰富的生态圈。本文谈谈在 node 项目中应用这些工具的一些经验。 首先最基础的是 swagger 的文" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://wpchou.github.io/post/2019-10-28-swagger-practice/" />
+<meta property="og:url" content="https://wpchou.github.io/post/2019-10-28-swagger-practice/" />
 <meta property="article:published_time" content="2019-10-28T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-06-01T20:54:20+08:00" />
-<meta itemprop="name" content="swagger 在 node 项目中的实践">
+<meta property="article:modified_time" content="2020-06-04T23:19:57+08:00" />
+<meta itemprop="name" content="swagger/openapi 在 node 项目中的实践">
 <meta itemprop="description" content="Swagger, 现在也称 openapi, 定义了规范的 RESTFUL 接口文档标准，围绕这个标准产生了一个很丰富的生态圈。本文谈谈在 node 项目中应用这些工具的一些经验。 首先最基础的是 swagger 的文">
 <meta itemprop="datePublished" content="2019-10-28T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-06-01T20:54:20&#43;08:00" />
-<meta itemprop="wordCount" content="508">
+<meta itemprop="dateModified" content="2020-06-04T23:19:57&#43;08:00" />
+<meta itemprop="wordCount" content="513">
 
 
 
 <meta itemprop="keywords" content="swagger,openapi,nodejs," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="swagger 在 node 项目中的实践"/>
+<meta name="twitter:title" content="swagger/openapi 在 node 项目中的实践"/>
 <meta name="twitter:description" content="Swagger, 现在也称 openapi, 定义了规范的 RESTFUL 接口文档标准，围绕这个标准产生了一个很丰富的生态圈。本文谈谈在 node 项目中应用这些工具的一些经验。 首先最基础的是 swagger 的文"/>
 
 <!--[if lte IE 9]>
@@ -70,7 +70,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">/home/wpchou/site</a>
+    <a href="/" class="logo">/home/wpchou/blog</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -94,7 +94,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">/home/wpchou/site</a>
+  <a href="/" class="logo">/home/wpchou/blog</a>
 </div>
 
 <nav class="site-navbar">
@@ -118,7 +118,7 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">swagger 在 node 项目中的实践</h1>
+      <h1 class="post-title">swagger/openapi 在 node 项目中的实践</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2019-10-28 </span>
@@ -145,6 +145,7 @@
 <p>解决读的问题后，接着要解决如何写的问题。API文档往往会急骤膨胀，如果写在一个文件里会变得难以书写。可以使用 swagger jsdoc 书写具体的接口，分布于各个接口的具体文件里，也使得代码和文档容易保持一致。其它的 components 可以由多个 yaml 文件书写，swagger-jsdoc 能够将各个文件的内容组装起来。</p>
 <p>写文档的时候记得尽可能使用 $ref, allOf 等， 提高文档书写的可复用性。</p>
 <p>最后一个很重要的可以利用 swagger 对出参入参进行基本的类型和是否必须进行校验。可以用 oas-chow-chow. 进行校验的 openapi 必须严格遵守规范，最好使用 oas-validator 先进行校验。oas-validator 会在项目启动时检查 swagger 的语法，耗时比较长，可以在生产服务器禁用。</p>
+<p>TODO 加例子。</p>
 
     </div>
 
@@ -156,12 +157,15 @@
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2020-06-01
-        <a href="https://github.com/wpchou/blog.git/commit/9615527298b5b8bb4d252ac182519e35d3d5e233" title="import jekyll posts">(9615527)</a>
+        2020-06-04
+        <a href="https://github.com/wpchou/blog/commit/ee93564466a772d7e8b997e06e2f4bad91a8eb47" title="fix posts">(ee93564)</a>
     </span>
   </p>
   
-  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
 </div>
 <footer class="post-footer">
       <div class="post-tags">
@@ -218,7 +222,7 @@
       <div class="social-links">
       <a href="wpchou@outlook.com.com" class="iconfont icon-email" title="email"></a>
       <a href="http://github.com/wpchou" class="iconfont icon-github" title="github"></a>
-  <a href="http://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">

@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="wenpin" /><meta name="description" content="https://github.com/Urigo/SOFA 是一个 express 中间件， 可以将 graphql 查询转换成 restful 的 api. 最近将其集成到 nestjs 的时候遇到一些问题，下面记录下解决的过程。 有人在 SOFA github 的 https://github.com/Urigo/SOFA/issues/250 下直接提问过如何集成到 nestjs 中" /><meta name="keywords" content="technic" />
+<meta name="author" content="wenpin" /><meta name="description" content="https://github.com/Urigo/SOFA 是一个 express 中间件， 可以将 graphql 查询转换成 restful 的 api. 最近将其集成到 nestjs 的时候遇到一些问题，下面记录下解决的过程。 有人在 SOFA github 的 https://github.com/Urigo/SOFA/issues/250 下直接提问过如何集成到 nestjs 中" /><meta name="keywords" content="IT, blog" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.68.3 with theme even" />
 
 
-<link rel="canonical" href="http://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/" />
+<link rel="canonical" href="https://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -35,21 +35,21 @@
 
 
 
-<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="集成 SOFA 到 nestjs" />
 <meta property="og:description" content="https://github.com/Urigo/SOFA 是一个 express 中间件， 可以将 graphql 查询转换成 restful 的 api. 最近将其集成到 nestjs 的时候遇到一些问题，下面记录下解决的过程。 有人在 SOFA github 的 https://github.com/Urigo/SOFA/issues/250 下直接提问过如何集成到 nestjs 中" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/" />
+<meta property="og:url" content="https://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/" />
 <meta property="article:published_time" content="2020-05-15T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-06-01T20:54:20+08:00" />
+<meta property="article:modified_time" content="2020-06-04T23:19:57+08:00" />
 <meta itemprop="name" content="集成 SOFA 到 nestjs">
 <meta itemprop="description" content="https://github.com/Urigo/SOFA 是一个 express 中间件， 可以将 graphql 查询转换成 restful 的 api. 最近将其集成到 nestjs 的时候遇到一些问题，下面记录下解决的过程。 有人在 SOFA github 的 https://github.com/Urigo/SOFA/issues/250 下直接提问过如何集成到 nestjs 中">
 <meta itemprop="datePublished" content="2020-05-15T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-06-01T20:54:20&#43;08:00" />
-<meta itemprop="wordCount" content="574">
+<meta itemprop="dateModified" content="2020-06-04T23:19:57&#43;08:00" />
+<meta itemprop="wordCount" content="573">
 
 
 
@@ -70,7 +70,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">/home/wpchou/site</a>
+    <a href="/" class="logo">/home/wpchou/blog</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -94,7 +94,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">/home/wpchou/site</a>
+  <a href="/" class="logo">/home/wpchou/blog</a>
 </div>
 
 <nav class="site-navbar">
@@ -174,33 +174,33 @@ schema 是可以直接获取的，SOFA 只需要这个 schema 就可以了。但
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">interface SofaConfig {
-  schema: GraphQLSchema;
-  context?: Context;
-  execute?: ExecuteFn;
-  ignore?: Ignore;
-  onRoute?: OnRoute;
-  depthLimit?: number;
-  errorHandler?: ErrorHandler;
-  method?: MethodMap;
-}
+<pre class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">interface</span> <span class="nx">SofaConfig</span> <span class="p">{</span>
+  <span class="nx">schema</span>: <span class="kt">GraphQLSchema</span><span class="p">;</span>
+  <span class="nx">context?</span>: <span class="kt">Context</span><span class="p">;</span>
+  <span class="nx">execute?</span>: <span class="kt">ExecuteFn</span><span class="p">;</span>
+  <span class="nx">ignore?</span>: <span class="kt">Ignore</span><span class="p">;</span>
+  <span class="nx">onRoute?</span>: <span class="kt">OnRoute</span><span class="p">;</span>
+  <span class="nx">depthLimit?</span>: <span class="kt">number</span><span class="p">;</span>
+  <span class="nx">errorHandler?</span>: <span class="kt">ErrorHandler</span><span class="p">;</span>
+  <span class="nx">method?</span>: <span class="kt">MethodMap</span><span class="p">;</span>
+<span class="p">}</span>
 
-function useSofa(config: SofaConfig): ExpressRouter {
-  return createRouter(createSofa(config));
-}
+<span class="kd">function</span> <span class="nx">useSofa</span><span class="p">(</span><span class="nx">config</span>: <span class="kt">SofaConfig</span><span class="p">)</span><span class="o">:</span> <span class="nx">ExpressRouter</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">createRouter</span><span class="p">(</span><span class="nx">createSofa</span><span class="p">(</span><span class="nx">config</span><span class="p">));</span>
+<span class="p">}</span>
 
-app.use(
-  &#39;api&#39;,
-  useSofa({
-    schema,
-    ignore: [&#39;User.favoriteBook&#39;],
-    onRoute(info) {
-      openApi.addRoute(info, {
-        basePath: &#39;&#39;,
-      });
-    },
-  })
-)
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span>
+  <span class="s1">&#39;api&#39;</span><span class="p">,</span>
+  <span class="nx">useSofa</span><span class="p">({</span>
+    <span class="nx">schema</span><span class="p">,</span>
+    <span class="nx">ignore</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;User.favoriteBook&#39;</span><span class="p">],</span>
+    <span class="nx">onRoute</span><span class="p">(</span><span class="nx">info</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">openApi</span><span class="p">.</span><span class="nx">addRoute</span><span class="p">(</span><span class="nx">info</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">basePath</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+      <span class="p">});</span>
+    <span class="p">},</span>
+  <span class="p">})</span>
+<span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p><code>SofaConfig</code> 是使用这个中间件的关键。其中最重要的是 schema 和 execute
@@ -212,7 +212,7 @@ app.use(
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">export declare function makeExecutableSchema&lt;TContext = any&gt;({ typeDefs, resolvers, connectors, logger, allowUndefinedInResolve, resolverValidationOptions, directiveResolvers, schemaDirectives, parseOptions, inheritResolversFromInterfaces, }: IExecutableSchemaDefinition&lt;TContext&gt;): GraphQLSchema;
+<pre class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">export</span> <span class="kr">declare</span> <span class="kd">function</span> <span class="nx">makeExecutableSchema</span><span class="o">&lt;</span><span class="nx">TContext</span> <span class="o">=</span> <span class="nx">any</span><span class="o">&gt;</span><span class="p">({</span> <span class="nx">typeDefs</span><span class="p">,</span> <span class="nx">resolvers</span><span class="p">,</span> <span class="nx">connectors</span><span class="p">,</span> <span class="nx">logger</span><span class="p">,</span> <span class="nx">allowUndefinedInResolve</span><span class="p">,</span> <span class="nx">resolverValidationOptions</span><span class="p">,</span> <span class="nx">directiveResolvers</span><span class="p">,</span> <span class="nx">schemaDirectives</span><span class="p">,</span> <span class="nx">parseOptions</span><span class="p">,</span> <span class="nx">inheritResolversFromInterfaces</span><span class="p">,</span> <span class="p">}</span><span class="o">:</span> <span class="nx">IExecutableSchemaDefinition</span><span class="o">&lt;</span><span class="nx">TContext</span><span class="o">&gt;</span><span class="p">)</span><span class="o">:</span> <span class="nx">GraphQLSchema</span><span class="p">;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>生成 schema 的方案。</p>
@@ -225,15 +225,10 @@ listen 后获取只能重启一个 express 实例，Guard 等机制不知道是�
 <p>最后一个绕道的方法，request 调起 /graphql。重新发起了一个本地 http 请求，
 有时间损耗，有衔接工作。从 args 获取 source, contextValue.headers,
 variableValues 就可以发起远程请求。Sofa 文档也提到</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">Thanks to that you can even use a remote GraphQL Server (with Fetch or through Apollo Links).
-</code></pre></td></tr></table>
-</div>
-</div>
+<blockquote>
+<p>Thanks to that you can even use a remote GraphQL Server (with Fetch or through Apollo Links).</p>
+</blockquote>
+
     </div>
 
     <div class="post-copyright">
@@ -244,12 +239,15 @@ variableValues 就可以发起远程请求。Sofa 文档也提到</p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2020-06-01
-        <a href="https://github.com/wpchou/blog.git/commit/9615527298b5b8bb4d252ac182519e35d3d5e233" title="import jekyll posts">(9615527)</a>
+        2020-06-04
+        <a href="https://github.com/wpchou/blog/commit/ee93564466a772d7e8b997e06e2f4bad91a8eb47" title="fix posts">(ee93564)</a>
     </span>
   </p>
   
-  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
 </div>
 <footer class="post-footer">
       
@@ -259,8 +257,8 @@ variableValues 就可以发起远程请求。Sofa 文档也提到</p>
             <span class="prev-text nav-default">数据库自动迁移</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/2020-02-29-debug-zsh-enviroment/">
-            <span class="next-text nav-default">oh-my-zsh gnu_utils 升级导致提示符路径名消失</span>
+        <a class="next" href="/post/2020-04-14-git-revert-done-right/">
+            <span class="next-text nav-default">正确使用 git revert</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -302,7 +300,7 @@ variableValues 就可以发起远程请求。Sofa 文档也提到</p>
       <div class="social-links">
       <a href="wpchou@outlook.com.com" class="iconfont icon-email" title="email"></a>
       <a href="http://github.com/wpchou" class="iconfont icon-github" title="github"></a>
-  <a href="http://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">

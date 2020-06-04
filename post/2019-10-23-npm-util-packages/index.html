@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="wenpin" /><meta name="description" content="稍微有点开发实战经验的都知道 DRY(Do not Repeat Yourself). 说白了就是能抄就抄。如果有第三方模块能够使用，就用。其次改。实在不行再考虑自己写。但事情到了 js 这里稍有些" /><meta name="keywords" content="technic" />
+<meta name="author" content="wenpin" /><meta name="description" content="稍微有点开发实战经验的都知道 DRY(Do not Repeat Yourself). 说白了就是能抄就抄。如果有第三方模块能够使用，就用。其次改。实在不行再考虑自己写。但事情到了 js 这里稍有些" /><meta name="keywords" content="IT, blog" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.68.3 with theme even" />
 
 
-<link rel="canonical" href="http://wpchou.github.io/post/2019-10-23-npm-util-packages/" />
+<link rel="canonical" href="https://wpchou.github.io/post/2019-10-23-npm-util-packages/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -35,21 +35,21 @@
 
 
 
-<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="npm 包私藏" />
 <meta property="og:description" content="稍微有点开发实战经验的都知道 DRY(Do not Repeat Yourself). 说白了就是能抄就抄。如果有第三方模块能够使用，就用。其次改。实在不行再考虑自己写。但事情到了 js 这里稍有些" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://wpchou.github.io/post/2019-10-23-npm-util-packages/" />
+<meta property="og:url" content="https://wpchou.github.io/post/2019-10-23-npm-util-packages/" />
 <meta property="article:published_time" content="2019-10-23T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-06-01T20:54:20+08:00" />
+<meta property="article:modified_time" content="2020-06-04T23:19:57+08:00" />
 <meta itemprop="name" content="npm 包私藏">
 <meta itemprop="description" content="稍微有点开发实战经验的都知道 DRY(Do not Repeat Yourself). 说白了就是能抄就抄。如果有第三方模块能够使用，就用。其次改。实在不行再考虑自己写。但事情到了 js 这里稍有些">
 <meta itemprop="datePublished" content="2019-10-23T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-06-01T20:54:20&#43;08:00" />
-<meta itemprop="wordCount" content="597">
+<meta itemprop="dateModified" content="2020-06-04T23:19:57&#43;08:00" />
+<meta itemprop="wordCount" content="500">
 
 
 
@@ -70,7 +70,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">/home/wpchou/site</a>
+    <a href="/" class="logo">/home/wpchou/blog</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -94,7 +94,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">/home/wpchou/site</a>
+  <a href="/" class="logo">/home/wpchou/blog</a>
 </div>
 
 <nav class="site-navbar">
@@ -136,31 +136,132 @@
     <div class="post-content">
       <p>稍微有点开发实战经验的都知道 DRY(Do not Repeat Yourself). 说白了就是能抄就抄。如果有第三方模块能够使用，就用。其次改。实在不行再考虑自己写。但事情到了 js 这里稍有些不一样。js 有臭名昭著的 Dependency Hell, 很大程度上是因为小包文化盛行。很多人都在知乎上吃过瓜，且看 justjavac <a href="https://zhuanlan.zhihu.com/p/35864087">驳《我不是很懂 Node.js 社区的 DRY 文化》</a> 英文世界里<a href="https://github.com/sindresorhus/ama/issues/10">sindresorhus</a> 的观念很有代表性。他说代码模块就像乐高一样，不是按代码行来算的，而是按功能点来算的。这其实有点诡辩。乐高也是一组一组包装的。包是我们能用的最大的单元了，敢情他们家乐高全是散装的，都是一片一片买的。人的记忆容量是有限的，而且用树形结构来组织信息。这样散乱的扁平化的包想用时都不知道怎么找起。理想的情况下，应该把各种小包组织成 <code>lodash</code> 这样的工具集合到一起。</p>
 <p>在现有的生态下，平时还是要注意积累有用的包。下面的表格会不断地更新。</p>
-<p>| package                    | tags                | description                                   |
-|&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;|
-| ajv                        | json-schema         | another json schema validator                 |
-| debug                      | debug,log           |                                               |
-| delay                      | timer               | aka, sleep                                    |
-| elastic-apm-node           | apm                 | apm with ELK(elastic, logstash, kibana)       |
-| express-mung               | express             | express response hooker                       |
-| image-size                 | image               | get width, height, and type of any image file |
-| js-yaml                    | yaml,parser         | yaml parser and dumper                        |
-| json-schema-ref-parser     | json-schema, parser |                                               |
-| lerna                      | package             | monorepo                                      |
-| node-mock-stdin            | test                |                                               |
-| node-pool                  | pool                | generic resource pool with Promise based API. |
-| oas-kit                    | swagger,openapi     | converter, validator, linter, resolver        |
-| really-need                | package             | require utils                                 |
-| required-in-the-middle     | hook,module,require | module to hook into <code>require</code> function        |
-| semver                     | package             | 用于语义化版本的各种操作                      |
-| sinon                      | test                | mock, fake, spy, stub                         |
-| stackman                   | error               | error stack tracer                            |
-| supertest                  | test,http,api       | for http test                                 |
-| swagger-jsdoc              | openapi,jsdoc       | generate swagger doc based on jsdoc           |
-| swagger-express-middleware | openapi,express     | mock and parse/validate request               |
-| swagger-parser             | openapi,parser      | openapi parser/validator                      |
-| swagger-cli                | openapi,cli         | command line openapi validator and bundler    |
-| @open-api/xxx              | openapi             | 似乎还不完全支持 openapi 3.0                  |</p>
+<table>
+<thead>
+<tr>
+<th>package</th>
+<th>tags</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ajv</td>
+<td>json-schema</td>
+<td>another json schema validator</td>
+</tr>
+<tr>
+<td>debug</td>
+<td>debug,log</td>
+<td></td>
+</tr>
+<tr>
+<td>delay</td>
+<td>timer</td>
+<td>aka, sleep</td>
+</tr>
+<tr>
+<td>elastic-apm-node</td>
+<td>apm</td>
+<td>apm with ELK(elastic, logstash, kibana)</td>
+</tr>
+<tr>
+<td>express-mung</td>
+<td>express</td>
+<td>express response hooker</td>
+</tr>
+<tr>
+<td>image-size</td>
+<td>image</td>
+<td>get width, height, and type of any image file</td>
+</tr>
+<tr>
+<td>js-yaml</td>
+<td>yaml,parser</td>
+<td>yaml parser and dumper</td>
+</tr>
+<tr>
+<td>json-schema-ref-parser</td>
+<td>json-schema, parser</td>
+<td></td>
+</tr>
+<tr>
+<td>lerna</td>
+<td>package</td>
+<td>monorepo</td>
+</tr>
+<tr>
+<td>node-mock-stdin</td>
+<td>test</td>
+<td></td>
+</tr>
+<tr>
+<td>node-pool</td>
+<td>pool</td>
+<td>generic resource pool with Promise based API.</td>
+</tr>
+<tr>
+<td>oas-kit</td>
+<td>swagger,openapi</td>
+<td>converter, validator, linter, resolver</td>
+</tr>
+<tr>
+<td>really-need</td>
+<td>package</td>
+<td>require utils</td>
+</tr>
+<tr>
+<td>required-in-the-middle</td>
+<td>hook,module,require</td>
+<td>module to hook into <code>require</code> function</td>
+</tr>
+<tr>
+<td>semver</td>
+<td>package</td>
+<td>用于语义化版本的各种操作</td>
+</tr>
+<tr>
+<td>sinon</td>
+<td>test</td>
+<td>mock, fake, spy, stub</td>
+</tr>
+<tr>
+<td>stackman</td>
+<td>error</td>
+<td>error stack tracer</td>
+</tr>
+<tr>
+<td>supertest</td>
+<td>test,http,api</td>
+<td>for http test</td>
+</tr>
+<tr>
+<td>swagger-jsdoc</td>
+<td>openapi,jsdoc</td>
+<td>generate swagger doc based on jsdoc</td>
+</tr>
+<tr>
+<td>swagger-express-middleware</td>
+<td>openapi,express</td>
+<td>mock and parse/validate request</td>
+</tr>
+<tr>
+<td>swagger-parser</td>
+<td>openapi,parser</td>
+<td>openapi parser/validator</td>
+</tr>
+<tr>
+<td>swagger-cli</td>
+<td>openapi,cli</td>
+<td>command line openapi validator and bundler</td>
+</tr>
+<tr>
+<td>@open-api/xxx</td>
+<td>openapi</td>
+<td>似乎还不完全支持 openapi 3.0</td>
+</tr>
+</tbody>
+</table>
 
     </div>
 
@@ -172,12 +273,15 @@
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2020-06-01
-        <a href="https://github.com/wpchou/blog.git/commit/9615527298b5b8bb4d252ac182519e35d3d5e233" title="import jekyll posts">(9615527)</a>
+        2020-06-04
+        <a href="https://github.com/wpchou/blog/commit/ee93564466a772d7e8b997e06e2f4bad91a8eb47" title="fix posts">(ee93564)</a>
     </span>
   </p>
   
-  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
 </div>
 <footer class="post-footer">
       <div class="post-tags">
@@ -186,7 +290,7 @@
       <nav class="post-nav">
         <a class="prev" href="/post/2019-10-28-swagger-practice/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">swagger 在 node 项目中的实践</span>
+            <span class="prev-text nav-default">swagger/openapi 在 node 项目中的实践</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
         <a class="next" href="/post/2019-10-21-node-pool/">
@@ -232,7 +336,7 @@
       <div class="social-links">
       <a href="wpchou@outlook.com.com" class="iconfont icon-email" title="email"></a>
       <a href="http://github.com/wpchou" class="iconfont icon-github" title="github"></a>
-  <a href="http://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">

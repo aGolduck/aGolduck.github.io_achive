@@ -2,68 +2,41 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>javascript on /home/wpchou/blog</title>
-    <link>http://wpchou.github.io/tags/javascript/</link>
+    <link>https://wpchou.github.io/tags/javascript/</link>
     <description>Recent content in javascript on /home/wpchou/blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>wenpin</copyright>
     <lastBuildDate>Tue, 27 Aug 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://wpchou.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://wpchou.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>从 js 神奇的 map 说到函数的元数</title>
-      <link>http://wpchou.github.io/post/2019-08-27-map-of-javascript/</link>
+      <link>https://wpchou.github.io/post/2019-08-27-map-of-javascript/</link>
       <pubDate>Tue, 27 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-08-27-map-of-javascript/</guid>
-      <description>从 lujun9972 的博客看到一则博文, 说在 https://medium.com/dailyjs/parseint-mystery-7c4368ef7b21 看到 js 的 map 神奇的一面。 运行下面的 js 代码： 1 [&amp;#39;1&amp;#39;, &amp;#39;7&amp;#39;, &amp;#39;11&amp;#39;].map(parseInt) 得到的是 1 [1, NaN, 3] js 真是到处都是坑啊。原因在哪里呢？下面是 MDN array.prototype.map 和</description>
+      <guid>https://wpchou.github.io/post/2019-08-27-map-of-javascript/</guid>
+      <description>从 lujun9972 的博客看到一则博文, 说在 https://medium.com/dailyjs/parseint-mystery-7c4368ef7b21 看到 js 的 map 神奇的一面。 运行下面的 js 代码： 1 [&amp;#39;1&amp;#39;, &amp;#39;7&amp;#39;, &amp;#39;11&amp;#39;].map(parseInt) 得到的是 1 [1, NaN, 3] ？？？ js 真是到处都是坑啊。原因在哪里呢？下面是</description>
     </item>
     
     <item>
       <title>koa-compose</title>
-      <link>http://wpchou.github.io/post/2019-06-19-koa-compose/</link>
+      <link>https://wpchou.github.io/post/2019-06-19-koa-compose/</link>
       <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-06-19-koa-compose/</guid>
-      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 // compose :: [Context -&amp;gt; Next -&amp;gt; Promise] -&amp;gt; (Context -&amp;gt; Promise) function compose (middleware) { // validate middleware // .. return function (context, next) { // last called middleware # let index = -1 return dispatch(0) function dispatch (i) { if (i &amp;lt;= index) return Promise.reject(new</description>
-    </item>
-    
-    <item>
-      <title>koa-compose</title>
-      <link>http://wpchou.github.io/post/2019-06-19-koa-compose.sync-conflict-20191127-235620-opstezq/</link>
-      <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/post/2019-06-19-koa-compose.sync-conflict-20191127-235620-opstezq/</guid>
-      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 // compose :: [Context -&amp;gt; Next -&amp;gt; Promise] -&amp;gt; (Context -&amp;gt; Promise) function compose (middleware) { // validate middleware // .. return function (context, next) { // last called middleware # let index = -1 return dispatch(0) function dispatch (i) { if (i &amp;lt;= index) return Promise.reject(new</description>
+      <guid>https://wpchou.github.io/post/2019-06-19-koa-compose/</guid>
+      <description>koa 的精华统共就这么几行。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 // compose :: [Context -&amp;gt; Next -&amp;gt; Promise] -&amp;gt; (Context -&amp;gt; Promise) function compose (middleware) { // validate middleware // .. return function (context, next) { // last called middleware # let index = -1</description>
     </item>
     
     <item>
       <title>从 shim-array 说到 javascript 的一些问题</title>
-      <link>http://wpchou.github.io/post/2019-06-15-evil-shim-array/</link>
+      <link>https://wpchou.github.io/post/2019-06-15-evil-shim-array/</link>
       <pubDate>Sat, 15 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-06-15-evil-shim-array/</guid>
+      <guid>https://wpchou.github.io/post/2019-06-15-evil-shim-array/</guid>
       <description>我在两个旧的 javascript 项目都遇到一个很让人摸不着头脑的问题，使用数组的 find 无论能不能找到，总是返回 -1. 影响很大，不只自己的代码不能用，像 sequelize 这样的第三方包</description>
-    </item>
-    
-    <item>
-      <title>从 shim-array 说到 javascript 的一些问题</title>
-      <link>http://wpchou.github.io/post/2019-06-15-evil-shim-array.sync-conflict-20191127-235657-opstezq/</link>
-      <pubDate>Sat, 15 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/post/2019-06-15-evil-shim-array.sync-conflict-20191127-235657-opstezq/</guid>
-      <description>我在两个旧的 javascript 项目都遇到一个很让人摸不着头的问题，使用数组的 find 无论能不能找到，总是返回 -1. 影响很大，不只自己不能用，像 sequelize 这样的包也用不了。有一</description>
-    </item>
-    
-    <item>
-      <title>应用 typescript 严格模式</title>
-      <link>http://wpchou.github.io/post/2019-03-03-migrate-to-typescript-strict-mode/</link>
-      <pubDate>Sun, 03 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/post/2019-03-03-migrate-to-typescript-strict-mode/</guid>
-      <description>最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移</description>
     </item>
     
   </channel>

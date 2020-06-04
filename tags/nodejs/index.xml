@@ -2,50 +2,50 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>nodejs on /home/wpchou/blog</title>
-    <link>http://wpchou.github.io/tags/nodejs/</link>
+    <link>https://wpchou.github.io/tags/nodejs/</link>
     <description>Recent content in nodejs on /home/wpchou/blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>wenpin</copyright>
     <lastBuildDate>Thu, 07 Nov 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://wpchou.github.io/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://wpchou.github.io/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>如何使用 Sequelize (自动)管理数据库事务</title>
-      <link>http://wpchou.github.io/post/2019-11-07-sequelize-transaction/</link>
+      <link>https://wpchou.github.io/post/2019-11-07-sequelize-transaction/</link>
       <pubDate>Thu, 07 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-11-07-sequelize-transaction/</guid>
+      <guid>https://wpchou.github.io/post/2019-11-07-sequelize-transaction/</guid>
       <description>到目前为止，Sequelize 仍然是 nodejs 最成熟的 ORM 库。相关的文档有 manual 和 api rereference. 但老实说，写得不算好，manual 只能算 tutorial. api reference 也很多语焉不详，很多用</description>
     </item>
     
     <item>
-      <title>swagger 在 node 项目中的实践</title>
-      <link>http://wpchou.github.io/post/2019-10-28-swagger-practice/</link>
+      <title>swagger/openapi 在 node 项目中的实践</title>
+      <link>https://wpchou.github.io/post/2019-10-28-swagger-practice/</link>
       <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-10-28-swagger-practice/</guid>
+      <guid>https://wpchou.github.io/post/2019-10-28-swagger-practice/</guid>
       <description>Swagger, 现在也称 openapi, 定义了规范的 RESTFUL 接口文档标准，围绕这个标准产生了一个很丰富的生态圈。本文谈谈在 node 项目中应用这些工具的一些经验。 首先最基础的是 swagger 的文</description>
     </item>
     
     <item>
       <title>阅读 node-pool 源码</title>
-      <link>http://wpchou.github.io/post/2019-10-21-node-pool/</link>
+      <link>https://wpchou.github.io/post/2019-10-21-node-pool/</link>
       <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-10-21-node-pool/</guid>
+      <guid>https://wpchou.github.io/post/2019-10-21-node-pool/</guid>
       <description>简介 generic-pool 是一个基于 Promise 的资源管理器，适用于单位是整数个的资源对象，比如数据库连接数。调度算法支持简单的优先级和先进先出/先进后出策略。seque</description>
     </item>
     
     <item>
       <title>koa-compose</title>
-      <link>http://wpchou.github.io/post/2019-06-19-koa-compose/</link>
+      <link>https://wpchou.github.io/post/2019-06-19-koa-compose/</link>
       <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-06-19-koa-compose/</guid>
-      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 // compose :: [Context -&amp;gt; Next -&amp;gt; Promise] -&amp;gt; (Context -&amp;gt; Promise) function compose (middleware) { // validate middleware // .. return function (context, next) { // last called middleware # let index = -1 return dispatch(0) function dispatch (i) { if (i &amp;lt;= index) return Promise.reject(new</description>
+      <guid>https://wpchou.github.io/post/2019-06-19-koa-compose/</guid>
+      <description>koa 的精华统共就这么几行。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 // compose :: [Context -&amp;gt; Next -&amp;gt; Promise] -&amp;gt; (Context -&amp;gt; Promise) function compose (middleware) { // validate middleware // .. return function (context, next) { // last called middleware # let index = -1</description>
     </item>
     
   </channel>

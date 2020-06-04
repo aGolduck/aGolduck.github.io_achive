@@ -2,157 +2,157 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on /home/wpchou/blog</title>
-    <link>http://wpchou.github.io/tags/</link>
+    <link>https://wpchou.github.io/tags/</link>
     <description>Recent content in Tags on /home/wpchou/blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>wenpin</copyright>
-    <lastBuildDate>Sat, 29 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 18 May 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://wpchou.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://wpchou.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>zsh</title>
-      <link>http://wpchou.github.io/tags/zsh/</link>
-      <pubDate>Sat, 29 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/tags/zsh/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>node</title>
-      <link>http://wpchou.github.io/tags/node/</link>
-      <pubDate>Thu, 21 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/tags/node/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>npm</title>
-      <link>http://wpchou.github.io/tags/npm/</link>
-      <pubDate>Thu, 21 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/tags/npm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>mysql</title>
-      <link>http://wpchou.github.io/tags/mysql/</link>
-      <pubDate>Fri, 15 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/tags/mysql/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>nodejs</title>
-      <link>http://wpchou.github.io/tags/nodejs/</link>
-      <pubDate>Thu, 07 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/tags/nodejs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>sequelize</title>
-      <link>http://wpchou.github.io/tags/sequelize/</link>
-      <pubDate>Thu, 07 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/tags/sequelize/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>database</title>
-      <link>http://wpchou.github.io/tags/database/</link>
-      <pubDate>Thu, 31 Oct 2019 00:00:00 +0000</pubDate>
+      <link>https://wpchou.github.io/tags/database/</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/tags/database/</guid>
+      <guid>https://wpchou.github.io/tags/database/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>algorithm</title>
-      <link>http://wpchou.github.io/tags/algorithm/</link>
-      <pubDate>Tue, 29 Oct 2019 00:00:00 +0000</pubDate>
+      <title>ORM</title>
+      <link>https://wpchou.github.io/tags/orm/</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/tags/algorithm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>openapi</title>
-      <link>http://wpchou.github.io/tags/openapi/</link>
-      <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/tags/openapi/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>swagger</title>
-      <link>http://wpchou.github.io/tags/swagger/</link>
-      <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/tags/swagger/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>functional-programming</title>
-      <link>http://wpchou.github.io/tags/functional-programming/</link>
-      <pubDate>Tue, 27 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/tags/functional-programming/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>javascript</title>
-      <link>http://wpchou.github.io/tags/javascript/</link>
-      <pubDate>Tue, 27 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/tags/javascript/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>web</title>
-      <link>http://wpchou.github.io/tags/web/</link>
-      <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/tags/web/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>untag</title>
-      <link>http://wpchou.github.io/tags/untag/</link>
-      <pubDate>Sun, 09 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://wpchou.github.io/tags/untag/</guid>
+      <guid>https://wpchou.github.io/tags/orm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>git</title>
-      <link>http://wpchou.github.io/tags/git/</link>
-      <pubDate>Sun, 14 Apr 2019 00:00:00 +0000</pubDate>
+      <link>https://wpchou.github.io/tags/git/</link>
+      <pubDate>Tue, 14 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/tags/git/</guid>
+      <guid>https://wpchou.github.io/tags/git/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>typescript</title>
-      <link>http://wpchou.github.io/tags/typescript/</link>
-      <pubDate>Sun, 03 Mar 2019 00:00:00 +0000</pubDate>
+      <title>zsh</title>
+      <link>https://wpchou.github.io/tags/zsh/</link>
+      <pubDate>Sat, 29 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/tags/typescript/</guid>
+      <guid>https://wpchou.github.io/tags/zsh/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>node</title>
+      <link>https://wpchou.github.io/tags/node/</link>
+      <pubDate>Thu, 21 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/tags/node/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>npm</title>
+      <link>https://wpchou.github.io/tags/npm/</link>
+      <pubDate>Thu, 21 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/tags/npm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mysql</title>
+      <link>https://wpchou.github.io/tags/mysql/</link>
+      <pubDate>Fri, 15 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nodejs</title>
+      <link>https://wpchou.github.io/tags/nodejs/</link>
+      <pubDate>Thu, 07 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/tags/nodejs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sequelize</title>
+      <link>https://wpchou.github.io/tags/sequelize/</link>
+      <pubDate>Thu, 07 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/tags/sequelize/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>algorithm</title>
+      <link>https://wpchou.github.io/tags/algorithm/</link>
+      <pubDate>Tue, 29 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/tags/algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>openapi</title>
+      <link>https://wpchou.github.io/tags/openapi/</link>
+      <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/tags/openapi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>swagger</title>
+      <link>https://wpchou.github.io/tags/swagger/</link>
+      <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/tags/swagger/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>functional-programming</title>
+      <link>https://wpchou.github.io/tags/functional-programming/</link>
+      <pubDate>Tue, 27 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/tags/functional-programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>javascript</title>
+      <link>https://wpchou.github.io/tags/javascript/</link>
+      <pubDate>Tue, 27 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web</title>
+      <link>https://wpchou.github.io/tags/web/</link>
+      <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/tags/web/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untag</title>
+      <link>https://wpchou.github.io/tags/untag/</link>
+      <pubDate>Sun, 09 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/tags/untag/</guid>
       <description></description>
     </item>
     

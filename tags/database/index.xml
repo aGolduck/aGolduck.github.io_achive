@@ -2,40 +2,49 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>database on /home/wpchou/blog</title>
-    <link>http://wpchou.github.io/tags/database/</link>
+    <link>https://wpchou.github.io/tags/database/</link>
     <description>Recent content in database on /home/wpchou/blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>wenpin</copyright>
-    <lastBuildDate>Thu, 31 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 18 May 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://wpchou.github.io/tags/database/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://wpchou.github.io/tags/database/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>数据库自动迁移</title>
+      <link>https://wpchou.github.io/post/2020-05-18-atomic-ddl/</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2020-05-18-atomic-ddl/</guid>
+      <description>在小型应用以及应用原型快速开发阶段，关系数据库表定义 自动迁移是非常方便的特性。现在成熟的 ORM 都有所支持。 以 typorm 为例，一般来说，我们进行一次成功的</description>
+    </item>
+    
+    <item>
       <title>并发请求与 MySQL 事务隔离</title>
-      <link>http://wpchou.github.io/post/2019-10-31-mysql-isolation-level/</link>
+      <link>https://wpchou.github.io/post/2019-10-31-mysql-isolation-level/</link>
       <pubDate>Thu, 31 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-10-31-mysql-isolation-level/</guid>
+      <guid>https://wpchou.github.io/post/2019-10-31-mysql-isolation-level/</guid>
       <description>旧文一则，记录处理数据异常的过程，借此阐述 MySQL 事务隔离的一些相关概念。 问题 在线做题是公司一个重要的业务。同一个用户可以对一张试卷(testpa</description>
     </item>
     
     <item>
       <title>从「浮点数排序法」说到数的类型</title>
-      <link>http://wpchou.github.io/post/2019-10-29-sort-by-double/</link>
+      <link>https://wpchou.github.io/post/2019-10-29-sort-by-double/</link>
       <pubDate>Tue, 29 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-10-29-sort-by-double/</guid>
+      <guid>https://wpchou.github.io/post/2019-10-29-sort-by-double/</guid>
       <description>在开发管理界面时，经常会遇到这样的简单需求：对一串元素的列表进行手工排序并持久化。通常的做法是给每个元素加一个序号的字段，排序的时候就像数组</description>
     </item>
     
     <item>
       <title>最左前缀原则</title>
-      <link>http://wpchou.github.io/post/2019-06-13-left-prefix-index-rule/</link>
+      <link>https://wpchou.github.io/post/2019-06-13-left-prefix-index-rule/</link>
       <pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-06-13-left-prefix-index-rule/</guid>
+      <guid>https://wpchou.github.io/post/2019-06-13-left-prefix-index-rule/</guid>
       <description>数据库的索引有个最左前缀原则，英文称为 Left-Prefix Index Rule, 意即如果某个表有 &amp;lt;k1, k2,..., kn&amp;gt; 的复合键顺序索引，那么它逻辑上同时也有 &amp;lt;k1&amp;gt;, &amp;lt;k1, k2&amp;gt;, &amp;hellip;, &amp;lt;k1, k2, ..., km&amp;gt; (m &amp;lt; n) 等最左前缀的索</description>
     </item>
     

@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>swagger on /home/wpchou/blog</title>
-    <link>http://wpchou.github.io/tags/swagger/</link>
+    <link>https://wpchou.github.io/tags/swagger/</link>
     <description>Recent content in swagger on /home/wpchou/blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>wenpin</copyright>
     <lastBuildDate>Mon, 28 Oct 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://wpchou.github.io/tags/swagger/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://wpchou.github.io/tags/swagger/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>swagger 在 node 项目中的实践</title>
-      <link>http://wpchou.github.io/post/2019-10-28-swagger-practice/</link>
+      <title>swagger/openapi 在 node 项目中的实践</title>
+      <link>https://wpchou.github.io/post/2019-10-28-swagger-practice/</link>
       <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-10-28-swagger-practice/</guid>
+      <guid>https://wpchou.github.io/post/2019-10-28-swagger-practice/</guid>
       <description>Swagger, 现在也称 openapi, 定义了规范的 RESTFUL 接口文档标准，围绕这个标准产生了一个很丰富的生态圈。本文谈谈在 node 项目中应用这些工具的一些经验。 首先最基础的是 swagger 的文</description>
     </item>
     
     <item>
       <title>Bypass quirk of Swagger-UI try-it-out</title>
-      <link>http://wpchou.github.io/post/2019-07-11-swagger-ui-try-it-out/</link>
+      <link>https://wpchou.github.io/post/2019-07-11-swagger-ui-try-it-out/</link>
       <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://wpchou.github.io/post/2019-07-11-swagger-ui-try-it-out/</guid>
+      <guid>https://wpchou.github.io/post/2019-07-11-swagger-ui-try-it-out/</guid>
       <description>Swagger-UI 有一个很有用的特性，就是可以用 Try it out 按钮直接试用，配置好授权策略以后，还可以直接使用登陆态。但是我自己在使用的过程中经常会遇到一个问题。经</description>
     </item>
     

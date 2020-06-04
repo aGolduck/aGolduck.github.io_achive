@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>从「浮点数排序法」说到数的类型 - /home/wpchou/blog</title>
+  <title>正确使用 git revert - /home/wpchou/blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="wenpin" /><meta name="description" content="在开发管理界面时，经常会遇到这样的简单需求：对一串元素的列表进行手工排序并持久化。通常的做法是给每个元素加一个序号的字段，排序的时候就像数组" /><meta name="keywords" content="IT, blog" />
+<meta name="author" content="wenpin" /><meta name="description" content="最近同事不小心把没测试过特性分支 F 的代码合并到主分支 M 上了，就从 M 上切了个热 补丁分支 H，做了个 revert 操作合并到 M 上去了。之后要布署 F 到开发分支 D" /><meta name="keywords" content="IT, blog" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.68.3 with theme even" />
 
 
-<link rel="canonical" href="https://wpchou.github.io/post/2019-10-29-sort-by-double/" />
+<link rel="canonical" href="https://wpchou.github.io/post/2020-04-14-git-revert-done-right/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -39,23 +39,23 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="从「浮点数排序法」说到数的类型" />
-<meta property="og:description" content="在开发管理界面时，经常会遇到这样的简单需求：对一串元素的列表进行手工排序并持久化。通常的做法是给每个元素加一个序号的字段，排序的时候就像数组" />
+<meta property="og:title" content="正确使用 git revert" />
+<meta property="og:description" content="最近同事不小心把没测试过特性分支 F 的代码合并到主分支 M 上了，就从 M 上切了个热 补丁分支 H，做了个 revert 操作合并到 M 上去了。之后要布署 F 到开发分支 D" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://wpchou.github.io/post/2019-10-29-sort-by-double/" />
-<meta property="article:published_time" content="2019-10-29T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-06-01T20:54:20+08:00" />
-<meta itemprop="name" content="从「浮点数排序法」说到数的类型">
-<meta itemprop="description" content="在开发管理界面时，经常会遇到这样的简单需求：对一串元素的列表进行手工排序并持久化。通常的做法是给每个元素加一个序号的字段，排序的时候就像数组">
-<meta itemprop="datePublished" content="2019-10-29T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-06-01T20:54:20&#43;08:00" />
-<meta itemprop="wordCount" content="860">
+<meta property="og:url" content="https://wpchou.github.io/post/2020-04-14-git-revert-done-right/" />
+<meta property="article:published_time" content="2020-04-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-06-04T23:19:57+08:00" />
+<meta itemprop="name" content="正确使用 git revert">
+<meta itemprop="description" content="最近同事不小心把没测试过特性分支 F 的代码合并到主分支 M 上了，就从 M 上切了个热 补丁分支 H，做了个 revert 操作合并到 M 上去了。之后要布署 F 到开发分支 D">
+<meta itemprop="datePublished" content="2020-04-14T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-06-04T23:19:57&#43;08:00" />
+<meta itemprop="wordCount" content="142">
 
 
 
-<meta itemprop="keywords" content="algorithm,database," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="从「浮点数排序法」说到数的类型"/>
-<meta name="twitter:description" content="在开发管理界面时，经常会遇到这样的简单需求：对一串元素的列表进行手工排序并持久化。通常的做法是给每个元素加一个序号的字段，排序的时候就像数组"/>
+<meta itemprop="keywords" content="git," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="正确使用 git revert"/>
+<meta name="twitter:description" content="最近同事不小心把没测试过特性分支 F 的代码合并到主分支 M 上了，就从 M 上切了个热 补丁分支 H，做了个 revert 操作合并到 M 上去了。之后要布署 F 到开发分支 D"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -118,10 +118,10 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">从「浮点数排序法」说到数的类型</h1>
+      <h1 class="post-title">正确使用 git revert</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2019-10-29 </span>
+        <span class="post-time"> 2020-04-14 </span>
         
         
       </div>
@@ -134,15 +134,10 @@
   </div>
 </div>
     <div class="post-content">
-      <p>在开发管理界面时，经常会遇到这样的简单需求：对一串元素的列表进行手工排序并持久化。通常的做法是给每个元素加一个序号的字段，排序的时候就像数组插入一样，把目标元素的初始位置和目标位置中间的元素往目标元素的初始位置的方向挪──即重新编号，然后把目标元素插到目标位置上。我一直都觉得这样特别蠢，明明只是要移动一个元素，却要向数据库写几条甚至十几条数据。有没有什么办法减少数据库写入量的方法呢？</p>
-<p>如果是内存数据的话，我们很容易想到链表结构。但是在这里是不适合的，因为列表经常会有分页的需求，一个简单可排序的字段仍然是需要的。</p>
-<p>再来看下这个序号字段的意义在哪里。第一是用大小作为排序的依据，第二是序号。如果只是序号的功能，是不需要这个字段的，因为从数据库拿出来后是自然排序的，加上序号的功能非常简单。那么这个序号字段可以转化为权重字段。一个元素移动到新的位置实际上只由目标位置的前一个元素的权重和后一个元素的权重决定。问题在于位置1和位置2中间可没有位置1.5. 那么只要这个权重是浮点数就好了！Problem Solved!</p>
-<p>这里引申开来一个问题：为什么使用浮点数就可以解决这个问题呢？本质上是因为实数域是无限可分的。1.5 之后还有 1.25, 1.75, 还有 1.125, 1.875&hellip; 程序员在数的类型的设置上往往是经验式的不假思索的。有小数点用浮点，没有小数点用整型。然后就出现各种各样幼稚的问题。</p>
-<p>JS 为什么莫名其妙地把我的 ID 的个位数和十位数搞丢了？</p>
-<p>为什么金额结算的时候总是少几分钱？</p>
-<p>很多新手都没有意识到 JS 的数字是浮点数，运算的时候是会出现精度运算的问题的。在大整数和金额运算的时候都是不可容忍的。</p>
-<p>对特殊领域的建模，甚至是需要考虑到一些代数结构（群环域…）的性质──表示我也只是在知乎上看过一些举例。</p>
-<p>回到原来的问题。浮点数和实数还是有区别的。浮点数毕竟是有精度的，不是无限可分的。根据定义，双精度浮点数用 11 位数表示表示指数，52  数表示数值，可以估算，在同一位置连续插入约 2^11 次后，前后元素的数值差就趋于 0 了。这个数字已经相当可观了。可以设定一个次数阀值，到达之后重置列表所有元素的权重大小即可。</p>
+      <p>最近同事不小心把没测试过特性分支 F 的代码合并到主分支 M 上了，就从 M 上切了个热
+补丁分支 H，做了个 revert 操作合并到 M 上去了。之后要布署 F 到开发分支 D 上时，
+先合并  M 到 D 做了下同步，然后就发现 F 死活合不到 D 上。明明两边的代码不一样，但是
+就是合不上，不只合不上，github 上显示没有什么需要合的。</p>
 
     </div>
 
@@ -154,8 +149,8 @@
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2020-06-01
-        <a href="https://github.com/wpchou/blog/commit/9615527298b5b8bb4d252ac182519e35d3d5e233" title="import jekyll posts">(9615527)</a>
+        2020-06-04
+        <a href="https://github.com/wpchou/blog/commit/ee93564466a772d7e8b997e06e2f4bad91a8eb47" title="fix posts">(ee93564)</a>
     </span>
   </p>
   
@@ -166,17 +161,16 @@
 </div>
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/algorithm/">algorithm</a>
-          <a href="/tags/database/">database</a>
+          <a href="/tags/git/">git</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/2019-10-31-mysql-isolation-level/">
+        <a class="prev" href="/post/2020-05-15-integrate-sofa-into-nestjs/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">并发请求与 MySQL 事务隔离</span>
+            <span class="prev-text nav-default">集成 SOFA 到 nestjs</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/2019-10-28-swagger-practice/">
-            <span class="next-text nav-default">swagger/openapi 在 node 项目中的实践</span>
+        <a class="next" href="/post/2020-02-29-debug-zsh-enviroment/">
+            <span class="next-text nav-default">oh-my-zsh gnu_utils 升级导致提示符路径名消失</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>

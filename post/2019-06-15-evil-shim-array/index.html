@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="wenpin" /><meta name="description" content="我在两个旧的 javascript 项目都遇到一个很让人摸不着头脑的问题，使用数组的 find 无论能不能找到，总是返回 -1. 影响很大，不只自己的代码不能用，像 sequelize 这样的第三方包" /><meta name="keywords" content="technic" />
+<meta name="author" content="wenpin" /><meta name="description" content="我在两个旧的 javascript 项目都遇到一个很让人摸不着头脑的问题，使用数组的 find 无论能不能找到，总是返回 -1. 影响很大，不只自己的代码不能用，像 sequelize 这样的第三方包" /><meta name="keywords" content="IT, blog" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.68.3 with theme even" />
 
 
-<link rel="canonical" href="http://wpchou.github.io/post/2019-06-15-evil-shim-array/" />
+<link rel="canonical" href="https://wpchou.github.io/post/2019-06-15-evil-shim-array/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -35,20 +35,20 @@
 
 
 
-<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="从 shim-array 说到 javascript 的一些问题" />
 <meta property="og:description" content="我在两个旧的 javascript 项目都遇到一个很让人摸不着头脑的问题，使用数组的 find 无论能不能找到，总是返回 -1. 影响很大，不只自己的代码不能用，像 sequelize 这样的第三方包" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://wpchou.github.io/post/2019-06-15-evil-shim-array/" />
+<meta property="og:url" content="https://wpchou.github.io/post/2019-06-15-evil-shim-array/" />
 <meta property="article:published_time" content="2019-06-15T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-06-01T20:54:20+08:00" />
+<meta property="article:modified_time" content="2020-06-04T23:19:57+08:00" />
 <meta itemprop="name" content="从 shim-array 说到 javascript 的一些问题">
 <meta itemprop="description" content="我在两个旧的 javascript 项目都遇到一个很让人摸不着头脑的问题，使用数组的 find 无论能不能找到，总是返回 -1. 影响很大，不只自己的代码不能用，像 sequelize 这样的第三方包">
 <meta itemprop="datePublished" content="2019-06-15T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-06-01T20:54:20&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-04T23:19:57&#43;08:00" />
 <meta itemprop="wordCount" content="580">
 
 
@@ -70,7 +70,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">/home/wpchou/site</a>
+    <a href="/" class="logo">/home/wpchou/blog</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -94,7 +94,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">/home/wpchou/site</a>
+  <a href="/" class="logo">/home/wpchou/blog</a>
 </div>
 
 <nav class="site-navbar">
@@ -136,7 +136,7 @@
     <div class="post-content">
       <p>我在两个旧的 javascript 项目都遇到一个很让人摸不着头脑的问题，使用数组的 <code>find</code> 无论能不能找到，总是返回 <code>-1</code>. 影响很大，不只自己的代码不能用，像 <code>sequelize</code> 这样的第三方包也用不了。有一段时间只能放弃，后来花了很长时间终于搞明白了是一个叫 <code>collections</code> 的依赖包使用所谓的 <code>shim-array</code> 覆盖修改了 <code>Array.prototype.find</code>, 使得所有的数组的行为都发生了改变。因为以前从来没有遇到过这种修改全局对象的情况，所以都没有起疑过是这里出了问题。</p>
 <p>项目需要导出 excel 表格，于是就用了 <code>excel-export</code> 包，<code>excel-export</code> 又依赖于 <code>collections</code>. 这都是相当老的项目了，至少在 es6 标准出来之前就存在的。两个包都是将近废弃的状态。但是现在仍有每周几万的下载量。事情的缘起在于在 es6 之前内置库的功能比较弱，所以 <code>collections</code> 就用直接修改 <code>prototype</code> 方法增强内置对象，加了个 <code>find</code> 方法，没想到 es6 自个儿给加上了。</p>
-<p>虽然理论上可以这么做，但是第一次碰到有人真在代码实践中这么做真是大跌眼镜。这真可以算是 javascript 天生的缺陷了。<code>修改内置全局</code>对象这样的事情都有人做。这样的包还有人用。有 <code>lodash</code> 这样的包在，还会有人用这种三角猫的包。也许 javascript 标准应该在这上面做些什么。</p>
+<p>虽然理论上可以这么做，但是第一次碰到有人真在代码实践中这么做真是大跌眼镜。这真可以算是 javascript 天生的缺陷了。<code>修改内置全局对象</code>这样的事情都有人做。这样的包还有人用。有 <code>lodash</code> 这样的包在，还会有人用这种三角猫的包。也许 javascript 标准应该在这上面做些什么。</p>
 <p>看这两个包的下载量，就可以看到多蠢的包都会有很多人在用。有直接的，也有间接的。<code>npm 包质量参差不齐</code>一直都是个问题，依赖层级又都很深，使用第三方包一定要慎之又慎。</p>
 <p>代码三五年不更新，在有些语言像 C 语言来看根本就不是事。但在 javascript 这儿，却让代码用不上一些重要的包。<code>代码腐化的速度实在是太快了</code>。</p>
 
@@ -150,25 +150,28 @@
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2020-06-01
-        <a href="https://github.com/wpchou/blog.git/commit/9615527298b5b8bb4d252ac182519e35d3d5e233" title="import jekyll posts">(9615527)</a>
+        2020-06-04
+        <a href="https://github.com/wpchou/blog/commit/ee93564466a772d7e8b997e06e2f4bad91a8eb47" title="fix posts">(ee93564)</a>
     </span>
   </p>
   
-  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
 </div>
 <footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/javascript/">javascript</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/2019-06-19-koa-compose.sync-conflict-20191127-235620-opstezq/">
+        <a class="prev" href="/post/2019-06-19-koa-compose/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">koa-compose</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/2019-06-15-evil-shim-array.sync-conflict-20191127-235657-opstezq/">
-            <span class="next-text nav-default">从 shim-array 说到 javascript 的一些问题</span>
+        <a class="next" href="/post/2019-06-13-left-prefix-index-rule/">
+            <span class="next-text nav-default">最左前缀原则</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -210,7 +213,7 @@
       <div class="social-links">
       <a href="wpchou@outlook.com.com" class="iconfont icon-email" title="email"></a>
       <a href="http://github.com/wpchou" class="iconfont icon-github" title="github"></a>
-  <a href="http://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">

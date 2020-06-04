@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="wenpin" /><meta name="description" content="极客时间上林晓斌的《MySQL 实战 45 讲》针对日常开发碰到的常见问题都有非常高的实践指导意义，虽然说在这一系列文章也简述了一些数据库原理，但要" /><meta name="keywords" content="technic" />
+<meta name="author" content="wenpin" /><meta name="description" content="极客时间上林晓斌的《MySQL 实战 45 讲》针对日常开发碰到的常见问题都有非常高的实践指导意义，虽然说在这一系列文章也简述了一些数据库原理，但要" /><meta name="keywords" content="IT, blog" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.68.3 with theme even" />
 
 
-<link rel="canonical" href="http://wpchou.github.io/post/2019-07-28-mysql-practice/" />
+<link rel="canonical" href="https://wpchou.github.io/post/2019-07-28-mysql-practice/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -35,21 +35,21 @@
 
 
 
-<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="《MySQL 实战 45 讲》拾遗" />
 <meta property="og:description" content="极客时间上林晓斌的《MySQL 实战 45 讲》针对日常开发碰到的常见问题都有非常高的实践指导意义，虽然说在这一系列文章也简述了一些数据库原理，但要" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://wpchou.github.io/post/2019-07-28-mysql-practice/" />
+<meta property="og:url" content="https://wpchou.github.io/post/2019-07-28-mysql-practice/" />
 <meta property="article:published_time" content="2019-07-28T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-06-01T20:54:20+08:00" />
+<meta property="article:modified_time" content="2020-06-04T23:19:57+08:00" />
 <meta itemprop="name" content="《MySQL 实战 45 讲》拾遗">
 <meta itemprop="description" content="极客时间上林晓斌的《MySQL 实战 45 讲》针对日常开发碰到的常见问题都有非常高的实践指导意义，虽然说在这一系列文章也简述了一些数据库原理，但要">
 <meta itemprop="datePublished" content="2019-07-28T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-06-01T20:54:20&#43;08:00" />
-<meta itemprop="wordCount" content="2555">
+<meta itemprop="dateModified" content="2020-06-04T23:19:57&#43;08:00" />
+<meta itemprop="wordCount" content="2551">
 
 
 
@@ -70,7 +70,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">/home/wpchou/site</a>
+    <a href="/" class="logo">/home/wpchou/blog</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -94,7 +94,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">/home/wpchou/site</a>
+  <a href="/" class="logo">/home/wpchou/blog</a>
 </div>
 
 <nav class="site-navbar">
@@ -157,10 +157,10 @@
     <div class="post-content">
       <p>极客时间上林晓斌的《MySQL 实战 45 讲》针对日常开发碰到的常见问题都有非常高的实践指导意义，虽然说在这一系列文章也简述了一些数据库原理，但要把整个系列的文章消化下来还是要具备相当的数据库基础。我是在看过下面几本书才看这个系列文章的，一来使得理解起文章中的例子相对轻松，二来有了具体的可操作实例，对照起书中的原理，也经常有恍然大明白的感觉。</p>
 <ul>
-<li>罗摩克里希纳. 数据库管理系统原理与设计. 清华大学出版社, 2003. <a href="http://book.douban.com/subject/1146233/">http://book.douban.com/subject/1146233/</a>.</li>
-<li>施瓦茨, 扎伊采夫, and 特卡琴科. 高性能MySQL. Translated by 宁海元, 周振兴, 彭立勋, and 翟卫祥刘辉. 电子工业出版社, 2013. <a href="https://book.douban.com/subject/23008813/">https://book.douban.com/subject/23008813/</a>.</li>
-<li>姜承尧. MySQL技术内幕. 机械工业出版社, 2010. <a href="https://book.douban.com/subject/5373022/">https://book.douban.com/subject/5373022/</a>.</li>
-<li>MICK, ［ 日］. SQL进阶教程. Translated by 吴炎昌. 人民邮电出版社, 2017. <a href="https://book.douban.com/subject/27194738/">https://book.douban.com/subject/27194738/</a>.</li>
+<li><a href="http://book.douban.com/subject/1146233/">罗摩克里希纳. 数据库管理系统原理与设计. 清华大学出版社, 2003.</a></li>
+<li><a href="https://book.douban.com/subject/23008813/">施瓦茨, 扎伊采夫, and 特卡琴科. 高性能MySQL. Translated by 宁海元, 周振兴, 彭立勋, and 翟卫祥刘辉. 电子工业出版社, 2013.</a></li>
+<li><a href="https://book.douban.com/subject/5373022/">姜承尧. MySQL技术内幕. 机械工业出版社, 2010.</a></li>
+<li><a href="https://book.douban.com/subject/27194738/">MICK, ［ 日］. SQL进阶教程. Translated by 吴炎昌. 人民邮电出版社, 2017.</a></li>
 </ul>
 <p>下面并不是非常详细的笔记，仅仅是记录个人在学习中认为需要注意的一些点。</p>
 <h2 id="02-日志系统">02 日志系统</h2>
@@ -230,13 +230,13 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-sql" data-lang="sql"><span class="cm">/* 打开 optimizer_trace，只对本线程有效 */</span>
-<span class="k">SET</span> <span class="n">optimizer_trace</span><span class="o">=</span><span class="s1">&#39;enabled=on&#39;</span><span class="p">;</span> 
+<span class="k">SET</span> <span class="n">optimizer_trace</span><span class="o">=</span><span class="s1">&#39;enabled=on&#39;</span><span class="p">;</span>
 
 <span class="cm">/* @a 保存 Innodb_rows_read 的初始值 */</span>
 <span class="k">select</span> <span class="n">VARIABLE_VALUE</span> <span class="k">into</span> <span class="o">@</span><span class="n">a</span> <span class="k">from</span>  <span class="n">performance_schema</span><span class="p">.</span><span class="n">session_status</span> <span class="k">where</span> <span class="n">variable_name</span> <span class="o">=</span> <span class="s1">&#39;Innodb_rows_read&#39;</span><span class="p">;</span>
 
 <span class="cm">/* 执行语句 */</span>
-<span class="k">select</span> <span class="n">city</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span><span class="n">age</span> <span class="k">from</span> <span class="n">t</span> <span class="k">where</span> <span class="n">city</span><span class="o">=</span><span class="s1">&#39;杭州&#39;</span> <span class="k">order</span> <span class="k">by</span> <span class="n">name</span> <span class="k">limit</span> <span class="mi">1000</span><span class="p">;</span> 
+<span class="k">select</span> <span class="n">city</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span><span class="n">age</span> <span class="k">from</span> <span class="n">t</span> <span class="k">where</span> <span class="n">city</span><span class="o">=</span><span class="s1">&#39;杭州&#39;</span> <span class="k">order</span> <span class="k">by</span> <span class="n">name</span> <span class="k">limit</span> <span class="mi">1000</span><span class="p">;</span>
 
 <span class="cm">/* 查看 OPTIMIZER_TRACE 输出 */</span>
 <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">information_schema</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">OPTIMIZER_TRACE</span><span class="o">`</span><span class="err">\</span><span class="k">G</span>
@@ -403,12 +403,15 @@ bug: 唯一索引上的范围查询会访问到不满足条件的第一个值为
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2020-06-01
-        <a href="https://github.com/wpchou/blog.git/commit/9615527298b5b8bb4d252ac182519e35d3d5e233" title="import jekyll posts">(9615527)</a>
+        2020-06-04
+        <a href="https://github.com/wpchou/blog/commit/ee93564466a772d7e8b997e06e2f4bad91a8eb47" title="fix posts">(ee93564)</a>
     </span>
   </p>
   
-  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
 </div>
 <footer class="post-footer">
       <div class="post-tags">
@@ -420,8 +423,8 @@ bug: 唯一索引上的范围查询会访问到不满足条件的第一个值为
             <span class="prev-text nav-default">从 js 神奇的 map 说到函数的元数</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/2019-07-28-mysql-practice.sync-conflict-20191127-235650-opstezq/">
-            <span class="next-text nav-default">《MySQL 实战 45 讲》拾遗</span>
+        <a class="next" href="/post/2019-07-11-swagger-ui-try-it-out/">
+            <span class="next-text nav-default">Bypass quirk of Swagger-UI try-it-out</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -463,7 +466,7 @@ bug: 唯一索引上的范围查询会访问到不满足条件的第一个值为
       <div class="social-links">
       <a href="wpchou@outlook.com.com" class="iconfont icon-email" title="email"></a>
       <a href="http://github.com/wpchou" class="iconfont icon-github" title="github"></a>
-  <a href="http://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
