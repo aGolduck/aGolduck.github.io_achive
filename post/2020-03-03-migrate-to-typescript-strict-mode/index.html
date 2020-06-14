@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>应用 typescript 严格模式 - /home/wpchou/blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="wenpin" /><meta name="description" content="最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移" /><meta name="keywords" content="IT, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.68.3 with theme even" />
+
+
+<link rel="canonical" href="https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="应用 typescript 严格模式" />
+<meta property="og:description" content="最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/" />
+<meta property="article:published_time" content="2019-03-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-03-03T00:00:00+00:00" />
+<meta itemprop="name" content="应用 typescript 严格模式">
+<meta itemprop="description" content="最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移">
+<meta itemprop="datePublished" content="2019-03-03T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-03-03T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="651">
+
+
+
+<meta itemprop="keywords" content="typescript,javascript," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="应用 typescript 严格模式"/>
+<meta name="twitter:description" content="最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">/home/wpchou/blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">/home/wpchou/blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">应用 typescript 严格模式</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-03-03 </span>
+        <div class="post-category">
+            <a href="/categories/javascript/"> javascript </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#noimplicitany">noImplicitAny</a>
+      <ul>
+        <li><a href="#中间结果是-any-类型">中间结果是 any 类型</a></li>
+        <li><a href="#ts7053-element-implicitly-has-an-any-type-because-expression-of-type-string-cant-be-used-to-index-type-xxx">TS7053 Element implicitly has an ‘any’ type because expression of type ‘string’ can’t be used to index type xxx</a></li>
+        <li><a href="#复杂的类型对应">复杂的类型对应</a></li>
+      </ul>
+    </li>
+    <li><a href="#strictnullchecks">strictNullChecks</a>
+      <ul>
+        <li><a href="#ts2366-function-lacks-ending-return-statement-and-return-type-does-not-include-undefined">TS2366: Function lacks ending return statement and return type does not include &lsquo;undefined&rsquo;</a></li>
+        <li><a href="#ts2532-object-is-possibly-undefined">TS2532: Object is possibly &lsquo;undefined&rsquo;</a></li>
+      </ul>
+    </li>
+    <li><a href="#strictfunctiontypes">strictFunctionTypes</a></li>
+    <li><a href="#strictbindcallapply">strictBindCallApply</a></li>
+    <li><a href="#strictpropertyinitialization">strictPropertyInitialization</a></li>
+    <li><a href="#noimplicitthis">noImplicitThis</a></li>
+    <li><a href="#alwaysstrict">alwaysStrict</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移中遇到的问题和解决方法。</p>
+<h2 id="noimplicitany">noImplicitAny</h2>
+<p>必须显式声明 any 类型。该选项促使你尽可能地显式声明类型，避免 any 类型的出现。一般情况下，要么选择合适的类型，要么加上 any 声明就好。遇到两个比较棘手的问题。</p>
+<h3 id="中间结果是-any-类型">中间结果是 any 类型</h3>
+<p>有时 typescript 无法推断出表达式的结果类型，错误日志标示整个表达式的类型无法推断, 这时候需要稍微改造代码，将表达式赋值到声明为 any 类型的中间变量。</p>
+<h3 id="ts7053-element-implicitly-has-an-any-type-because-expression-of-type-string-cant-be-used-to-index-type-xxx">TS7053 Element implicitly has an ‘any’ type because expression of type ‘string’ can’t be used to index type xxx</h3>
+<p>这种情况下需要声明索引的类型是 key of 被索引的目标的类型</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">class</span> <span class="nx">A</span> <span class="p">{</span>
+  <span class="nx">a</span>: <span class="kt">number</span>
+  <span class="nx">b</span>: <span class="kt">string</span>
+<span class="p">}</span>
+<span class="kr">const</span> <span class="nx">o</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">()</span>
+<span class="kr">const</span> <span class="nx">property</span>: <span class="kt">keyof</span> <span class="nx">A</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">o</span><span class="p">[</span><span class="nx">property</span><span class="p">])</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="复杂的类型对应">复杂的类型对应</h3>
+<p>本质上这涉及到一个复杂的映身关系。对于对象A，它的每个属性p类型t(p)都是已知的，而且对象B有对应的属性(q)，类型是s(t(p))，怎么让编译器知道这个对应关系。</p>
+<h2 id="strictnullchecks">strictNullChecks</h2>
+<h3 id="ts2366-function-lacks-ending-return-statement-and-return-type-does-not-include-undefined">TS2366: Function lacks ending return statement and return type does not include &lsquo;undefined&rsquo;</h3>
+<p>一般是有分支死区，加上异常处理</p>
+<h3 id="ts2532-object-is-possibly-undefined">TS2532: Object is possibly &lsquo;undefined&rsquo;</h3>
+<p>typesrcipt 不获取任何运行时信息，有时显得非常蠢。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">const</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span>: <span class="kt">1</span><span class="p">}</span>
+<span class="kr">const</span> <span class="nx">k</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">o</span><span class="p">[</span><span class="nx">k</span><span class="p">])</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">o</span><span class="p">[</span><span class="nx">k</span><span class="p">].</span><span class="nx">toString</span><span class="p">())</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>尽管已经有非空判断了，还是会报 o[k] 可能 undefined 错误，强制 <code>o[k]!.toString()</code> 就好</p>
+<h2 id="strictfunctiontypes">strictFunctionTypes</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ts" data-lang="ts">       <span class="p">[[</span><span class="s1">&#39;detailImages&#39;</span><span class="p">,</span> <span class="s1">&#39;detailImagesJoined&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="s1">&#39;sellingPoints&#39;</span><span class="p">,</span> <span class="s1">&#39;sellingPointsJoined&#39;</span><span class="p">]</span>
+       <span class="p">].</span><span class="nx">forEach</span><span class="p">(</span>
+         <span class="p">([</span><span class="nx">list</span><span class="p">,</span> <span class="nx">joined</span><span class="p">]</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;detailImages&#39;</span> <span class="o">|</span> <span class="s1">&#39;sellingPoints&#39;</span><span class="p">,</span> <span class="s1">&#39;detailImagesJoined&#39;</span> <span class="o">|</span> <span class="s1">&#39;sellingPointsJoined&#39;</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="p">{</span>
+           <span class="nx">job</span><span class="p">[</span><span class="nx">joined</span><span class="p">]</span> <span class="o">=</span> <span class="nx">newJob</span><span class="p">[</span><span class="nx">list</span><span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+         <span class="p">}</span>
+       <span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">error TS2345: Argument of type &#39;([list, joined]: [&#34;detailImages&#34; | &#34;sellingPoints&#34;, &#34;detailImagesJoined&#34; | &#34;sellingPointsJoined&#34;]) =&gt; void&#39; is not assignable to parameter of type &#39;(value: string[], index: number, array: string[][]) =&gt; void&#39;.
+  Types of parameters &#39;__0&#39; and &#39;value&#39; are incompatible.
+    Type &#39;string[]&#39; is missing the following properties from type &#39;[&#34;detailImages&#34; | &#34;sellingPoints&#34;, &#34;detailImagesJoined&#34; | &#34;sellingPointsJoined&#34;]&#39;: 0, 1
+</code></pre></td></tr></table>
+</div>
+</div><p>可能与之前一篇博文 forEach 可选参数 index, array 相关。暂时用 for &hellip; of 绕过</p>
+<h2 id="strictbindcallapply">strictBindCallApply</h2>
+<h2 id="strictpropertyinitialization">strictPropertyInitialization</h2>
+<p>TS2564: Property &lsquo;name&rsquo; has no initializer and is not definitely assigned in the constructor.</p>
+<p>大量 typeorm, graphql 注入类。使用 !: 就好了。</p>
+<h2 id="noimplicitthis">noImplicitThis</h2>
+<h2 id="alwaysstrict">alwaysStrict</h2>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">wenpin</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-03-03
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/typescript/">typescript</a>
+          <a href="/tags/javascript/">javascript</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/2019-06-09-hello-world/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Hello, World</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'wenpin_chou';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="wpchou/blog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="wpchou@outlook.com.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://github.com/wpchou" class="iconfont icon-github" title="github"></a>
+  <a href="https://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">wenpin</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-168437876-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>javascript on /home/wpchou/blog</title>
+    <link>https://wpchou.github.io/categories/javascript/</link>
+    <description>Recent content in javascript on /home/wpchou/blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>wenpin</copyright>
+    <lastBuildDate>Fri, 15 May 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://wpchou.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>集成 SOFA 到 nestjs</title>
+      <link>https://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/</link>
+      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/</guid>
+      <description>https://github.com/Urigo/SOFA 是一个 express 中间件， 可以将 graphql 查询转换成 restful 的 api. 最近将其集成到 nestjs 的时候遇到一些问题，下面记录下解决的过程。 有人在 SOFA github 的 https://github.com/Urigo/SOFA/issues/250 下直接提问过如何集成到 nestjs 中</description>
+    </item>
+    
+    <item>
+      <title>npm 安装同一个包的不同版本</title>
+      <link>https://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/</link>
+      <pubDate>Thu, 21 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/</guid>
+      <description>应用场景 不想升级老代码依赖 npm 无法同时安装同一个 package 的不同版本，以往遇到这种需求的时候，我的办法是自己新建一个包，然后在新建的包里安装目标包的一</description>
+    </item>
+    
+    <item>
+      <title>npm 包私藏</title>
+      <link>https://wpchou.github.io/post/2019-10-23-npm-util-packages/</link>
+      <pubDate>Wed, 23 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2019-10-23-npm-util-packages/</guid>
+      <description>稍微有点开发实战经验的都知道 DRY(Do not Repeat Yourself). 说白了就是能抄就抄。如果有第三方模块能够使用，就用。其次改。实在不行再考虑自己写。但事情到了 js 这里稍有些</description>
+    </item>
+    
+    <item>
+      <title>阅读 node-pool 源码</title>
+      <link>https://wpchou.github.io/post/2019-10-21-node-pool/</link>
+      <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2019-10-21-node-pool/</guid>
+      <description>简介 generic-pool 是一个基于 Promise 的资源管理器，适用于单位是整数个的资源对象，比如数据库连接数。调度算法支持简单的优先级和先进先出/先进后出策略。seque</description>
+    </item>
+    
+    <item>
+      <title>从 js 神奇的 map 说到函数的元数</title>
+      <link>https://wpchou.github.io/post/2019-08-27-map-of-javascript/</link>
+      <pubDate>Tue, 27 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2019-08-27-map-of-javascript/</guid>
+      <description>从 lujun9972 的博客看到一则博文, 说在 https://medium.com/dailyjs/parseint-mystery-7c4368ef7b21 看到 js 的 map 神奇的一面。 运行下面的 js 代码： 1 [&amp;#39;1&amp;#39;, &amp;#39;7&amp;#39;, &amp;#39;11&amp;#39;].map(parseInt) 得到的是 1 [1, NaN, 3] ？？？ js 真是到处都是坑啊。原因在哪里呢？下面是</description>
+    </item>
+    
+    <item>
+      <title>koa-compose</title>
+      <link>https://wpchou.github.io/post/2019-06-19-koa-compose/</link>
+      <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2019-06-19-koa-compose/</guid>
+      <description>koa 的精华统共就这么几行。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 // compose :: [Context -&amp;gt; Next -&amp;gt; Promise] -&amp;gt; (Context -&amp;gt; Promise) function compose (middleware) { // validate middleware // .. return function (context, next) { // last called middleware # let index = -1</description>
+    </item>
+    
+    <item>
+      <title>从 shim-array 说到 javascript 的一些问题</title>
+      <link>https://wpchou.github.io/post/2019-06-15-evil-shim-array/</link>
+      <pubDate>Sat, 15 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2019-06-15-evil-shim-array/</guid>
+      <description>我在两个旧的 javascript 项目都遇到一个很让人摸不着头脑的问题，使用数组的 find 无论能不能找到，总是返回 -1. 影响很大，不只自己的代码不能用，像 sequelize 这样的第三方包</description>
+    </item>
+    
+    <item>
+      <title>应用 typescript 严格模式</title>
+      <link>https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/</link>
+      <pubDate>Sun, 03 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/</guid>
+      <description>最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移</description>
+    </item>
+    
+  </channel>
+</rss>

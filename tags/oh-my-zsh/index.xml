@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>oh-my-zsh on /home/wpchou/blog</title>
+    <link>https://wpchou.github.io/tags/oh-my-zsh/</link>
+    <description>Recent content in oh-my-zsh on /home/wpchou/blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>wenpin</copyright>
+    <lastBuildDate>Sat, 29 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://wpchou.github.io/tags/oh-my-zsh/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>oh-my-zsh gnu_utils 升级导致提示符路径名消失</title>
+      <link>https://wpchou.github.io/post/2020-02-29-debug-zsh-enviroment/</link>
+      <pubDate>Sat, 29 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2020-02-29-debug-zsh-enviroment/</guid>
+      <description>记录下使用 oh-my-zsh 踩坑的过程。 今天被自己的 zsh 环境坑到了。我用 antigen 来管理 zsh 插件，插件不多，主要是 oh-my-zsh 少量几个和 zsh-users 的仿 fish 插件。用 z 插件跳转到了一个同名的文</description>
+    </item>
+    
+  </channel>
+</rss>

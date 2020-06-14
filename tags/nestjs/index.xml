@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>nestjs on /home/wpchou/blog</title>
+    <link>https://wpchou.github.io/tags/nestjs/</link>
+    <description>Recent content in nestjs on /home/wpchou/blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>wenpin</copyright>
+    <lastBuildDate>Fri, 15 May 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://wpchou.github.io/tags/nestjs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>集成 SOFA 到 nestjs</title>
+      <link>https://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/</link>
+      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/</guid>
+      <description>https://github.com/Urigo/SOFA 是一个 express 中间件， 可以将 graphql 查询转换成 restful 的 api. 最近将其集成到 nestjs 的时候遇到一些问题，下面记录下解决的过程。 有人在 SOFA github 的 https://github.com/Urigo/SOFA/issues/250 下直接提问过如何集成到 nestjs 中</description>
+    </item>
+    
+  </channel>
+</rss>

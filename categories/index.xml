@@ -7,9 +7,73 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>wenpin</copyright>
+    <lastBuildDate>Fri, 12 Jun 2020 17:55:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wpchou.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux</title>
+      <link>https://wpchou.github.io/categories/linux/</link>
+      <pubDate>Fri, 12 Jun 2020 17:55:00 +0800</pubDate>
+      
+      <guid>https://wpchou.github.io/categories/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>database</title>
+      <link>https://wpchou.github.io/categories/database/</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/categories/database/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>javascript</title>
+      <link>https://wpchou.github.io/categories/javascript/</link>
+      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/categories/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>unix</title>
+      <link>https://wpchou.github.io/categories/unix/</link>
+      <pubDate>Sat, 29 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/categories/unix/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>algorithm</title>
+      <link>https://wpchou.github.io/categories/algorithm/</link>
+      <pubDate>Tue, 29 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/categories/algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web</title>
+      <link>https://wpchou.github.io/categories/web/</link>
+      <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/categories/web/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>no-category</title>
+      <link>https://wpchou.github.io/categories/no-category/</link>
+      <pubDate>Sun, 09 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/categories/no-category/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

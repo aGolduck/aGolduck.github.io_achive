@@ -3,293 +3,385 @@
   
   <url>
     <loc>https://wpchou.github.io/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/database/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/orm/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2020-05-18-atomic-ddl/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/git/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2020-04-14-git-revert-done-right/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2020-02-29-debug-zsh-enviroment/</loc>
-    <lastmod>2020-06-01T20:54:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/zsh/</loc>
-    <lastmod>2020-06-01T20:54:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-11-22-aliyun-security-groups/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/node/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/npm/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/</loc>
-    <lastmod>2020-06-01T20:54:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/mysql/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-11-15-consecutive-integer-and-mysql-autoincremental-key/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/nodejs/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/sequelize/</loc>
-    <lastmod>2020-06-01T20:54:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-11-07-sequelize-transaction/</loc>
-    <lastmod>2020-06-01T20:54:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-10-31-mysql-isolation-level/</loc>
-    <lastmod>2020-06-01T20:54:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/algorithm/</loc>
-    <lastmod>2020-06-01T20:54:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-10-29-sort-by-double/</loc>
-    <lastmod>2020-06-01T20:54:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/openapi/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/swagger/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-10-28-swagger-practice/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-10-23-npm-util-packages/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-10-21-node-pool/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/functional-programming/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/javascript/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-08-27-map-of-javascript/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-07-28-mysql-practice/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-07-11-swagger-ui-try-it-out/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/web/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-06-19-koa-compose/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-06-15-evil-shim-array/</loc>
-    <lastmod>2020-06-04T23:19:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-06-13-left-prefix-index-rule/</loc>
-    <lastmod>2020-06-01T20:54:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-06-11-mysql-client-commands/</loc>
-    <lastmod>2020-06-01T20:54:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-06-10-distinct-and-group-by/</loc>
-    <lastmod>2020-06-01T20:54:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/2019-06-09-hello-world/</loc>
-    <lastmod>2020-06-01T20:54:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/untag/</loc>
-    <lastmod>2020-06-01T20:54:20+08:00</lastmod>
+    <lastmod>2020-06-13T16:04:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://wpchou.github.io/categories/</loc>
+    <lastmod>2020-06-13T16:04:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/linux/</loc>
+    <lastmod>2020-06-13T16:04:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/categories/linux/</loc>
+    <lastmod>2020-06-13T16:04:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/</loc>
+    <lastmod>2020-06-13T16:04:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2020-06-12-powershell-style-aliases-for-unix-commands/</loc>
+    <lastmod>2020-06-13T16:04:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/</loc>
+    <lastmod>2020-06-13T16:04:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/unix/</loc>
+    <lastmod>2020-06-13T16:04:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/database/</loc>
+    <lastmod>2020-05-18T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/categories/database/</loc>
+    <lastmod>2020-05-18T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/orm/</loc>
+    <lastmod>2020-05-18T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2020-05-18-atomic-ddl/</loc>
+    <lastmod>2020-05-18T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/categories/javascript/</loc>
+    <lastmod>2020-05-15T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/nestjs/</loc>
+    <lastmod>2020-05-15T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/</loc>
+    <lastmod>2020-05-15T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/git/</loc>
+    <lastmod>2020-04-14T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2020-04-14-git-revert-done-right/</loc>
+    <lastmod>2020-04-14T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/oh-my-zsh/</loc>
+    <lastmod>2020-02-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2020-02-29-debug-zsh-enviroment/</loc>
+    <lastmod>2020-02-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/categories/unix/</loc>
+    <lastmod>2020-02-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/zsh/</loc>
+    <lastmod>2020-02-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/node/</loc>
+    <lastmod>2019-11-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/npm/</loc>
+    <lastmod>2019-11-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/</loc>
+    <lastmod>2019-11-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/mysql/</loc>
+    <lastmod>2019-11-15T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-11-15-consecutive-integer-and-mysql-autoincremental-key/</loc>
+    <lastmod>2019-11-15T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/nodejs/</loc>
+    <lastmod>2019-11-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/sequelize/</loc>
+    <lastmod>2019-11-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-11-07-sequelize-transaction/</loc>
+    <lastmod>2019-11-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-10-31-mysql-isolation-level/</loc>
+    <lastmod>2019-10-31T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/algorithm/</loc>
+    <lastmod>2019-10-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/categories/algorithm/</loc>
+    <lastmod>2019-10-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-10-29-sort-by-double/</loc>
+    <lastmod>2019-10-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/openapi/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/swagger/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-10-28-swagger-practice/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/web/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/categories/web/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/javascript/</loc>
+    <lastmod>2019-10-23T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-10-23-npm-util-packages/</loc>
+    <lastmod>2019-10-23T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-10-21-node-pool/</loc>
+    <lastmod>2019-10-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/functional-programming/</loc>
+    <lastmod>2019-08-27T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-08-27-map-of-javascript/</loc>
+    <lastmod>2019-08-27T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-07-28-mysql-practice/</loc>
+    <lastmod>2019-07-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-07-11-swagger-ui-try-it-out/</loc>
+    <lastmod>2019-07-11T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-06-19-koa-compose/</loc>
+    <lastmod>2019-06-19T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-06-15-evil-shim-array/</loc>
+    <lastmod>2019-06-15T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-06-13-left-prefix-index-rule/</loc>
+    <lastmod>2019-06-13T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-06-11-mysql-client-commands/</loc>
+    <lastmod>2019-06-11T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-06-10-distinct-and-group-by/</loc>
+    <lastmod>2019-06-10T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2019-06-09-hello-world/</loc>
+    <lastmod>2019-06-09T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/categories/no-category/</loc>
+    <lastmod>2019-06-09T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/no-tag/</loc>
+    <lastmod>2019-06-09T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/typescript/</loc>
+    <lastmod>2019-03-03T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/</loc>
+    <lastmod>2019-03-03T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Powershell style aliases for unix commands - /home/wpchou/blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="wenpin" /><meta name="description" content="最近基本把 Linux性能优化实战_Linux_性能调优-极客时间 给看完了，从某种角度来讲，可以说就是学习了很多 unix/Linux 命令。我一直觉得 unix 的命令行命" /><meta name="keywords" content="IT, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.68.3 with theme even" />
+
+
+<link rel="canonical" href="https://wpchou.github.io/post/2020-06-12-powershell-style-aliases-for-unix-commands/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Powershell style aliases for unix commands" />
+<meta property="og:description" content="最近基本把 Linux性能优化实战_Linux_性能调优-极客时间 给看完了，从某种角度来讲，可以说就是学习了很多 unix/Linux 命令。我一直觉得 unix 的命令行命" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wpchou.github.io/post/2020-06-12-powershell-style-aliases-for-unix-commands/" />
+<meta property="article:published_time" content="2020-06-12T17:55:00+08:00" />
+<meta property="article:modified_time" content="2020-06-13T16:04:36+08:00" />
+<meta itemprop="name" content="Powershell style aliases for unix commands">
+<meta itemprop="description" content="最近基本把 Linux性能优化实战_Linux_性能调优-极客时间 给看完了，从某种角度来讲，可以说就是学习了很多 unix/Linux 命令。我一直觉得 unix 的命令行命">
+<meta itemprop="datePublished" content="2020-06-12T17:55:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-13T16:04:36&#43;08:00" />
+<meta itemprop="wordCount" content="662">
+
+
+
+<meta itemprop="keywords" content="unix,Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Powershell style aliases for unix commands"/>
+<meta name="twitter:description" content="最近基本把 Linux性能优化实战_Linux_性能调优-极客时间 给看完了，从某种角度来讲，可以说就是学习了很多 unix/Linux 命令。我一直觉得 unix 的命令行命"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">/home/wpchou/blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">/home/wpchou/blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Powershell style aliases for unix commands</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-06-12 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>最近基本把 <a href="https://time.geekbang.org/column/intro/140">Linux性能优化实战_Linux_性能调优-极客时间</a> 给看完了，从某种角度来讲，可以说就是学习了很多 unix/Linux 命令。我一直觉得 unix 的命令行命名风格是一个大败笔，使用大量的缩写，使得很多命令就算用了很久之后都不知道字面意思是什么，只能生背下来或者靠手熟， 尤其是非英语母语的人。很多时候在命令的 man page
+都找不到全称是什么。比如说 <code>top</code>, 本来一直以为是显示最顶部的意思，结果竟然是 <code>table of processes</code>. 在计算机的上古时代显示器小，键盘难用，尚情有可原，但今天还有大量的新命令沿续这种风格，就是东施效颦。</p>
+<p>如果是为了输入方便，可以做一下 <code>alias 'gst'='git status'</code> 一类的别名，完全没有必要最初起名时就起个完全不知道什么意思的新造词。在这方面，powershell 就做得非常好，不只表义性强，还都是 <code>Get-Commands</code>
+这类的动宾组合。于是，我就学习一下 powershell，来次逆向 alias,
+把日常用到的命令不明所以的还原一下原语义。以后不断更新。</p>
+<p>但说实话，即使用了 <code>zsh-autosuggestions</code> 这类的工具，打完全称确实也比较累。日常使用还是原名（它本该是 alias)，不断地补充这个列表全当是为了方便记忆和加深理解吧。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># alias &#39;link&#39;=&#39;ln&#39; # link is used</span>
+<span class="nb">alias</span> <span class="s1">&#39;advanced-top&#39;</span><span class="o">=</span><span class="s1">&#39;atop&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;block-device-trace&#39;</span><span class="o">=</span><span class="s1">&#39;blktrace&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;change-directory&#39;</span><span class="o">=</span><span class="s1">&#39;cd&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;change-mode&#39;</span><span class="o">=</span><span class="s1">&#39;chmod&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;change-owner&#39;</span><span class="o">=</span><span class="s1">&#39;chown&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;chronos-table&#39;</span><span class="o">=</span><span class="s1">&#39;crontab&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;client-url&#39;</span><span class="o">=</span><span class="s1">&#39;curl&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;concatenate&#39;</span><span class="o">=</span><span class="s1">&#39;cat&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;connection-track&#39;</span><span class="o">=</span><span class="s1">&#39;conntrack&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;copy&#39;</span><span class="o">=</span><span class="s1">&#39;cp&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;data-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;dstat&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;diagnostic-message&#39;</span><span class="o">=</span><span class="s1">&#39;dmesg&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;disk-free&#39;</span><span class="o">=</span><span class="s1">&#39;df&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;disk-usage&#39;</span><span class="o">=</span><span class="s1">&#39;du&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;dns-interrogate&#39;</span><span class="o">=</span><span class="s1">&#39;dig&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;dns-lookup&#39;</span><span class="o">=</span><span class="s1">&#39;nslookup&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;execute&#39;</span><span class="o">=</span><span class="s1">&#39;exe&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;execute-arguments&#39;</span><span class="o">=</span><span class="s1">&#39;xargs&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;gnu-privacy-guard&#39;</span><span class="o">=</span><span class="s1">&#39;gpg&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;interface-config&#39;</span><span class="o">=</span><span class="s1">&#39;ifconfig&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;interface-top&#39;</span><span class="o">=</span><span class="s1">&#39;iftop&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;internet-procotol&#39;</span><span class="o">=</span><span class="s1">&#39;ip&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;interprocess-communication&#39;</span><span class="o">=</span><span class="s1">&#39;ipcs&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;io-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;iostat&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;list&#39;</span><span class="o">=</span><span class="s1">&#39;ls&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;list-block-devices&#39;</span><span class="o">=</span><span class="s1">&#39;lsblk&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;list-dynamic-dependencies&#39;</span><span class="o">=</span><span class="s1">&#39;ldd&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;list-open-files&#39;</span><span class="o">=</span><span class="s1">&#39;lsof&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;make-directory&#39;</span><span class="o">=</span><span class="s1">&#39;mkdir&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;manual&#39;</span><span class="o">=</span><span class="s1">&#39;man&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;member-leak&#39;</span><span class="o">=</span><span class="s1">&#39;memleak&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;move&#39;</span><span class="o">=</span><span class="s1">&#39;mv&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;net-concatenate&#39;</span><span class="o">=</span><span class="s1">&#39;netcat&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;net-top&#39;</span><span class="o">=</span><span class="s1">&#39;nethogs&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;network-hardware-tool&#39;</span><span class="o">=</span><span class="s1">&#39;ethtool&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;network-mapper&#39;</span><span class="o">=</span><span class="s1">&#39;nmap&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;network-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;netstat&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;performance&#39;</span><span class="o">=</span><span class="s1">&#39;perf&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;print-working-directory&#39;</span><span class="o">=</span><span class="s1">&#39;pwd&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;privacy-guard&#39;</span><span class="o">=</span><span class="s1">&#39;gpg&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;process-grep&#39;</span><span class="o">=</span><span class="s1">&#39;pgrep&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;process-kill&#39;</span><span class="o">=</span><span class="s1">&#39;pkill&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;process-memory-map&#39;</span><span class="o">=</span><span class="s1">&#39;pmap&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;process-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;pidstat&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;process-status&#39;</span><span class="o">=</span><span class="s1">&#39;ps&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;process-tree&#39;</span><span class="o">=</span><span class="s1">&#39;pstree&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;processor-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;mpstat&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;read-executable-linking-file&#39;</span><span class="o">=</span><span class="s1">&#39;readelf&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;remove&#39;</span><span class="o">=</span><span class="s1">&#39;rm&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;search-regular&#39;</span><span class="o">=</span><span class="s1">&#39;grep&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;secure-copy&#39;</span><span class="o">=</span><span class="s1">&#39;scp&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;secure-shell&#39;</span><span class="o">=</span><span class="s1">&#39;ssh&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;socket-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;ss&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;stream-editor&#39;</span><span class="o">=</span><span class="s1">&#39;sed&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;substitude-user&#39;</span><span class="o">=</span><span class="s1">&#39;su&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;system-activity-report&#39;</span><span class="o">=</span><span class="s1">&#39;sar&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;system-call-trace&#39;</span><span class="o">=</span><span class="s1">&#39;strace&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;table-of-processes&#39;</span><span class="o">=</span><span class="s1">&#39;top&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;tape-archive&#39;</span><span class="o">=</span><span class="s1">&#39;tar&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;traffic-control&#39;</span><span class="o">=</span><span class="s1">&#39;tc&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;translate&#39;</span><span class="o">=</span><span class="s1">&#39;tr&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;unique&#39;</span><span class="o">=</span><span class="s1">&#39;uniq&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;unix-limit&#39;</span><span class="o">=</span><span class="s1">&#39;ulimit&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;unix-name&#39;</span><span class="o">=</span><span class="s1">&#39;uname&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;virtual-memory-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;vmstat&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;web-get&#39;</span><span class="o">=</span><span class="s1">&#39;wget&#39;</span>
+<span class="nb">alias</span> <span class="s1">&#39;word-count&#39;</span><span class="o">=</span><span class="s1">&#39;wc&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">wenpin</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-06-13
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/unix/">unix</a>
+          <a href="/tags/linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/2020-05-18-atomic-ddl/">
+            <span class="next-text nav-default">数据库自动迁移</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'wenpin_chou';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="wpchou/blog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="wpchou@outlook.com.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://github.com/wpchou" class="iconfont icon-github" title="github"></a>
+  <a href="https://wpchou.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">wenpin</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-168437876-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
