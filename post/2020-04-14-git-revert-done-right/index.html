@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.68.3 with theme even" />
+<meta name="generator" content="Hugo 0.72.0 with theme even" />
 
 
 <link rel="canonical" href="https://wpchou.github.io/post/2020-04-14-git-revert-done-right/" />
@@ -49,7 +49,7 @@
 <meta itemprop="description" content="最近同事不小心把没测试过特性分支 F 的代码合并到主分支 M 上了，就从 M 上切了个热 补丁分支 H，做了个 revert 操作合并到 M 上去了。之后要布署 F 到开发分支 D">
 <meta itemprop="datePublished" content="2020-04-14T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-04-14T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="142">
+<meta itemprop="wordCount" content="296">
 
 
 
@@ -138,6 +138,59 @@
 补丁分支 H，做了个 revert 操作合并到 M 上去了。之后要布署 F 到开发分支 D 上时，
 先合并  M 到 D 做了下同步，然后就发现 F 死活合不到 D 上。明明两边的代码不一样，但是
 就是合不上，不只合不上，github 上显示没有什么需要合的。</p>
+<p>一图胜千言，我们画下图就知道，D 此时是 F 的后继节点，所以 D 认为 F 早已合并了，
+所以当然没有什么需要合并的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">.----.
+| M1 |\
+&#39;----&#39; \
+   |    \ .----.
+   |      | F  |
+   |     /&#39;----&#39;
+   |    /
+.----. /
+| M2 | \
+&#39;----&#39;  \
+   |     \ .----.
+   |      /| H  |
+   |     / &#39;----&#39;
+   |    /
+.----. /
+| M3 |\
+&#39;----&#39; \
+        \
+         \
+          .----.
+          | D  |
+          &#39;----&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>此时正确的做法应该是 F 分支将 M3 merge 过来，然后再将 revert 内容 revert 掉。</p>
 
     </div>
 
