@@ -3,7 +3,21 @@
   
   <url>
     <loc>https://wpchou.github.io/</loc>
-    <lastmod>2020-06-30T14:29:16+08:00</lastmod>
+    <lastmod>2020-06-30T21:19:41+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/</loc>
+    <lastmod>2020-06-30T21:19:41+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2020-06-30-md5sum/</loc>
+    <lastmod>2020-06-30T21:19:41+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -24,13 +38,6 @@
   
   <url>
     <loc>https://wpchou.github.io/categories/linux/</loc>
-    <lastmod>2020-06-30T14:29:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/</loc>
     <lastmod>2020-06-30T14:29:16+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

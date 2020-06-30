@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>wenpin</copyright>
-    <lastBuildDate>Fri, 12 Jun 2020 17:55:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jun 2020 21:09:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wpchou.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>如何快速计算 MD5 哈希值</title>
+      <link>https://wpchou.github.io/post/2020-06-30-md5sum/</link>
+      <pubDate>Tue, 30 Jun 2020 21:09:00 +0800</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2020-06-30-md5sum/</guid>
+      <description>大部分语言都内置了 md5 函数，比如 nodejs nodejs 在 node repl 环境下可以调用标准库计算。 1 console.log(require(&amp;#39;crypto&amp;#39;).createHash(&amp;#39;md5&amp;#39;).update(&amp;#39;example&amp;#39;).digest(&amp;#39;hex&amp;#39;)) 1 1a79a4d60de6718e8e5b326e338ae533 但是如此稍显烦琐，再来需要额外的依赖。可以直接使用大部分 Linux 发行版自</description>
+    </item>
     
     <item>
       <title>Powershell style aliases for unix commands</title>
