@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.72.0 with theme even" />
+<meta name="generator" content="Hugo 0.68.3 with theme even" />
 
 
 <link rel="canonical" href="https://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/" />
@@ -214,7 +214,7 @@ schema 是可以直接获取的，SOFA 只需要这个 schema 就可以了。但
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">export</span> <span class="kr">declare</span> <span class="kd">function</span> <span class="nx">makeExecutableSchema</span><span class="p">&lt;</span><span class="nt">TContext</span> <span class="err">=</span> <span class="na">any</span><span class="p">&gt;({</span> <span class="nx">typeDefs</span><span class="p">,</span> <span class="nx">resolvers</span><span class="p">,</span> <span class="nx">connectors</span><span class="p">,</span> <span class="nx">logger</span><span class="p">,</span> <span class="nx">allowUndefinedInResolve</span><span class="p">,</span> <span class="nx">resolverValidationOptions</span><span class="p">,</span> <span class="nx">directiveResolvers</span><span class="p">,</span> <span class="nx">schemaDirectives</span><span class="p">,</span> <span class="nx">parseOptions</span><span class="p">,</span> <span class="nx">inheritResolversFromInterfaces</span><span class="p">,</span> <span class="p">}</span><span class="o">:</span> <span class="nx">IExecutableSchemaDefinition</span><span class="p">&lt;</span><span class="nt">TContext</span><span class="p">&gt;)</span><span class="o">:</span> <span class="nx">GraphQLSchema</span><span class="p">;</span>
+<pre class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">export</span> <span class="kr">declare</span> <span class="kd">function</span> <span class="nx">makeExecutableSchema</span><span class="o">&lt;</span><span class="nx">TContext</span> <span class="o">=</span> <span class="nx">any</span><span class="o">&gt;</span><span class="p">({</span> <span class="nx">typeDefs</span><span class="p">,</span> <span class="nx">resolvers</span><span class="p">,</span> <span class="nx">connectors</span><span class="p">,</span> <span class="nx">logger</span><span class="p">,</span> <span class="nx">allowUndefinedInResolve</span><span class="p">,</span> <span class="nx">resolverValidationOptions</span><span class="p">,</span> <span class="nx">directiveResolvers</span><span class="p">,</span> <span class="nx">schemaDirectives</span><span class="p">,</span> <span class="nx">parseOptions</span><span class="p">,</span> <span class="nx">inheritResolversFromInterfaces</span><span class="p">,</span> <span class="p">}</span><span class="o">:</span> <span class="nx">IExecutableSchemaDefinition</span><span class="o">&lt;</span><span class="nx">TContext</span><span class="o">&gt;</span><span class="p">)</span><span class="o">:</span> <span class="nx">GraphQLSchema</span><span class="p">;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>生成 schema 的方案。</p>
