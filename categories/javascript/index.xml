@@ -7,18 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>wenpin</copyright>
-    <lastBuildDate>Fri, 15 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 17 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://wpchou.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>集成 SOFA 到 nestjs</title>
-      <link>https://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/</link>
-      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+      <title>typeorm 数据库自动迁移</title>
+      <link>https://wpchou.github.io/post/2020-05-17-typeorm-database-migration/</link>
+      <pubDate>Sun, 17 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/</guid>
-      <description>https://github.com/Urigo/SOFA 是一个 express 中间件， 可以将 graphql 查询转换成 restful 的 api. 最近将其集成到 nestjs 的时候遇到一些问题，下面记录下解决的过程。 有人在 SOFA github 的 https://github.com/Urigo/SOFA/issues/250 下直接提问过如何集成到 nestjs 中</description>
+      <guid>https://wpchou.github.io/post/2020-05-17-typeorm-database-migration/</guid>
+      <description>在小型应用以及应用原型快速开发阶段，关系数据库表定义 自动迁移是非常方便的特性。现在成熟的 ORM 都有所支持。 以 typorm 为例，一般来说，我们进行一次成功的</description>
+    </item>
+    
+    <item>
+      <title>应用 typescript 严格模式</title>
+      <link>https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/</link>
+      <pubDate>Tue, 03 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/</guid>
+      <description>最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移</description>
     </item>
     
     <item>
@@ -73,15 +82,6 @@
       
       <guid>https://wpchou.github.io/post/2019-06-15-evil-shim-array/</guid>
       <description>我在两个旧的 javascript 项目都遇到一个很让人摸不着头脑的问题，使用数组的 find 无论能不能找到，总是返回 -1. 影响很大，不只自己的代码不能用，像 sequelize 这样的第三方包</description>
-    </item>
-    
-    <item>
-      <title>应用 typescript 严格模式</title>
-      <link>https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/</link>
-      <pubDate>Sun, 03 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/</guid>
-      <description>最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移</description>
     </item>
     
   </channel>

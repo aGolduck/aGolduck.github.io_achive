@@ -31,21 +31,21 @@
     </item>
     
     <item>
-      <title>数据库自动迁移</title>
+      <title>Atomic DDL</title>
       <link>https://wpchou.github.io/post/2020-05-18-atomic-ddl/</link>
       <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://wpchou.github.io/post/2020-05-18-atomic-ddl/</guid>
-      <description>在小型应用以及应用原型快速开发阶段，关系数据库表定义 自动迁移是非常方便的特性。现在成熟的 ORM 都有所支持。 以 typorm 为例，一般来说，我们进行一次成功的</description>
+      <description>上回书 说到原子性 DDL 是将数据库自动迁移应用到生产环境的关键保障。然后，不幸的是 mysql 文档 明确说了： Atomic DDL is not transactional DDL. DDL statements, atomic or otherwise, implicitly end any transaction that is active in the current session, as if</description>
     </item>
     
     <item>
-      <title>集成 SOFA 到 nestjs</title>
-      <link>https://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/</link>
-      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+      <title>typeorm 数据库自动迁移</title>
+      <link>https://wpchou.github.io/post/2020-05-17-typeorm-database-migration/</link>
+      <pubDate>Sun, 17 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://wpchou.github.io/post/2020-05-15-integrate-sofa-into-nestjs/</guid>
-      <description>https://github.com/Urigo/SOFA 是一个 express 中间件， 可以将 graphql 查询转换成 restful 的 api. 最近将其集成到 nestjs 的时候遇到一些问题，下面记录下解决的过程。 有人在 SOFA github 的 https://github.com/Urigo/SOFA/issues/250 下直接提问过如何集成到 nestjs 中</description>
+      <guid>https://wpchou.github.io/post/2020-05-17-typeorm-database-migration/</guid>
+      <description>在小型应用以及应用原型快速开发阶段，关系数据库表定义 自动迁移是非常方便的特性。现在成熟的 ORM 都有所支持。 以 typorm 为例，一般来说，我们进行一次成功的</description>
     </item>
     
     <item>
@@ -55,6 +55,15 @@
       
       <guid>https://wpchou.github.io/post/2020-04-14-git-revert-done-right/</guid>
       <description>最近同事不小心把没测试过特性分支 F 的代码合并到主分支 M 上了，就从 M 上切了个热 补丁分支 H，做了个 revert 操作合并到 M 上去了。之后要布署 F 到开发分支 D</description>
+    </item>
+    
+    <item>
+      <title>应用 typescript 严格模式</title>
+      <link>https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/</link>
+      <pubDate>Tue, 03 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/</guid>
+      <description>最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移</description>
     </item>
     
     <item>
@@ -217,15 +226,6 @@
       
       <guid>https://wpchou.github.io/post/2019-06-09-hello-world/</guid>
       <description>first post.</description>
-    </item>
-    
-    <item>
-      <title>应用 typescript 严格模式</title>
-      <link>https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/</link>
-      <pubDate>Sun, 03 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/</guid>
-      <description>最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移</description>
     </item>
     
   </channel>

@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>wenpin</copyright>
-    <lastBuildDate>Wed, 23 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 03 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://wpchou.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>应用 typescript 严格模式</title>
+      <link>https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/</link>
+      <pubDate>Tue, 03 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/</guid>
+      <description>最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移</description>
+    </item>
     
     <item>
       <title>npm 包私藏</title>
@@ -55,15 +64,6 @@
       
       <guid>https://wpchou.github.io/post/2019-06-15-evil-shim-array/</guid>
       <description>我在两个旧的 javascript 项目都遇到一个很让人摸不着头脑的问题，使用数组的 find 无论能不能找到，总是返回 -1. 影响很大，不只自己的代码不能用，像 sequelize 这样的第三方包</description>
-    </item>
-    
-    <item>
-      <title>应用 typescript 严格模式</title>
-      <link>https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/</link>
-      <pubDate>Sun, 03 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://wpchou.github.io/post/2020-03-03-migrate-to-typescript-strict-mode/</guid>
-      <description>最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移</description>
     </item>
     
   </channel>

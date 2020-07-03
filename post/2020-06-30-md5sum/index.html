@@ -44,16 +44,16 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://wpchou.github.io/post/2020-06-30-md5sum/" />
 <meta property="article:published_time" content="2020-06-30T21:09:00+08:00" />
-<meta property="article:modified_time" content="2020-07-01T11:30:54+08:00" />
+<meta property="article:modified_time" content="2020-07-01T13:52:28+08:00" />
 <meta itemprop="name" content="如何快速计算 MD5 哈希值">
 <meta itemprop="description" content="大部分语言都内置了 md5 函数，比如 nodejs nodejs 在 node repl 环境下可以调用标准库计算。 1 console.log(require(&#39;crypto&#39;).createHash(&#39;md5&#39;).update(&#39;example&#39;).digest(&#39;hex&#39;)) 1 1a79a4d60de6718e8e5b326e338ae533 但是如此稍显烦琐，再来需要额外的依赖。可以直接使用大部分 Linux 发行版自">
 <meta itemprop="datePublished" content="2020-06-30T21:09:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-07-01T11:30:54&#43;08:00" />
-<meta itemprop="wordCount" content="227">
+<meta itemprop="dateModified" content="2020-07-01T13:52:28&#43;08:00" />
+<meta itemprop="wordCount" content="253">
 
 
 
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="unix,Linux,安全," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="如何快速计算 MD5 哈希值"/>
 <meta name="twitter:description" content="大部分语言都内置了 md5 函数，比如 nodejs nodejs 在 node repl 环境下可以调用标准库计算。 1 console.log(require(&#39;crypto&#39;).createHash(&#39;md5&#39;).update(&#39;example&#39;).digest(&#39;hex&#39;)) 1 1a79a4d60de6718e8e5b326e338ae533 但是如此稍显烦琐，再来需要额外的依赖。可以直接使用大部分 Linux 发行版自"/>
 
@@ -122,7 +122,9 @@
 
       <div class="post-meta">
         <span class="post-time"> 2020-06-30 </span>
-        
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            </div>
         
       </div>
     </header>
@@ -221,7 +223,8 @@
 <pre class="chroma"><code class="language-text" data-lang="text">1a79a4d60de6718e8e5b326e338ae533  -
 </code></pre></td></tr></table>
 </div>
-</div>
+</div><p>参考：<a href="https://askubuntu.com/questions/53846/how-to-get-the-md5-hash-of-a-string-directly-in-the-terminal">command line - How to get the MD5 hash of a string directly in the terminal? &hellip;</a></p>
+
     </div>
 
     <div class="post-copyright">
@@ -243,7 +246,11 @@
   </p>
 </div>
 <footer class="post-footer">
-      
+      <div class="post-tags">
+          <a href="/tags/unix/">unix</a>
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/%E5%AE%89%E5%85%A8/">安全</a>
+          </div>
       <nav class="post-nav">
         
         <a class="next" href="/post/2020-06-12-powershell-style-aliases-for-unix-commands/">

@@ -13,11 +13,20 @@
     
     
     <item>
-      <title>数据库自动迁移</title>
+      <title>Atomic DDL</title>
       <link>https://wpchou.github.io/post/2020-05-18-atomic-ddl/</link>
       <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://wpchou.github.io/post/2020-05-18-atomic-ddl/</guid>
+      <description>上回书 说到原子性 DDL 是将数据库自动迁移应用到生产环境的关键保障。然后，不幸的是 mysql 文档 明确说了： Atomic DDL is not transactional DDL. DDL statements, atomic or otherwise, implicitly end any transaction that is active in the current session, as if</description>
+    </item>
+    
+    <item>
+      <title>typeorm 数据库自动迁移</title>
+      <link>https://wpchou.github.io/post/2020-05-17-typeorm-database-migration/</link>
+      <pubDate>Sun, 17 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2020-05-17-typeorm-database-migration/</guid>
       <description>在小型应用以及应用原型快速开发阶段，关系数据库表定义 自动迁移是非常方便的特性。现在成熟的 ORM 都有所支持。 以 typorm 为例，一般来说，我们进行一次成功的</description>
     </item>
     

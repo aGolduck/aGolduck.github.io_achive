@@ -45,7 +45,7 @@
 <meta property="og:description" content="wenpin&#39;s blog." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://wpchou.github.io/" />
-<meta property="og:updated_time" content="2020-07-01T11:30:54+08:00" />
+<meta property="og:updated_time" content="2020-07-01T13:52:28+08:00" />
 <meta itemprop="name" content="/home/wpchou/blog">
 <meta itemprop="description" content="wenpin&#39;s blog."><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="/home/wpchou/blog"/>
@@ -115,7 +115,9 @@
     <h1 class="post-title"><a class="post-link" href="/post/2020-06-30-md5sum/">如何快速计算 MD5 哈希值</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-06-30 </span>
-      
+      <div class="post-category">
+          <a href="/categories/linux/"> Linux </a>
+          </div>
     </div>
   </header>
   
@@ -152,7 +154,7 @@
 
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/2020-05-18-atomic-ddl/">数据库自动迁移</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/2020-05-18-atomic-ddl/">Atomic DDL</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-05-18 </span>
       <div class="post-category">
@@ -163,7 +165,7 @@
   
   <div class="post-content">
     <div class="post-summary">
-      在小型应用以及应用原型快速开发阶段，关系数据库表定义 自动迁移是非常方便的特性。现在成熟的 ORM 都有所支持。 以 typorm 为例，一般来说，我们进行一次成功的
+      上回书 说到原子性 DDL 是将数据库自动迁移应用到生产环境的关键保障。然后，不幸的是 mysql 文档 明确说了： Atomic DDL is not transactional DDL. DDL statements, atomic or otherwise, implicitly end any transaction that is active in the current session, as if
     </div>
     <div class="read-more">
       <a href="/post/2020-05-18-atomic-ddl/" class="read-more-link">阅读更多</a>
@@ -173,10 +175,11 @@
 
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/2020-05-15-integrate-sofa-into-nestjs/">集成 SOFA 到 nestjs</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/2020-05-17-typeorm-database-migration/">typeorm 数据库自动迁移</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2020-05-15 </span>
+      <span class="post-time"> 2020-05-17 </span>
       <div class="post-category">
+          <a href="/categories/database/"> database </a>
           <a href="/categories/javascript/"> javascript </a>
           </div>
     </div>
@@ -184,10 +187,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      https://github.com/Urigo/SOFA 是一个 express 中间件， 可以将 graphql 查询转换成 restful 的 api. 最近将其集成到 nestjs 的时候遇到一些问题，下面记录下解决的过程。 有人在 SOFA github 的 https://github.com/Urigo/SOFA/issues/250 下直接提问过如何集成到 nestjs 中
+      在小型应用以及应用原型快速开发阶段，关系数据库表定义 自动迁移是非常方便的特性。现在成熟的 ORM 都有所支持。 以 typorm 为例，一般来说，我们进行一次成功的
     </div>
     <div class="read-more">
-      <a href="/post/2020-05-15-integrate-sofa-into-nestjs/" class="read-more-link">阅读更多</a>
+      <a href="/post/2020-05-17-typeorm-database-migration/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -207,6 +210,27 @@
     </div>
     <div class="read-more">
       <a href="/post/2020-04-14-git-revert-done-right/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/2020-03-03-migrate-to-typescript-strict-mode/">应用 typescript 严格模式</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-03-03 </span>
+      <div class="post-category">
+          <a href="/categories/javascript/"> javascript </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移
+    </div>
+    <div class="read-more">
+      <a href="/post/2020-03-03-migrate-to-typescript-strict-mode/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -291,27 +315,6 @@
     </div>
     <div class="read-more">
       <a href="/post/2019-11-07-sequelize-transaction/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/2019-10-31-mysql-isolation-level/">并发请求与 MySQL 事务隔离</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-10-31 </span>
-      <div class="post-category">
-          <a href="/categories/database/"> database </a>
-          </div>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      旧文一则，记录处理数据异常的过程，借此阐述 MySQL 事务隔离的一些相关概念。 问题 在线做题是公司一个重要的业务。同一个用户可以对一张试卷(testpa
-    </div>
-    <div class="read-more">
-      <a href="/post/2019-10-31-mysql-isolation-level/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
