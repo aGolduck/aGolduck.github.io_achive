@@ -49,7 +49,7 @@
 <meta itemprop="description" content="最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移">
 <meta itemprop="datePublished" content="2020-03-03T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-03-03T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="651">
+<meta itemprop="wordCount" content="686">
 
 
 
@@ -137,13 +137,12 @@
     <li><a href="#noimplicitany">noImplicitAny</a>
       <ul>
         <li><a href="#中间结果是-any-类型">中间结果是 any 类型</a></li>
-        <li><a href="#ts7053-element-implicitly-has-an-any-type-because-expression-of-type-string-cant-be-used-to-index-type-xxx">TS7053 Element implicitly has an ‘any’ type because expression of type ‘string’ can’t be used to index type xxx</a></li>
-        <li><a href="#复杂的类型对应">复杂的类型对应</a></li>
+        <li><a href="#ts7053">TS7053</a></li>
       </ul>
     </li>
     <li><a href="#strictnullchecks">strictNullChecks</a>
       <ul>
-        <li><a href="#ts2366-function-lacks-ending-return-statement-and-return-type-does-not-include-undefined">TS2366: Function lacks ending return statement and return type does not include &lsquo;undefined&rsquo;</a></li>
+        <li><a href="#ts2366">TS2366</a></li>
         <li><a href="#ts2532-object-is-possibly-undefined">TS2532: Object is possibly &lsquo;undefined&rsquo;</a></li>
       </ul>
     </li>
@@ -158,12 +157,23 @@
 </div>
     <div class="post-content">
       <p>最近上手了 nestjs, 开始了 typescript 之旅。趁着项目新开始不久，免得日后积重难返，对代码应用了 strict 模式。strict 模式包括下文的几个选项，下面依次介绍此次迁移中遇到的问题和解决方法。</p>
+<h1 id="错误分类">错误分类</h1>
 <h2 id="noimplicitany">noImplicitAny</h2>
 <p>必须显式声明 any 类型。该选项促使你尽可能地显式声明类型，避免 any 类型的出现。一般情况下，要么选择合适的类型，要么加上 any 声明就好。遇到两个比较棘手的问题。</p>
 <h3 id="中间结果是-any-类型">中间结果是 any 类型</h3>
 <p>有时 typescript 无法推断出表达式的结果类型，错误日志标示整个表达式的类型无法推断, 这时候需要稍微改造代码，将表达式赋值到声明为 any 类型的中间变量。</p>
-<h3 id="ts7053-element-implicitly-has-an-any-type-because-expression-of-type-string-cant-be-used-to-index-type-xxx">TS7053 Element implicitly has an ‘any’ type because expression of type ‘string’ can’t be used to index type xxx</h3>
-<p>这种情况下需要声明索引的类型是 key of 被索引的目标的类型</p>
+<h3 id="ts7053">TS7053</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">TS7053: Element implicitly has an ‘any’ type because expression of
+type ‘string’ can’t be used to index type xxx
+</code></pre></td></tr></table>
+</div>
+</div><p>这种情况下需要声明索引的类型是 key of 被索引的目标的类型</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -184,11 +194,17 @@
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">o</span><span class="p">[</span><span class="nx">property</span><span class="p">])</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="复杂的类型对应">复杂的类型对应</h3>
-<p>本质上这涉及到一个复杂的映身关系。对于对象A，它的每个属性p类型t(p)都是已知的，而且对象B有对应的属性(q)，类型是s(t(p))，怎么让编译器知道这个对应关系。</p>
-<h2 id="strictnullchecks">strictNullChecks</h2>
-<h3 id="ts2366-function-lacks-ending-return-statement-and-return-type-does-not-include-undefined">TS2366: Function lacks ending return statement and return type does not include &lsquo;undefined&rsquo;</h3>
-<p>一般是有分支死区，加上异常处理</p>
+</div><h2 id="strictnullchecks">strictNullChecks</h2>
+<h3 id="ts2366">TS2366</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">TS2366: Function lacks ending return statement and return type does not include &#39;undefined&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>一般是有分支死区，加上异常处理</p>
 <h3 id="ts2532-object-is-possibly-undefined">TS2532: Object is possibly &lsquo;undefined&rsquo;</h3>
 <p>typesrcipt 不获取任何运行时信息，有时显得非常蠢。</p>
 <div class="highlight"><div class="chroma">
@@ -237,13 +253,25 @@
     Type &#39;string[]&#39; is missing the following properties from type &#39;[&#34;detailImages&#34; | &#34;sellingPoints&#34;, &#34;detailImagesJoined&#34; | &#34;sellingPointsJoined&#34;]&#39;: 0, 1
 </code></pre></td></tr></table>
 </div>
-</div><p>可能与之前一篇博文 forEach 可选参数 index, array 相关。暂时用 for &hellip; of 绕过</p>
+</div><p>可能与之前一篇<a href="https://wpchou.github.io/post/2019-08-27-map-of-javascript">博文</a> forEach 可选参数 index, array 相关。暂时用 for &hellip; of 绕过</p>
 <h2 id="strictbindcallapply">strictBindCallApply</h2>
 <h2 id="strictpropertyinitialization">strictPropertyInitialization</h2>
-<p>TS2564: Property &lsquo;name&rsquo; has no initializer and is not definitely assigned in the constructor.</p>
-<p>大量 typeorm, graphql 注入类。使用 !: 就好了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">TS2564: Property &#39;name&#39; has no initializer and is not definitely assigned in the constructor.
+</code></pre></td></tr></table>
+</div>
+</div><p>大量 typeorm, graphql 注入类。使用 !: 就好了。</p>
 <h2 id="noimplicitthis">noImplicitThis</h2>
 <h2 id="alwaysstrict">alwaysStrict</h2>
+<h1 id="总结">总结</h1>
+<p>typescript 是一门实用语言。事实上它的类型系统也并不严谨，更多地是为了
+提高开发 javascript 的效率和提高 javascript 的安全性。在开发中，
+我们尽力改正编译器提醒的错误，但遇到复杂的情况，也没有必要追求极致。
+js 不是 Haskell, 对转嫁来的类型系统天生有些水土不服，不必强求。</p>
 
     </div>
 
