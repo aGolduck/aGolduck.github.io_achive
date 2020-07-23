@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Promise on /home/wpchou/blog</title>
+    <link>https://wpchou.github.io/tags/promise/</link>
+    <description>Recent content in Promise on /home/wpchou/blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>wenpin</copyright>
+    <lastBuildDate>Thu, 23 Jul 2020 18:36:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://wpchou.github.io/tags/promise/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>可链式调用的 javasrcipt 异步方法</title>
+      <link>https://wpchou.github.io/post/2020-07-23-chainable-javascript-async-method/</link>
+      <pubDate>Thu, 23 Jul 2020 18:36:00 +0800</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2020-07-23-chainable-javascript-async-method/</guid>
+      <description>有一道经典的 js 面试题是这样的：编写一个类 Walker, 拥有两个方法，一个是 walk, 一个是 sleep, 要求两个方法都能接受一个整数参数，表示函数运行的秒数，并且两个方法都</description>
+    </item>
+    
+  </channel>
+</rss>
