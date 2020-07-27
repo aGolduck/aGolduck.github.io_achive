@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>wenpin</copyright>
-    <lastBuildDate>Thu, 23 Jul 2020 18:36:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jul 2020 23:03:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wpchou.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>几个 Haskell Functor/Monad 实例的演算推导</title>
+      <link>https://wpchou.github.io/post/2020-07-27-deduction-of-several-haskell-monads/</link>
+      <pubDate>Mon, 27 Jul 2020 23:03:00 +0800</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2020-07-27-deduction-of-several-haskell-monads/</guid>
+      <description>最近学习 Java, 看到 Java 8 以后引进了 lambda, 然后就顺理成章的引入了 Stream 式的函数式编程方式，默认惰性求值，甚至引进了 Optional interface. 这真是没想到，Java 这个浓眉大眼的也</description>
+    </item>
     
     <item>
       <title>可链式调用的 javasrcipt 异步方法</title>

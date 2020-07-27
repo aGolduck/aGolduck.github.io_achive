@@ -7,10 +7,37 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>wenpin</copyright>
-    <lastBuildDate>Thu, 23 Jul 2020 18:36:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jul 2020 23:03:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wpchou.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>functor</title>
+      <link>https://wpchou.github.io/tags/functor/</link>
+      <pubDate>Mon, 27 Jul 2020 23:03:00 +0800</pubDate>
+      
+      <guid>https://wpchou.github.io/tags/functor/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>haskell</title>
+      <link>https://wpchou.github.io/tags/haskell/</link>
+      <pubDate>Mon, 27 Jul 2020 23:03:00 +0800</pubDate>
+      
+      <guid>https://wpchou.github.io/tags/haskell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>monad</title>
+      <link>https://wpchou.github.io/tags/monad/</link>
+      <pubDate>Mon, 27 Jul 2020 23:03:00 +0800</pubDate>
+      
+      <guid>https://wpchou.github.io/tags/monad/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>javascript</title>

@@ -3,14 +3,63 @@
   
   <url>
     <loc>https://wpchou.github.io/</loc>
-    <lastmod>2020-07-23T18:41:13+08:00</lastmod>
+    <lastmod>2020-07-27T23:04:38+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://wpchou.github.io/categories/</loc>
-    <lastmod>2020-07-23T18:41:13+08:00</lastmod>
+    <lastmod>2020-07-27T23:04:38+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/functor/</loc>
+    <lastmod>2020-07-27T23:04:38+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/haskell/</loc>
+    <lastmod>2020-07-27T23:04:38+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/categories/haskell/</loc>
+    <lastmod>2020-07-27T23:04:38+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/monad/</loc>
+    <lastmod>2020-07-27T23:04:38+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/</loc>
+    <lastmod>2020-07-27T23:04:38+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/</loc>
+    <lastmod>2020-07-27T23:04:38+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2020-07-27-deduction-of-several-haskell-monads/</loc>
+    <lastmod>2020-07-27T23:04:38+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30,21 +79,7 @@
   </url>
   
   <url>
-    <loc>https://wpchou.github.io/post/</loc>
-    <lastmod>2020-07-23T18:41:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://wpchou.github.io/tags/promise/</loc>
-    <lastmod>2020-07-23T18:41:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/</loc>
     <lastmod>2020-07-23T18:41:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
