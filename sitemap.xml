@@ -3,14 +3,56 @@
   
   <url>
     <loc>https://wpchou.github.io/</loc>
-    <lastmod>2020-07-27T23:40:38+08:00</lastmod>
+    <lastmod>2020-07-28T22:54:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://wpchou.github.io/categories/</loc>
-    <lastmod>2020-07-27T23:40:38+08:00</lastmod>
+    <lastmod>2020-07-28T22:54:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/javascript/</loc>
+    <lastmod>2020-07-28T22:54:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/categories/javascript/</loc>
+    <lastmod>2020-07-28T22:54:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/json/</loc>
+    <lastmod>2020-07-28T22:54:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2020-07-28-escape-characters-in-json/</loc>
+    <lastmod>2020-07-28T22:54:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/</loc>
+    <lastmod>2020-07-28T22:54:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/</loc>
+    <lastmod>2020-07-28T22:54:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -44,36 +86,8 @@
   </url>
   
   <url>
-    <loc>https://wpchou.github.io/post/</loc>
-    <lastmod>2020-07-27T23:40:38+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/</loc>
-    <lastmod>2020-07-27T23:40:38+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://wpchou.github.io/post/2020-07-27-deduction-of-several-haskell-monads/</loc>
     <lastmod>2020-07-27T23:40:38+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/javascript/</loc>
-    <lastmod>2020-07-23T18:41:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/categories/javascript/</loc>
-    <lastmod>2020-07-23T18:41:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

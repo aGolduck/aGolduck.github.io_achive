@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>wenpin</copyright>
-    <lastBuildDate>Thu, 23 Jul 2020 18:36:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2020 22:54:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wpchou.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>JSON 如何存储换行符</title>
+      <link>https://wpchou.github.io/post/2020-07-28-escape-characters-in-json/</link>
+      <pubDate>Tue, 28 Jul 2020 22:54:00 +0800</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2020-07-28-escape-characters-in-json/</guid>
+      <description>今天遇到了一个 JSON 字符串的错误，简单地说就是 js 的 JSON.parse 无法解析换行符，比如下面的例子 Line 1\nLine 2 是一个有效的 js 字符串，但是 JSON 无法解析。 1 2 3 4 5 6 7 try {</description>
+    </item>
     
     <item>
       <title>可链式调用的 javasrcipt 异步方法</title>
