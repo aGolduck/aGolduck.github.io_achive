@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.68.3 with theme even" />
+<meta name="generator" content="Hugo 0.76.5 with theme even" />
 
 
 <link rel="canonical" href="https://wpchou.github.io/post/2019-06-10-distinct-and-group-by/" />
@@ -47,13 +47,14 @@
 <meta property="article:modified_time" content="2019-06-10T00:00:00+00:00" />
 <meta itemprop="name" content="Distinct and Group By">
 <meta itemprop="description" content="在 MySQL 里面, DISTINCT 原则上可以用 GROUP BY 替换。 比如以下的 question 表是我们实际生产数据一个表的简化。 1 SHOW FULL COLUMNS FROM question; Field Type id int(10) unsigned type enum(&lsquo;choice&rsquo;,&lsquo;single_choice&rsquo;,&lsquo;uncertain_choice&rsquo;,&lsquo;determine&rsquo;,&lsquo;fill&rsquo;,&lsquo;essay&rsquo;,&lsquo;material&rsquo;) score float(10,1) unsigned 1 SHOW INDEX FROM question; Table Non_unique Key_name Seq_in_index Column_name Index_type question 0 PRIMARY">
-<meta itemprop="datePublished" content="2019-06-10T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-06-10T00:00:00&#43;00:00" />
+<meta itemprop="datePublished" content="2019-06-10T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2019-06-10T00:00:00+00:00" />
 <meta itemprop="wordCount" content="489">
 
 
 
-<meta itemprop="keywords" content="mysql," /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="mysql," />
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Distinct and Group By"/>
 <meta name="twitter:description" content="在 MySQL 里面, DISTINCT 原则上可以用 GROUP BY 替换。 比如以下的 question 表是我们实际生产数据一个表的简化。 1 SHOW FULL COLUMNS FROM question; Field Type id int(10) unsigned type enum(&lsquo;choice&rsquo;,&lsquo;single_choice&rsquo;,&lsquo;uncertain_choice&rsquo;,&lsquo;determine&rsquo;,&lsquo;fill&rsquo;,&lsquo;essay&rsquo;,&lsquo;material&rsquo;) score float(10,1) unsigned 1 SHOW INDEX FROM question; Table Non_unique Key_name Seq_in_index Column_name Index_type question 0 PRIMARY"/>
 

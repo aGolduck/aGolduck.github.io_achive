@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.68.3 with theme even" />
+<meta name="generator" content="Hugo 0.76.5 with theme even" />
 
 
 <link rel="canonical" href="https://wpchou.github.io/post/2020-07-23-chainable-javascript-async-method/" />
@@ -47,13 +47,14 @@
 <meta property="article:modified_time" content="2020-07-23T18:41:13+08:00" />
 <meta itemprop="name" content="可链式调用的 javasrcipt 异步方法">
 <meta itemprop="description" content="有一道经典的 js 面试题是这样的：编写一个类 Walker, 拥有两个方法，一个是 walk, 一个是 sleep, 要求两个方法都能接受一个整数参数，表示函数运行的秒数，并且两个方法都">
-<meta itemprop="datePublished" content="2020-07-23T18:36:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-07-23T18:41:13&#43;08:00" />
+<meta itemprop="datePublished" content="2020-07-23T18:36:00+08:00" />
+<meta itemprop="dateModified" content="2020-07-23T18:41:13+08:00" />
 <meta itemprop="wordCount" content="996">
 
 
 
-<meta itemprop="keywords" content="javascript,Promise," /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="javascript,Promise," />
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="可链式调用的 javasrcipt 异步方法"/>
 <meta name="twitter:description" content="有一道经典的 js 面试题是这样的：编写一个类 Walker, 拥有两个方法，一个是 walk, 一个是 sleep, 要求两个方法都能接受一个整数参数，表示函数运行的秒数，并且两个方法都"/>
 
@@ -215,19 +216,19 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">async</span> <span class="kd">function</span> <span class="nx">sleep</span><span class="p">(</span><span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">sleep</span><span class="p">(</span><span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;sleep&#39;</span><span class="p">)</span>
   <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">ms</span><span class="p">))</span>
 <span class="p">}</span>
-<span class="nx">async</span> <span class="kd">function</span> <span class="nx">walk</span><span class="p">(</span><span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
+<span class="kr">async</span> <span class="kd">function</span> <span class="nx">walk</span><span class="p">(</span><span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;walk&#39;</span><span class="p">)</span>
   <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">ms</span><span class="p">))</span>
 <span class="p">}</span>
-<span class="nx">async</span> <span class="kd">function</span> <span class="nx">run</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">await</span> <span class="nx">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-  <span class="nx">await</span> <span class="nx">walk</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
-  <span class="nx">await</span> <span class="nx">sleep</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span>
-  <span class="nx">await</span> <span class="nx">walk</span><span class="p">(</span><span class="mi">4000</span><span class="p">)</span>
+<span class="kr">async</span> <span class="kd">function</span> <span class="nx">run</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">await</span> <span class="nx">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+  <span class="kr">await</span> <span class="nx">walk</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+  <span class="kr">await</span> <span class="nx">sleep</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span>
+  <span class="kr">await</span> <span class="nx">walk</span><span class="p">(</span><span class="mi">4000</span><span class="p">)</span>
 <span class="p">}</span>
 <span class="nx">run</span><span class="p">()</span>
 </code></pre></td></tr></table>
@@ -407,7 +408,7 @@
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="nx">await</span> <span class="k">new</span> <span class="nx">Walker</span><span class="p">().</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="nx">exec</span><span class="p">()</span>
+<span class="kr">await</span> <span class="k">new</span> <span class="nx">Walker</span><span class="p">().</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="nx">exec</span><span class="p">()</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="其它解法"><span class="org-todo todo TODO">TODO</span> 其它解法</h2>

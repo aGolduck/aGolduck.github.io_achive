@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>wenpin</copyright>
-    <lastBuildDate>Mon, 28 Oct 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://wpchou.github.io/tags/openapi/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 28 Oct 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://wpchou.github.io/tags/openapi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>swagger/openapi 在 node 项目中的实践</title>
       <link>https://wpchou.github.io/post/2019-10-28-swagger-practice/</link>

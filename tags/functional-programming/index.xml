@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>wenpin</copyright>
-    <lastBuildDate>Tue, 27 Aug 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://wpchou.github.io/tags/functional-programming/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 27 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://wpchou.github.io/tags/functional-programming/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>从 js 神奇的 map 说到函数的元数</title>
       <link>https://wpchou.github.io/post/2019-08-27-map-of-javascript/</link>

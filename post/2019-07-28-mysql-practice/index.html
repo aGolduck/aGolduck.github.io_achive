@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.68.3 with theme even" />
+<meta name="generator" content="Hugo 0.76.5 with theme even" />
 
 
 <link rel="canonical" href="https://wpchou.github.io/post/2019-07-28-mysql-practice/" />
@@ -47,13 +47,14 @@
 <meta property="article:modified_time" content="2019-07-28T00:00:00+00:00" />
 <meta itemprop="name" content="《MySQL 实战 45 讲》拾遗">
 <meta itemprop="description" content="极客时间上林晓斌的《MySQL 实战 45 讲》针对日常开发碰到的常见问题都有非常高的实践指导意义，虽然说在这一系列文章也简述了一些数据库原理，但要">
-<meta itemprop="datePublished" content="2019-07-28T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-07-28T00:00:00&#43;00:00" />
+<meta itemprop="datePublished" content="2019-07-28T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2019-07-28T00:00:00+00:00" />
 <meta itemprop="wordCount" content="2551">
 
 
 
-<meta itemprop="keywords" content="mysql," /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="mysql," />
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="《MySQL 实战 45 讲》拾遗"/>
 <meta name="twitter:description" content="极客时间上林晓斌的《MySQL 实战 45 讲》针对日常开发碰到的常见问题都有非常高的实践指导意义，虽然说在这一系列文章也简述了一些数据库原理，但要"/>
 
@@ -362,7 +363,7 @@ bug: 唯一索引上的范围查询会访问到不满足条件的第一个值为
 <p>在目前 mysql 不支持 hash-join 的情况下，可以自己在业务层做一定程度的模拟，可能可以获得比临时表更佳的效率。</p>
 <h1 id="36-为什么临时表可以重名">36 为什么临时表可以重名</h1>
 <p><code>create temporary table</code> 可以创建临时表，只对当前 session 可见，与普通表同名时优先使用，但是 <code>show tables</code> 命令不显示临时表。临时表特别适用于 JOIN 优化。</p>
-<p>在 binlog_format='row&rsquo; 时临时表记录不记录到 binlog. 可以省去不少麻烦。</p>
+<p>在 binlog_format=&lsquo;row&rsquo; 时临时表记录不记录到 binlog. 可以省去不少麻烦。</p>
 <h1 id="37-什么时候会使用内部临时表">37 什么时候会使用内部临时表</h1>
 <p><code>group by</code> 默认排序，加上 <code>order by null</code> 可以跳过排序。</p>
 <p>善加利用 <code>generated column</code> 加索引来优化查询。如下面查询可以增加 <code>id%100</code> generated column</p>
