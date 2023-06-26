@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java on /home/wpchou/blog</title>
+    <link>https://wpchou.github.io/categories/java/</link>
+    <description>Recent content in java on /home/wpchou/blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>wenpin</copyright>
+    <lastBuildDate>Mon, 26 Jun 2023 10:58:00 +0800</lastBuildDate><atom:link href="https://wpchou.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>java 内置日志如何调整日志级别</title>
+      <link>https://wpchou.github.io/post/2023-06-26-modify-logging-level-of-java.util.logging/</link>
+      <pubDate>Mon, 26 Jun 2023 10:58:00 +0800</pubDate>
+      
+      <guid>https://wpchou.github.io/post/2023-06-26-modify-logging-level-of-java.util.logging/</guid>
+      <description>最简单的修改日志级别的办法 Java 内置日志 java.util.logging的设计初衷是在大型项目环境下，每个包及类的层级各有各自的 Logger，</description>
+    </item>
+    
+  </channel>
+</rss>

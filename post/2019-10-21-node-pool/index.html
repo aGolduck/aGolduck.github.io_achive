@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.76.5 with theme even" />
+<meta name="generator" content="Hugo 0.114.1 with theme even" />
 
 
 <link rel="canonical" href="https://wpchou.github.io/post/2019-10-21-node-pool/" />
@@ -35,26 +35,21 @@
 
 
 
-<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="阅读 node-pool 源码" />
 <meta property="og:description" content="简介 generic-pool 是一个基于 Promise 的资源管理器，适用于单位是整数个的资源对象，比如数据库连接数。调度算法支持简单的优先级和先进先出/先进后出策略。seque" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://wpchou.github.io/post/2019-10-21-node-pool/" />
+<meta property="og:url" content="https://wpchou.github.io/post/2019-10-21-node-pool/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2019-10-21T00:00:00+00:00" />
 <meta property="article:modified_time" content="2019-10-21T00:00:00+00:00" />
 <meta itemprop="name" content="阅读 node-pool 源码">
-<meta itemprop="description" content="简介 generic-pool 是一个基于 Promise 的资源管理器，适用于单位是整数个的资源对象，比如数据库连接数。调度算法支持简单的优先级和先进先出/先进后出策略。seque">
-<meta itemprop="datePublished" content="2019-10-21T00:00:00+00:00" />
+<meta itemprop="description" content="简介 generic-pool 是一个基于 Promise 的资源管理器，适用于单位是整数个的资源对象，比如数据库连接数。调度算法支持简单的优先级和先进先出/先进后出策略。seque"><meta itemprop="datePublished" content="2019-10-21T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2019-10-21T00:00:00+00:00" />
 <meta itemprop="wordCount" content="978">
-
-
-
-<meta itemprop="keywords" content="nodejs,javascript," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="nodejs,javascript," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="阅读 node-pool 源码"/>
 <meta name="twitter:description" content="简介 generic-pool 是一个基于 Promise 的资源管理器，适用于单位是整数个的资源对象，比如数据库连接数。调度算法支持简单的优先级和先进先出/先进后出策略。seque"/>
 
@@ -91,12 +86,21 @@
         <li class="mobile-menu-item">Categories</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">/home/wpchou/blog</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +115,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -153,7 +158,7 @@
 <p>以下是摘自 github 主页的示例。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -205,57 +210,57 @@
 </span><span class="lnt">50
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">genericPool</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;generic-pool&#34;</span><span class="p">);</span>
-<span class="kr">const</span> <span class="nx">DbDriver</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;some-db-driver&#34;</span><span class="p">);</span>
-
-<span class="cm">/**
-</span><span class="cm"> * Step 1 - Create pool using a factory object
-</span><span class="cm"> */</span>
-<span class="kr">const</span> <span class="nx">factory</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">create</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">DbDriver</span><span class="p">.</span><span class="nx">createClient</span><span class="p">();</span>
-  <span class="p">},</span>
-  <span class="nx">destroy</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">client</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">client</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">();</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="kr">const</span> <span class="nx">opts</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">max</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="c1">// maximum size of the pool
-</span><span class="c1"></span>  <span class="nx">min</span><span class="o">:</span> <span class="mi">2</span> <span class="c1">// minimum size of the pool
-</span><span class="c1"></span><span class="p">};</span>
-
-<span class="kr">const</span> <span class="nx">myPool</span> <span class="o">=</span> <span class="nx">genericPool</span><span class="p">.</span><span class="nx">createPool</span><span class="p">(</span><span class="nx">factory</span><span class="p">,</span> <span class="nx">opts</span><span class="p">);</span>
-
-<span class="cm">/**
-</span><span class="cm"> * Step 2 - Use pool in your code to acquire/release resources
-</span><span class="cm"> */</span>
-
-<span class="c1">// acquire connection - Promise is resolved
-</span><span class="c1">// once a resource becomes available
-</span><span class="c1"></span><span class="kr">const</span> <span class="nx">resourcePromise</span> <span class="o">=</span> <span class="nx">myPool</span><span class="p">.</span><span class="nx">acquire</span><span class="p">();</span>
-
-<span class="nx">resourcePromise</span>
-  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">client</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&#34;select * from foo&#34;</span><span class="p">,</span> <span class="p">[],</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="c1">// return object back to pool
-</span><span class="c1"></span>      <span class="nx">myPool</span><span class="p">.</span><span class="nx">release</span><span class="p">(</span><span class="nx">client</span><span class="p">);</span>
-    <span class="p">});</span>
-  <span class="p">})</span>
-  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// handle error - this is generally a timeout or maxWaitingClients
-</span><span class="c1"></span>    <span class="c1">// error
-</span><span class="c1"></span>  <span class="p">});</span>
-
-<span class="cm">/**
-</span><span class="cm"> * Step 3 - Drain pool during shutdown (optional)
-</span><span class="cm"> */</span>
-<span class="c1">// Only call this once in your application -- at the point you want
-</span><span class="c1">// to shutdown and stop using this pool.
-</span><span class="c1"></span><span class="nx">myPool</span><span class="p">.</span><span class="nx">drain</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">myPool</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
-<span class="p">});</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">genericPool</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;generic-pool&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">DbDriver</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;some-db-driver&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Step 1 - Create pool using a factory object
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">factory</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">create</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">DbDriver</span><span class="p">.</span><span class="nx">createClient</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">destroy</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">client</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">client</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">opts</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">max</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="c1">// maximum size of the pool
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">min</span><span class="o">:</span> <span class="mi">2</span> <span class="c1">// minimum size of the pool
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">myPool</span> <span class="o">=</span> <span class="nx">genericPool</span><span class="p">.</span><span class="nx">createPool</span><span class="p">(</span><span class="nx">factory</span><span class="p">,</span> <span class="nx">opts</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Step 2 - Use pool in your code to acquire/release resources
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// acquire connection - Promise is resolved
+</span></span></span><span class="line"><span class="cl"><span class="c1">// once a resource becomes available
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">resourcePromise</span> <span class="o">=</span> <span class="nx">myPool</span><span class="p">.</span><span class="nx">acquire</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">resourcePromise</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">client</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&#34;select * from foo&#34;</span><span class="p">,</span> <span class="p">[],</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// return object back to pool
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">myPool</span><span class="p">.</span><span class="nx">release</span><span class="p">(</span><span class="nx">client</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// handle error - this is generally a timeout or maxWaitingClients
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Step 3 - Drain pool during shutdown (optional)
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Only call this once in your application -- at the point you want
+</span></span></span><span class="line"><span class="cl"><span class="c1">// to shutdown and stop using this pool.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">myPool</span><span class="p">.</span><span class="nx">drain</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">myPool</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中最重要的是三个函数，<code>createPool</code>, <code>acquire</code>, <code>release</code>. 分别用于创建资源池，获取资源和释放资源。创建资源时必须传入一个工厂对象和配置项。工厂对象包含创建和销毁资源的方法，配置项有资源池上限和下限，分配策略(fifo, filo)，优先级数等。详见 github 主页文档。</p>
 <h2 id="代码实现">代码实现</h2>
@@ -270,23 +275,23 @@
 <h3 id="recursive-settimeout">recursive setTimeout</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">this</span><span class="p">.</span><span class="nx">_scheduledEviction</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">_evict</span><span class="p">();</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">_scheduleEvictorRun</span><span class="p">();</span>
-<span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">_config</span><span class="p">.</span><span class="nx">evictionRunIntervalMillis</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="k">this</span><span class="p">.</span><span class="nx">_scheduledEviction</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">_evict</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">_scheduleEvictorRun</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">_config</span><span class="p">.</span><span class="nx">evictionRunIntervalMillis</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这一段代码用递归的 <code>setTimeout</code> 实现了一个简单的定时任务(<code>this.evict()</code>)</p>
 <h3 id="mutual-recursion">mutual recursion</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -311,30 +316,30 @@
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">class</span> <span class="nx">Pool</span><span class="p">{</span>
-  <span class="nx">_dispense</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">actualNumberOfResourcesToCreate</span> <span class="o">&gt;</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">_createResource</span><span class="p">();</span>
-    <span class="p">}</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>  <span class="p">}</span>
-  <span class="nx">_createResource</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">_trackOperation</span><span class="p">(</span><span class="nx">wrappedFactoryPromise</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_factoryCreateOperations</span><span class="p">)</span>
-      <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_dispense</span><span class="p">();</span>
-        <span class="c1">// ...
-</span><span class="c1"></span>        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
-      <span class="p">})</span>
-      <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">reason</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="nx">FACTORY_CREATE_ERROR</span><span class="p">,</span> <span class="nx">reason</span><span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_dispense</span><span class="p">();</span>
-      <span class="p">});</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Pool</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">_dispense</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">actualNumberOfResourcesToCreate</span> <span class="o">&gt;</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">_createResource</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">_createResource</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">_trackOperation</span><span class="p">(</span><span class="nx">wrappedFactoryPromise</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_factoryCreateOperations</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">_dispense</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">reason</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="nx">FACTORY_CREATE_ERROR</span><span class="p">,</span> <span class="nx">reason</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">_dispense</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这是一段互递归，但是并不会无限循环。因为 <code>this._dispense</code> 在 Promise 的回调函数里，实际执行的时候 actualNumberOfResourcesToCreate 多半等于 0 了。</p>
 
@@ -431,13 +436,10 @@
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">wenpin</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>wenpin</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -451,7 +453,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 <script type="application/javascript">

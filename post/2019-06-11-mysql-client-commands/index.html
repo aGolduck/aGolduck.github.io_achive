@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.76.5 with theme even" />
+<meta name="generator" content="Hugo 0.114.1 with theme even" />
 
 
 <link rel="canonical" href="https://wpchou.github.io/post/2019-06-11-mysql-client-commands/" />
@@ -35,26 +35,21 @@
 
 
 
-<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="MySQL 命令行客户端指令" />
 <meta property="og:description" content="MySQL 的 GUI 客户端有非常多的选择，自带的，开源的，商业的……GUI 客户端比自带的命令行客户端 mysql 方便友好很多，但是在批量处理等长连接操作上经常会卡住" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://wpchou.github.io/post/2019-06-11-mysql-client-commands/" />
+<meta property="og:url" content="https://wpchou.github.io/post/2019-06-11-mysql-client-commands/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2019-06-11T00:00:00+00:00" />
 <meta property="article:modified_time" content="2019-06-11T00:00:00+00:00" />
 <meta itemprop="name" content="MySQL 命令行客户端指令">
-<meta itemprop="description" content="MySQL 的 GUI 客户端有非常多的选择，自带的，开源的，商业的……GUI 客户端比自带的命令行客户端 mysql 方便友好很多，但是在批量处理等长连接操作上经常会卡住">
-<meta itemprop="datePublished" content="2019-06-11T00:00:00+00:00" />
+<meta itemprop="description" content="MySQL 的 GUI 客户端有非常多的选择，自带的，开源的，商业的……GUI 客户端比自带的命令行客户端 mysql 方便友好很多，但是在批量处理等长连接操作上经常会卡住"><meta itemprop="datePublished" content="2019-06-11T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2019-06-11T00:00:00+00:00" />
 <meta itemprop="wordCount" content="754">
-
-
-
-<meta itemprop="keywords" content="mysql," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="mysql," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="MySQL 命令行客户端指令"/>
 <meta name="twitter:description" content="MySQL 的 GUI 客户端有非常多的选择，自带的，开源的，商业的……GUI 客户端比自带的命令行客户端 mysql 方便友好很多，但是在批量处理等长连接操作上经常会卡住"/>
 
@@ -91,12 +86,21 @@
         <li class="mobile-menu-item">Categories</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">/home/wpchou/blog</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +115,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -140,7 +145,7 @@
       <p>MySQL 的 GUI 客户端有非常多的选择，自带的，开源的，商业的……GUI 客户端比自带的命令行客户端 <code>mysql</code> 方便友好很多，但是在批量处理等长连接操作上经常会卡住。论起连接的稳定性，命令行程序优势非常大，而且可以和服务端在同一台机子上或者同一个网段内，没有太大的网络延迟。以前我一直觉得命令行输入输出的显示和处理都不太方便，所以比较少用。最近看到了 <a href="https://dev.mysql.com/doc/refman/8.0/en/mysql-commands.html">MySQL 客户端指令篇</a>. 发现只要用得好，使用命令行也十分方便。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -175,47 +180,47 @@
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mysql&gt; help
-
-List of all MySQL commands:
-Note that all text commands must be first on line and end with &#39;;&#39;
-?         (\?) Synonym for `help&#39;.
-clear     (\c) Clear the current input statement.
-connect   (\r) Reconnect to the server. Optional arguments are db and host.
-delimiter (\d) Set statement delimiter.
-edit      (\e) Edit command with $EDITOR.
-ego       (\G) Send command to mysql server, display result vertically.
-exit      (\q) Exit mysql. Same as quit.
-go        (\g) Send command to mysql server.
-help      (\h) Display this help.
-nopager   (\n) Disable pager, print to stdout.
-notee     (\t) Don&#39;t write into outfile.
-pager     (\P) Set PAGER [to_pager]. Print the query results via PAGER.
-print     (\p) Print current command.
-prompt    (\R) Change your mysql prompt.
-quit      (\q) Quit mysql.
-rehash    (\#) Rebuild completion hash.
-source    (\.) Execute an SQL script file. Takes a file name as an argument.
-status    (\s) Get status information from the server.
-system    (\!) Execute a system shell command.
-tee       (\T) Set outfile [to_outfile]. Append everything into given
-               outfile.
-use       (\u) Use another database. Takes database name as argument.
-charset   (\C) Switch to another charset. Might be needed for processing
-               binlog with multi-byte charsets.
-warnings  (\W) Show warnings after every statement.
-nowarning (\w) Don&#39;t show warnings after every statement.
-resetconnection(\x) Clean session context.
-
-For server side help, type &#39;help contents&#39;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mysql&gt; help
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">List of all MySQL commands:
+</span></span><span class="line"><span class="cl">Note that all text commands must be first on line and end with &#39;;&#39;
+</span></span><span class="line"><span class="cl">?         (\?) Synonym for `help&#39;.
+</span></span><span class="line"><span class="cl">clear     (\c) Clear the current input statement.
+</span></span><span class="line"><span class="cl">connect   (\r) Reconnect to the server. Optional arguments are db and host.
+</span></span><span class="line"><span class="cl">delimiter (\d) Set statement delimiter.
+</span></span><span class="line"><span class="cl">edit      (\e) Edit command with $EDITOR.
+</span></span><span class="line"><span class="cl">ego       (\G) Send command to mysql server, display result vertically.
+</span></span><span class="line"><span class="cl">exit      (\q) Exit mysql. Same as quit.
+</span></span><span class="line"><span class="cl">go        (\g) Send command to mysql server.
+</span></span><span class="line"><span class="cl">help      (\h) Display this help.
+</span></span><span class="line"><span class="cl">nopager   (\n) Disable pager, print to stdout.
+</span></span><span class="line"><span class="cl">notee     (\t) Don&#39;t write into outfile.
+</span></span><span class="line"><span class="cl">pager     (\P) Set PAGER [to_pager]. Print the query results via PAGER.
+</span></span><span class="line"><span class="cl">print     (\p) Print current command.
+</span></span><span class="line"><span class="cl">prompt    (\R) Change your mysql prompt.
+</span></span><span class="line"><span class="cl">quit      (\q) Quit mysql.
+</span></span><span class="line"><span class="cl">rehash    (\#) Rebuild completion hash.
+</span></span><span class="line"><span class="cl">source    (\.) Execute an SQL script file. Takes a file name as an argument.
+</span></span><span class="line"><span class="cl">status    (\s) Get status information from the server.
+</span></span><span class="line"><span class="cl">system    (\!) Execute a system shell command.
+</span></span><span class="line"><span class="cl">tee       (\T) Set outfile [to_outfile]. Append everything into given
+</span></span><span class="line"><span class="cl">               outfile.
+</span></span><span class="line"><span class="cl">use       (\u) Use another database. Takes database name as argument.
+</span></span><span class="line"><span class="cl">charset   (\C) Switch to another charset. Might be needed for processing
+</span></span><span class="line"><span class="cl">               binlog with multi-byte charsets.
+</span></span><span class="line"><span class="cl">warnings  (\W) Show warnings after every statement.
+</span></span><span class="line"><span class="cl">nowarning (\w) Don&#39;t show warnings after every statement.
+</span></span><span class="line"><span class="cl">resetconnection(\x) Clean session context.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">For server side help, type &#39;help contents&#39;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>上面是文档列出的所有命令。使用方法是括号里的字符。比如要退出，就 <code>\q</code>，然后 Enter.</p>
 <p>输入的时候，可以将 <code>EDITOR</code> 设置成 <code>emacs</code>, 然后调用 <code>edit</code>, 然后就可以发挥想象力了。也可以 <code>source</code> 编辑好的命令。</p>
 <p>结果显示增强最重要的就是 <code>ego</code> 了。实际数据很多表的列数非常多，终端的宽度根本不够用。<code>ego</code> 用竖排，效果有点像 JSON 数据。还可以设置好分页程序。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -244,34 +249,34 @@ For server side help, type &#39;help contents&#39;
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mysql&gt; select * from information_schema.innodb_trx\G
-*************************** 1. row ***************************
-                    trx_id: 421187727341376
-                 trx_state: RUNNING
-               trx_started: 2019-06-10 21:24:32
-     trx_requested_lock_id: NULL
-          trx_wait_started: NULL
-                trx_weight: 0
-       trx_mysql_thread_id: 9
-                 trx_query: NULL
-       trx_operation_state: NULL
-         trx_tables_in_use: 0
-         trx_tables_locked: 0
-          trx_lock_structs: 0
-     trx_lock_memory_bytes: 1136
-           trx_rows_locked: 0
-         trx_rows_modified: 0
-   trx_concurrency_tickets: 0
-       trx_isolation_level: REPEATABLE READ
-         trx_unique_checks: 1
-    trx_foreign_key_checks: 1
-trx_last_foreign_key_error: NULL
- trx_adaptive_hash_latched: 0
- trx_adaptive_hash_timeout: 0
-          trx_is_read_only: 0
-trx_autocommit_non_locking: 0
-1 row in set (0.00 sec)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mysql&gt; select * from information_schema.innodb_trx\G
+</span></span><span class="line"><span class="cl">*************************** 1. row ***************************
+</span></span><span class="line"><span class="cl">                    trx_id: 421187727341376
+</span></span><span class="line"><span class="cl">                 trx_state: RUNNING
+</span></span><span class="line"><span class="cl">               trx_started: 2019-06-10 21:24:32
+</span></span><span class="line"><span class="cl">     trx_requested_lock_id: NULL
+</span></span><span class="line"><span class="cl">          trx_wait_started: NULL
+</span></span><span class="line"><span class="cl">                trx_weight: 0
+</span></span><span class="line"><span class="cl">       trx_mysql_thread_id: 9
+</span></span><span class="line"><span class="cl">                 trx_query: NULL
+</span></span><span class="line"><span class="cl">       trx_operation_state: NULL
+</span></span><span class="line"><span class="cl">         trx_tables_in_use: 0
+</span></span><span class="line"><span class="cl">         trx_tables_locked: 0
+</span></span><span class="line"><span class="cl">          trx_lock_structs: 0
+</span></span><span class="line"><span class="cl">     trx_lock_memory_bytes: 1136
+</span></span><span class="line"><span class="cl">           trx_rows_locked: 0
+</span></span><span class="line"><span class="cl">         trx_rows_modified: 0
+</span></span><span class="line"><span class="cl">   trx_concurrency_tickets: 0
+</span></span><span class="line"><span class="cl">       trx_isolation_level: REPEATABLE READ
+</span></span><span class="line"><span class="cl">         trx_unique_checks: 1
+</span></span><span class="line"><span class="cl">    trx_foreign_key_checks: 1
+</span></span><span class="line"><span class="cl">trx_last_foreign_key_error: NULL
+</span></span><span class="line"><span class="cl"> trx_adaptive_hash_latched: 0
+</span></span><span class="line"><span class="cl"> trx_adaptive_hash_timeout: 0
+</span></span><span class="line"><span class="cl">          trx_is_read_only: 0
+</span></span><span class="line"><span class="cl">trx_autocommit_non_locking: 0
+</span></span><span class="line"><span class="cl">1 row in set (0.00 sec)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最后一个也很重要的是 <code>tee</code>. 怎么在交互的程序中导出结果，就用这个了。也可以导出到已经打开的文件中，类似于 <code>tail -f</code> 的效果。</p>
 <p>PS: 上面的大部分指令在 <code>mycli</code> 上也是适用的。</p>
@@ -368,13 +373,10 @@ trx_autocommit_non_locking: 0
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">wenpin</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>wenpin</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -388,7 +390,7 @@ trx_autocommit_non_locking: 0
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 <script type="application/javascript">

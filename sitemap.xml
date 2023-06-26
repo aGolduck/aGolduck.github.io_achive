@@ -3,14 +3,56 @@
   
   <url>
     <loc>https://wpchou.github.io/</loc>
-    <lastmod>2020-10-27T10:58:59+08:00</lastmod>
+    <lastmod>2023-06-26T10:58:59+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://wpchou.github.io/categories/</loc>
-    <lastmod>2020-10-27T10:58:59+08:00</lastmod>
+    <lastmod>2023-06-26T10:58:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/java/</loc>
+    <lastmod>2023-06-26T10:58:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/categories/java/</loc>
+    <lastmod>2023-06-26T10:58:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/2023-06-26-modify-logging-level-of-java.util.logging/</loc>
+    <lastmod>2023-06-26T10:58:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/post/</loc>
+    <lastmod>2023-06-26T10:58:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/</loc>
+    <lastmod>2023-06-26T10:58:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://wpchou.github.io/tags/%E6%97%A5%E5%BF%97/</loc>
+    <lastmod>2023-06-26T10:58:59+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -38,20 +80,6 @@
   
   <url>
     <loc>https://wpchou.github.io/post/2020-07-28-escape-characters-in-json/</loc>
-    <lastmod>2020-10-27T10:58:59+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/post/</loc>
-    <lastmod>2020-10-27T10:58:59+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://wpchou.github.io/tags/</loc>
     <lastmod>2020-10-27T10:58:59+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -128,14 +156,14 @@
   </url>
   
   <url>
-    <loc>https://wpchou.github.io/post/2020-06-30-md5sum/</loc>
+    <loc>https://wpchou.github.io/tags/%E5%AE%89%E5%85%A8/</loc>
     <lastmod>2020-07-01T13:52:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://wpchou.github.io/tags/%E5%AE%89%E5%85%A8/</loc>
+    <loc>https://wpchou.github.io/post/2020-06-30-md5sum/</loc>
     <lastmod>2020-07-01T13:52:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

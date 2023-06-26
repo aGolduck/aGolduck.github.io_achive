@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.76.5 with theme even" />
+<meta name="generator" content="Hugo 0.114.1 with theme even" />
 
 
 <link rel="canonical" href="https://wpchou.github.io/post/2020-07-23-chainable-javascript-async-method/" />
@@ -35,26 +35,21 @@
 
 
 
-<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="可链式调用的 javasrcipt 异步方法" />
 <meta property="og:description" content="有一道经典的 js 面试题是这样的：编写一个类 Walker, 拥有两个方法，一个是 walk, 一个是 sleep, 要求两个方法都能接受一个整数参数，表示函数运行的秒数，并且两个方法都" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://wpchou.github.io/post/2020-07-23-chainable-javascript-async-method/" />
+<meta property="og:url" content="https://wpchou.github.io/post/2020-07-23-chainable-javascript-async-method/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-07-23T18:36:00+08:00" />
 <meta property="article:modified_time" content="2020-07-23T18:41:13+08:00" />
 <meta itemprop="name" content="可链式调用的 javasrcipt 异步方法">
-<meta itemprop="description" content="有一道经典的 js 面试题是这样的：编写一个类 Walker, 拥有两个方法，一个是 walk, 一个是 sleep, 要求两个方法都能接受一个整数参数，表示函数运行的秒数，并且两个方法都">
-<meta itemprop="datePublished" content="2020-07-23T18:36:00+08:00" />
+<meta itemprop="description" content="有一道经典的 js 面试题是这样的：编写一个类 Walker, 拥有两个方法，一个是 walk, 一个是 sleep, 要求两个方法都能接受一个整数参数，表示函数运行的秒数，并且两个方法都"><meta itemprop="datePublished" content="2020-07-23T18:36:00+08:00" />
 <meta itemprop="dateModified" content="2020-07-23T18:41:13+08:00" />
 <meta itemprop="wordCount" content="996">
-
-
-
-<meta itemprop="keywords" content="javascript,Promise," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="javascript,Promise," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="可链式调用的 javasrcipt 异步方法"/>
 <meta name="twitter:description" content="有一道经典的 js 面试题是这样的：编写一个类 Walker, 拥有两个方法，一个是 walk, 一个是 sleep, 要求两个方法都能接受一个整数参数，表示函数运行的秒数，并且两个方法都"/>
 
@@ -91,12 +86,21 @@
         <li class="mobile-menu-item">Categories</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">/home/wpchou/blog</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +115,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -150,13 +155,13 @@
 一个是 <code>sleep</code>, 要求两个方法都能接受一个整数参数，表示函数运行的秒数，并且两个方法都能链式调用。比如可以达到以下效果。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">walker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Walker</span><span class="p">()</span>
-<span class="nx">walker</span><span class="p">.</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">walker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Walker</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nx">walker</span><span class="p">.</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="经典-settimeout">经典 setTimeout</h2>
 <p>这道题的核心要求是将程序挂起 N 秒后恢复程序运行。当然你可以用死循环的办法不断地查询系统时间，时间到了就返回，实现同步的 <code>sleep</code> 和 <code>walk</code>, 但是这样会将 CPU 跑满，实用程序是不可能这么做的，我们需要将控制权交还给系统（不管是操作系统还是 runtime)，时间到了后恢复运行状态。</p>
@@ -164,7 +169,7 @@
 方法，作用就是上述的控制权转移。js 也有类似的 <code>setTimeOut</code> 方法，不同的在于，其它语言是用语句的先后顺序来实现这个控制权的转移， <code>setTimeOut</code> 则是用回调方法，这就给我们实现题目中的链式调用造成了很大困难。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -179,27 +184,27 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">sleep</span><span class="p">()</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;sleep&#39;</span><span class="p">)}</span>
-<span class="kd">function</span> <span class="nx">walk</span><span class="p">()</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;walk&#39;</span><span class="p">)}</span>
-<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">sleep</span><span class="p">()</span>
-  <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">walk</span><span class="p">()</span>
-    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">sleep</span><span class="p">()</span>
-      <span class="nx">setTimeout</span><span class="p">(</span>
-      <span class="nx">walk</span><span class="p">,</span> <span class="mi">4000</span><span class="p">)</span>
-    <span class="p">},</span> <span class="mi">3000</span><span class="p">)</span>
-  <span class="p">},</span> <span class="mi">2000</span><span class="p">)</span>
-<span class="p">},</span> <span class="mi">1000</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">sleep</span><span class="p">()</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;sleep&#39;</span><span class="p">)}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">walk</span><span class="p">()</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;walk&#39;</span><span class="p">)}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">sleep</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">walk</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">sleep</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">setTimeout</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">walk</span><span class="p">,</span> <span class="mi">4000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">3000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="mi">2000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="mi">1000</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="async-await">async/await</h2>
 <p>新标准的 async/await 语法为我们提供了用同步的顺序写异步逻辑的可能性。如果将 <code>sleep</code>
 和 <code>walk</code> 实现成 async 函数，可以将代码写成如下。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -216,29 +221,29 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">sleep</span><span class="p">(</span><span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;sleep&#39;</span><span class="p">)</span>
-  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">ms</span><span class="p">))</span>
-<span class="p">}</span>
-<span class="kr">async</span> <span class="kd">function</span> <span class="nx">walk</span><span class="p">(</span><span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;walk&#39;</span><span class="p">)</span>
-  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">ms</span><span class="p">))</span>
-<span class="p">}</span>
-<span class="kr">async</span> <span class="kd">function</span> <span class="nx">run</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kr">await</span> <span class="nx">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-  <span class="kr">await</span> <span class="nx">walk</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
-  <span class="kr">await</span> <span class="nx">sleep</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span>
-  <span class="kr">await</span> <span class="nx">walk</span><span class="p">(</span><span class="mi">4000</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="nx">run</span><span class="p">()</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">sleep</span><span class="p">(</span><span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;sleep&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">ms</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">walk</span><span class="p">(</span><span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;walk&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">ms</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">run</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">walk</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">sleep</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">walk</span><span class="p">(</span><span class="mi">4000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">run</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="pure-promise">pure promise</h2>
 <p>但是所有的 async function 返回的都是 awaitable 的 Promise. 用来作为类的方法时是不可能返回 this 对象以供链式调用的。实际上跟链式调用长得比较像的反而是不用 async/await
 的 Promise. 为了返回 this, 我们也必须完全放弃 async function.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -254,44 +259,44 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// 这里 async function 与普通 function 的语义其实是一样的，都是返回 promise
-</span><span class="c1"></span><span class="kd">function</span> <span class="nx">sleep</span><span class="p">(</span><span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;sleep&#39;</span><span class="p">)</span>
-  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">ms</span><span class="p">))</span>
-<span class="p">}</span>
-<span class="kd">function</span> <span class="nx">walk</span><span class="p">(</span><span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;walk&#39;</span><span class="p">)</span>
-  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">ms</span><span class="p">))</span>
-<span class="p">}</span>
-<span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">()</span>
-  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">sleep</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>
-  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">walk</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">2000</span><span class="p">))</span>
-  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">sleep</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">3000</span><span class="p">))</span>
-  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">walk</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">4000</span><span class="p">))</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// 这里 async function 与普通 function 的语义其实是一样的，都是返回 promise
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">sleep</span><span class="p">(</span><span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;sleep&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">ms</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">walk</span><span class="p">(</span><span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;walk&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">ms</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">sleep</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">walk</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">2000</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">sleep</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">3000</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">walk</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">4000</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="chainable-promise">chainable promise</h2>
 <p>可以观察到这个链式调用和我们的目的的链式调用每个步骤都是一一对应的关系</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">Promise.resolve()                         walker
-   .then(sleep.bind(null, 1000))             .sleep(1)
-   .then(walk.bind(null, 2000))              .walk(2)
-   .then(sleep.bind(null, 3000))             .sleep(3)
-   .then(walk.bind(null, 4000))              .walk(4)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Promise.resolve()                         walker
+</span></span><span class="line"><span class="cl">   .then(sleep.bind(null, 1000))             .sleep(1)
+</span></span><span class="line"><span class="cl">   .then(walk.bind(null, 2000))              .walk(2)
+</span></span><span class="line"><span class="cl">   .then(sleep.bind(null, 3000))             .sleep(3)
+</span></span><span class="line"><span class="cl">   .then(walk.bind(null, 4000))              .walk(4)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>现在的问题就在于有没有可能用某个方法将两个过程关联起来。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -312,32 +317,32 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nx">promise</span> <span class="o">=</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">()</span>
-<span class="kr">const</span> <span class="nx">walker</span> <span class="o">=</span> <span class="p">{}</span>
-
-<span class="nx">walker</span><span class="p">.</span><span class="nx">sleep</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">promise</span> <span class="o">=</span> <span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;sleep&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">s</span><span class="p">))</span>
-  <span class="p">})</span>
-  <span class="k">return</span> <span class="nx">walker</span>
-<span class="p">}</span>
-<span class="nx">walker</span><span class="p">.</span><span class="nx">walk</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">promise</span> <span class="o">=</span> <span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;walk&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">s</span><span class="p">))</span>
-  <span class="p">})</span>
-  <span class="k">return</span> <span class="nx">walker</span>
-<span class="p">}</span>
-
-<span class="nx">walker</span><span class="p">.</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">promise</span> <span class="o">=</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">walker</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">walker</span><span class="p">.</span><span class="nx">sleep</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">promise</span> <span class="o">=</span> <span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;sleep&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">s</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">walker</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">walker</span><span class="p">.</span><span class="nx">walk</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">promise</span> <span class="o">=</span> <span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;walk&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">s</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">walker</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">walker</span><span class="p">.</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="final-answer">final answer</h2>
 <p>改写成类的形式可以考虑用 <code>has-a</code> 关系组合甚至是 <code>is-a</code> 关系继承。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -360,34 +365,34 @@
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">class</span> <span class="nx">Walker</span> <span class="p">{</span>
-  <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">promise</span> <span class="o">=</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">()</span>
-  <span class="p">}</span>
-  <span class="nx">sleep</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">promise</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;sleep&#39;</span><span class="p">)</span>
-      <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">s</span><span class="p">))</span>
-    <span class="p">})</span>
-    <span class="k">return</span> <span class="k">this</span>
-  <span class="p">}</span>
-  <span class="nx">walk</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">promise</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;walk&#39;</span><span class="p">)</span>
-      <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">s</span><span class="p">))</span>
-    <span class="p">})</span>
-    <span class="k">return</span> <span class="k">this</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">new</span> <span class="nx">Walker</span><span class="p">().</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Walker</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">promise</span> <span class="o">=</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">sleep</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">promise</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;sleep&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">s</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">walk</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">promise</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;walk&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">s</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="nx">Walker</span><span class="p">().</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这其实等于变相实现了一个 <a href="http://liubin.org/promises-book/#deferred-and-promise">Deferred</a>.</p>
 <p>为了和其它函数配合，可以加一个 <code>exec</code> 方法返回 promise.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -399,17 +404,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">class</span> <span class="nx">Walker</span> <span class="p">{</span>
-  <span class="nx">constructor</span><span class="p">()</span> <span class="p">{}</span>
-  <span class="nx">sleep</span><span class="p">()</span> <span class="p">{}</span>
-  <span class="nx">walk</span><span class="p">()</span> <span class="p">{}</span>
-  <span class="nx">exec</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">promise</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kr">await</span> <span class="k">new</span> <span class="nx">Walker</span><span class="p">().</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="nx">exec</span><span class="p">()</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Walker</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">constructor</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">sleep</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">walk</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">exec</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">promise</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">await</span> <span class="k">new</span> <span class="nx">Walker</span><span class="p">().</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nx">walk</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="nx">exec</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="其它解法"><span class="org-todo todo TODO">TODO</span> 其它解法</h2>
 
@@ -506,13 +511,10 @@
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">wenpin</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>wenpin</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -526,7 +528,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 <script type="application/javascript">

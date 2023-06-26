@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.76.5 with theme even" />
+<meta name="generator" content="Hugo 0.114.1 with theme even" />
 
 
 <link rel="canonical" href="https://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/" />
@@ -35,26 +35,21 @@
 
 
 
-<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="npm 安装同一个包的不同版本" />
 <meta property="og:description" content="应用场景 不想升级老代码依赖 npm 无法同时安装同一个 package 的不同版本，以往遇到这种需求的时候，我的办法是自己新建一个包，然后在新建的包里安装目标包的一" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/" />
+<meta property="og:url" content="https://wpchou.github.io/post/2019-11-21-npm-install-multiple-versions-of-same-package/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2019-11-21T00:00:00+00:00" />
 <meta property="article:modified_time" content="2019-11-21T00:00:00+00:00" />
 <meta itemprop="name" content="npm 安装同一个包的不同版本">
-<meta itemprop="description" content="应用场景 不想升级老代码依赖 npm 无法同时安装同一个 package 的不同版本，以往遇到这种需求的时候，我的办法是自己新建一个包，然后在新建的包里安装目标包的一">
-<meta itemprop="datePublished" content="2019-11-21T00:00:00+00:00" />
+<meta itemprop="description" content="应用场景 不想升级老代码依赖 npm 无法同时安装同一个 package 的不同版本，以往遇到这种需求的时候，我的办法是自己新建一个包，然后在新建的包里安装目标包的一"><meta itemprop="datePublished" content="2019-11-21T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2019-11-21T00:00:00+00:00" />
 <meta itemprop="wordCount" content="517">
-
-
-
-<meta itemprop="keywords" content="node,npm," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="node,npm," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="npm 安装同一个包的不同版本"/>
 <meta name="twitter:description" content="应用场景 不想升级老代码依赖 npm 无法同时安装同一个 package 的不同版本，以往遇到这种需求的时候，我的办法是自己新建一个包，然后在新建的包里安装目标包的一"/>
 
@@ -91,12 +86,21 @@
         <li class="mobile-menu-item">Categories</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">/home/wpchou/blog</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +115,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -152,42 +157,42 @@
 <p>安装不同版本的客户端你必须运行以下命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">npm install &lt;alias&gt;@npm:@elastic/elasticsearch@&lt;version&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install &lt;alias&gt;@npm:@elastic/elasticsearch@&lt;version&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>比方说要同时安装 <code>7.x</code> 和 <code>6.x</code>, 运行以下命令</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">npm install es6@npm:@elastic/elasticsearch@6
-npm install es7@npm:@elastic/elasticsearch@7
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install es6@npm:@elastic/elasticsearch@6
+</span></span><span class="line"><span class="cl">npm install es7@npm:@elastic/elasticsearch@7
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>package.json</code> 文件就会多出下面的两行：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34;dependencies&#34;: {
-  &#34;es6&#34;: &#34;npm:@elastic/elasticsearch@6.7.0&#34;,
-  &#34;es7&#34;: &#34;npm:@elastic/elasticsearch@7.0.0&#34;
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&#34;dependencies&#34;: {
+</span></span><span class="line"><span class="cl">  &#34;es6&#34;: &#34;npm:@elastic/elasticsearch@6.7.0&#34;,
+</span></span><span class="line"><span class="cl">  &#34;es7&#34;: &#34;npm:@elastic/elasticsearch@7.0.0&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在代码中将刚刚定义的别名 <code>require</code> 进来。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -197,24 +202,24 @@ npm install es7@npm:@elastic/elasticsearch@7
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="p">{</span><span class="nx">Client</span><span class="o">:</span> <span class="nx">Client6</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;es6&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="p">{</span><span class="nx">Client</span><span class="o">:</span> <span class="nx">Client7</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;es7&#39;</span><span class="p">)</span>
-
-<span class="kr">const</span> <span class="nx">client6</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client6</span><span class="p">({</span><span class="nx">node</span><span class="o">:</span> <span class="s1">&#39;http://localhost:9200&#39;</span><span class="p">})</span>
-<span class="kr">const</span> <span class="nx">client7</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client7</span><span class="p">({</span><span class="nx">node</span><span class="o">:</span> <span class="s1">&#39;http://localhost:9201&#39;</span><span class="p">})</span>
-
-<span class="nx">client6</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">)</span>
-<span class="nx">client7</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span><span class="nx">Client</span><span class="o">:</span> <span class="nx">Client6</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;es6&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span><span class="nx">Client</span><span class="o">:</span> <span class="nx">Client7</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;es7&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">client6</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client6</span><span class="p">({</span><span class="nx">node</span><span class="o">:</span> <span class="s1">&#39;http://localhost:9200&#39;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">client7</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client7</span><span class="p">({</span><span class="nx">node</span><span class="o">:</span> <span class="s1">&#39;http://localhost:9201&#39;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">client6</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">client7</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最后，如果你想使用下一版本 Elasticsearch(即 Elasticsearch 的 master 分支) 的客户端，你可以运行下面的命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">npm install esmaster@github:elastic/elasticsearch-js
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install esmaster@github:elastic/elasticsearch-js
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="补充">补充</h2>
 <p>由上文的最后一条命令可看出，别名不局限于从 npm 下载的包。从 github 或者其它自定义 git 地址下载的包也可以使用别名。npm 如何安装其它来源的包可以参照<a href="https://docs.npmjs.com/cli/install">官方文档</a></p>
@@ -312,13 +317,10 @@ npm install es7@npm:@elastic/elasticsearch@7
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">wenpin</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>wenpin</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -332,7 +334,7 @@ npm install es7@npm:@elastic/elasticsearch@7
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 <script type="application/javascript">

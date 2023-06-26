@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.76.5 with theme even" />
+<meta name="generator" content="Hugo 0.114.1 with theme even" />
 
 
 <link rel="canonical" href="https://wpchou.github.io/post/2019-11-15-consecutive-integer-and-mysql-autoincremental-key/" />
@@ -35,26 +35,21 @@
 
 
 
-<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="连续抽奖号码与 MySQL 自增主键" />
 <meta property="og:description" content="最近运营要做一个简单的抽奖活动，要求从1开始产生连续的整数，作为抽奖号码发放出去，最后随机抽出一个号码作为幸运号码。一开始没多想，在 mongo 数据库" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://wpchou.github.io/post/2019-11-15-consecutive-integer-and-mysql-autoincremental-key/" />
+<meta property="og:url" content="https://wpchou.github.io/post/2019-11-15-consecutive-integer-and-mysql-autoincremental-key/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2019-11-15T00:00:00+00:00" />
 <meta property="article:modified_time" content="2019-11-15T00:00:00+00:00" />
 <meta itemprop="name" content="连续抽奖号码与 MySQL 自增主键">
-<meta itemprop="description" content="最近运营要做一个简单的抽奖活动，要求从1开始产生连续的整数，作为抽奖号码发放出去，最后随机抽出一个号码作为幸运号码。一开始没多想，在 mongo 数据库">
-<meta itemprop="datePublished" content="2019-11-15T00:00:00+00:00" />
+<meta itemprop="description" content="最近运营要做一个简单的抽奖活动，要求从1开始产生连续的整数，作为抽奖号码发放出去，最后随机抽出一个号码作为幸运号码。一开始没多想，在 mongo 数据库"><meta itemprop="datePublished" content="2019-11-15T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2019-11-15T00:00:00+00:00" />
 <meta itemprop="wordCount" content="1091">
-
-
-
-<meta itemprop="keywords" content="mysql," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="mysql," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="连续抽奖号码与 MySQL 自增主键"/>
 <meta name="twitter:description" content="最近运营要做一个简单的抽奖活动，要求从1开始产生连续的整数，作为抽奖号码发放出去，最后随机抽出一个号码作为幸运号码。一开始没多想，在 mongo 数据库"/>
 
@@ -91,12 +86,21 @@
         <li class="mobile-menu-item">Categories</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">/home/wpchou/blog</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +115,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -149,7 +154,7 @@
 <p>对应的，我们初始化一个 MySQL 表。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -159,24 +164,24 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">t</span><span class="o">`</span> <span class="p">(</span>
-  <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
-  <span class="o">`</span><span class="k">c</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="k">NULL</span><span class="p">,</span>
-  <span class="o">`</span><span class="n">d</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="k">NULL</span><span class="p">,</span>
-  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">),</span>
-  <span class="k">UNIQUE</span> <span class="k">KEY</span> <span class="o">`</span><span class="k">c</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="k">c</span><span class="o">`</span><span class="p">)</span>
-<span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span>
-<span class="k">insert</span> <span class="k">into</span> <span class="n">t</span> <span class="k">values</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">t</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="k">c</span><span class="o">`</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">d</span><span class="o">`</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="o">`</span><span class="k">c</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="k">c</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后插入下面这条数据。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">insert</span> <span class="k">into</span> <span class="n">t</span> <span class="k">values</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>过程如下：</p>
 <ol>
@@ -340,13 +345,10 @@
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">wenpin</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>wenpin</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -360,7 +362,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 <script type="application/javascript">

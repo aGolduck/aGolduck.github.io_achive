@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.76.5 with theme even" />
+<meta name="generator" content="Hugo 0.114.1 with theme even" />
 
 
 <link rel="canonical" href="https://wpchou.github.io/post/2020-06-30-md5sum/" />
@@ -35,26 +35,21 @@
 
 
 
-<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="如何快速计算 MD5 哈希值" />
 <meta property="og:description" content="大部分语言都内置了 md5 函数，比如 nodejs nodejs 在 node repl 环境下可以调用标准库计算。 1 console.log(require(&#39;crypto&#39;).createHash(&#39;md5&#39;).update(&#39;example&#39;).digest(&#39;hex&#39;)) 1 1a79a4d60de6718e8e5b326e338ae533 但是如此稍显烦琐，再来需要额外的依赖。可以直接使用大部分 Linux 发行版自" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://wpchou.github.io/post/2020-06-30-md5sum/" />
+<meta property="og:url" content="https://wpchou.github.io/post/2020-06-30-md5sum/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-06-30T21:09:00+08:00" />
 <meta property="article:modified_time" content="2020-07-01T13:52:28+08:00" />
 <meta itemprop="name" content="如何快速计算 MD5 哈希值">
-<meta itemprop="description" content="大部分语言都内置了 md5 函数，比如 nodejs nodejs 在 node repl 环境下可以调用标准库计算。 1 console.log(require(&#39;crypto&#39;).createHash(&#39;md5&#39;).update(&#39;example&#39;).digest(&#39;hex&#39;)) 1 1a79a4d60de6718e8e5b326e338ae533 但是如此稍显烦琐，再来需要额外的依赖。可以直接使用大部分 Linux 发行版自">
-<meta itemprop="datePublished" content="2020-06-30T21:09:00+08:00" />
+<meta itemprop="description" content="大部分语言都内置了 md5 函数，比如 nodejs nodejs 在 node repl 环境下可以调用标准库计算。 1 console.log(require(&#39;crypto&#39;).createHash(&#39;md5&#39;).update(&#39;example&#39;).digest(&#39;hex&#39;)) 1 1a79a4d60de6718e8e5b326e338ae533 但是如此稍显烦琐，再来需要额外的依赖。可以直接使用大部分 Linux 发行版自"><meta itemprop="datePublished" content="2020-06-30T21:09:00+08:00" />
 <meta itemprop="dateModified" content="2020-07-01T13:52:28+08:00" />
 <meta itemprop="wordCount" content="253">
-
-
-
-<meta itemprop="keywords" content="unix,Linux,安全," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="unix,Linux,安全," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="如何快速计算 MD5 哈希值"/>
 <meta name="twitter:description" content="大部分语言都内置了 md5 函数，比如 nodejs nodejs 在 node repl 环境下可以调用标准库计算。 1 console.log(require(&#39;crypto&#39;).createHash(&#39;md5&#39;).update(&#39;example&#39;).digest(&#39;hex&#39;)) 1 1a79a4d60de6718e8e5b326e338ae533 但是如此稍显烦琐，再来需要额外的依赖。可以直接使用大部分 Linux 发行版自"/>
 
@@ -91,12 +86,21 @@
         <li class="mobile-menu-item">Categories</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">/home/wpchou/blog</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +115,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -152,19 +157,19 @@
 <p>在 node repl 环境下可以调用标准库计算。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;crypto&#39;</span><span class="p">).</span><span class="nx">createHash</span><span class="p">(</span><span class="s1">&#39;md5&#39;</span><span class="p">).</span><span class="nx">update</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">).</span><span class="nx">digest</span><span class="p">(</span><span class="s1">&#39;hex&#39;</span><span class="p">))</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;crypto&#39;</span><span class="p">).</span><span class="nx">createHash</span><span class="p">(</span><span class="s1">&#39;md5&#39;</span><span class="p">).</span><span class="nx">update</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">).</span><span class="nx">digest</span><span class="p">(</span><span class="s1">&#39;hex&#39;</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">1a79a4d60de6718e8e5b326e338ae533
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">1a79a4d60de6718e8e5b326e338ae533
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>但是如此稍显烦琐，再来需要额外的依赖。可以直接使用大部分 Linux 发行版自带的 <code>md5sum</code></p>
 <h2 id="bash">bash</h2>
@@ -172,19 +177,19 @@
 <h3 id="使用-stdin">使用 stdin</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">md5sum <span class="o">&lt;&lt;&lt;</span> <span class="s2">&#34;example&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">md5sum <span class="o">&lt;&lt;&lt;</span> <span class="s2">&#34;example&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">ddce269a1e3d054cae349621c198dd52  -
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">ddce269a1e3d054cae349621c198dd52  -
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>等等，怎么和 node 计算出来不一样。原来 <code>&lt;&lt;&lt;</code> 称为 bash 的 <code>here-string</code> 会自动加上换行符，最初的设计时便定义为这样的行为，且没有选项去除。有同样行为的还有称为 <code>here-document</code>
 的 <code>&lt;&lt;</code>.</p>
@@ -193,36 +198,36 @@
 <h4 id="printf">printf</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">printf</span> <span class="s1">&#39;%s&#39;</span> <span class="s2">&#34;example&#34;</span> <span class="p">|</span> md5sum
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">printf</span> <span class="s1">&#39;%s&#39;</span> <span class="s2">&#34;example&#34;</span> <span class="p">|</span> md5sum
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">1a79a4d60de6718e8e5b326e338ae533  -
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">1a79a4d60de6718e8e5b326e338ae533  -
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="echo-n">echo -n</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">echo</span> -n example <span class="p">|</span> md5sum
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">echo</span> -n example <span class="p">|</span> md5sum
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">1a79a4d60de6718e8e5b326e338ae533  -
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">1a79a4d60de6718e8e5b326e338ae533  -
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>参考：<a href="https://askubuntu.com/questions/53846/how-to-get-the-md5-hash-of-a-string-directly-in-the-terminal">command line - How to get the MD5 hash of a string directly in the terminal? &hellip;</a></p>
 
@@ -320,13 +325,10 @@
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">wenpin</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>wenpin</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -340,7 +342,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 <script type="application/javascript">

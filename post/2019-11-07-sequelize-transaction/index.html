@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.76.5 with theme even" />
+<meta name="generator" content="Hugo 0.114.1 with theme even" />
 
 
 <link rel="canonical" href="https://wpchou.github.io/post/2019-11-07-sequelize-transaction/" />
@@ -35,26 +35,21 @@
 
 
 
-<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="如何使用 Sequelize (自动)管理数据库事务" />
 <meta property="og:description" content="到目前为止，Sequelize 仍然是 nodejs 最成熟的 ORM 库。相关的文档有 manual 和 api rereference. 但老实说，写得不算好，manual 只能算 tutorial. api reference 也很多语焉不详，很多用" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://wpchou.github.io/post/2019-11-07-sequelize-transaction/" />
+<meta property="og:url" content="https://wpchou.github.io/post/2019-11-07-sequelize-transaction/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2019-11-07T00:00:00+00:00" />
 <meta property="article:modified_time" content="2019-11-07T00:00:00+00:00" />
 <meta itemprop="name" content="如何使用 Sequelize (自动)管理数据库事务">
-<meta itemprop="description" content="到目前为止，Sequelize 仍然是 nodejs 最成熟的 ORM 库。相关的文档有 manual 和 api rereference. 但老实说，写得不算好，manual 只能算 tutorial. api reference 也很多语焉不详，很多用">
-<meta itemprop="datePublished" content="2019-11-07T00:00:00+00:00" />
+<meta itemprop="description" content="到目前为止，Sequelize 仍然是 nodejs 最成熟的 ORM 库。相关的文档有 manual 和 api rereference. 但老实说，写得不算好，manual 只能算 tutorial. api reference 也很多语焉不详，很多用"><meta itemprop="datePublished" content="2019-11-07T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2019-11-07T00:00:00+00:00" />
 <meta itemprop="wordCount" content="1994">
-
-
-
-<meta itemprop="keywords" content="sequelize,mysql,nodejs," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="sequelize,mysql,nodejs," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="如何使用 Sequelize (自动)管理数据库事务"/>
 <meta name="twitter:description" content="到目前为止，Sequelize 仍然是 nodejs 最成熟的 ORM 库。相关的文档有 manual 和 api rereference. 但老实说，写得不算好，manual 只能算 tutorial. api reference 也很多语焉不详，很多用"/>
 
@@ -91,12 +86,21 @@
         <li class="mobile-menu-item">Categories</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">/home/wpchou/blog</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +115,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -165,7 +170,7 @@
 <p>讨论 Sequelize 之前，我们先来看一下 SQL 和事务相关的语句。不同数据库可能有所不同，下面以 MySQL 为例。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -174,21 +179,21 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">START</span> <span class="k">TRANSACTION</span><span class="p">;</span>   <span class="o">//</span> <span class="err">显式地开启一个事务</span>
-<span class="k">SET</span> <span class="k">TRANSACTION</span> <span class="k">READ</span> <span class="k">UNCOMMITTED</span><span class="o">|</span><span class="k">READ</span> <span class="n">COMMITTTED</span><span class="o">|</span><span class="k">REPEATABLE</span> <span class="k">READ</span><span class="o">|</span><span class="k">SERIALIZABLE</span><span class="p">;</span> <span class="o">//</span> <span class="err">设置当前事物的隔离级别</span>
-<span class="k">COMMIT</span><span class="p">;</span> <span class="o">//</span> <span class="err">提交事务</span>
-<span class="k">ROLLBACK</span><span class="p">;</span>  <span class="o">//</span> <span class="err">回滚事务</span>
-<span class="n">SAVEPOINT</span> <span class="n">sp1</span><span class="p">;</span> <span class="o">//</span> <span class="err">事务中间提交创建保存点</span> <span class="n">sp1</span><span class="err">，可以创建多个保存点</span>
-<span class="k">ROLLBACK</span> <span class="k">TO</span> <span class="n">sp1</span><span class="p">;</span> <span class="o">//</span> <span class="err">回滚至保存点</span> <span class="n">sp1</span>
-<span class="n">REREASE</span> <span class="n">SAVEPOINT</span> <span class="n">sp1</span><span class="p">;</span>  <span class="o">//</span> <span class="err">删除保存点</span> <span class="n">sp1</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">START</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="p">;</span><span class="w">   </span><span class="o">//</span><span class="w"> </span><span class="err">显式地开启一个事务</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">UNCOMMITTED</span><span class="o">|</span><span class="k">READ</span><span class="w"> </span><span class="n">COMMITTTED</span><span class="o">|</span><span class="k">REPEATABLE</span><span class="w"> </span><span class="k">READ</span><span class="o">|</span><span class="k">SERIALIZABLE</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="err">设置当前事物的隔离级别</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">COMMIT</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="err">提交事务</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ROLLBACK</span><span class="p">;</span><span class="w">  </span><span class="o">//</span><span class="w"> </span><span class="err">回滚事务</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">SAVEPOINT</span><span class="w"> </span><span class="n">sp1</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="err">事务中间提交创建保存点</span><span class="w"> </span><span class="n">sp1</span><span class="err">，可以创建多个保存点</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ROLLBACK</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">sp1</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="err">回滚至保存点</span><span class="w"> </span><span class="n">sp1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">REREASE</span><span class="w"> </span><span class="n">SAVEPOINT</span><span class="w"> </span><span class="n">sp1</span><span class="p">;</span><span class="w">  </span><span class="o">//</span><span class="w"> </span><span class="err">删除保存点</span><span class="w"> </span><span class="n">sp1</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>MySQL 使用以上语句管理事务的生命周期，除了删除保存点， Sequelize 支持所有的语句。</p>
 <h2 id="手动管理事务">手动管理事务</h2>
 <p>文档给出的例子如下，我在其间加了四个函数调用表示其它的同步语句。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -209,32 +214,32 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">return</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">t</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="c1">// f1()
-</span><span class="c1"></span>  <span class="k">return</span> <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
-    <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Bart&#39;</span><span class="p">,</span>
-    <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Simpson&#39;</span>
-  <span class="p">},</span> <span class="p">{</span><span class="nx">transaction</span><span class="o">:</span> <span class="nx">t</span><span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">user</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="c1">// f2()
-</span><span class="c1"></span>    <span class="k">return</span> <span class="nx">user</span><span class="p">.</span><span class="nx">addSibling</span><span class="p">({</span>
-      <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Lisa&#39;</span><span class="p">,</span>
-      <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Simpson&#39;</span>
-    <span class="p">},</span> <span class="p">{</span><span class="nx">transaction</span><span class="o">:</span> <span class="nx">t</span><span class="p">});</span>
-  <span class="p">}).</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="c1">// f3()
-</span><span class="c1"></span>    <span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nx">commit</span><span class="p">();</span>
-  <span class="p">}).</span><span class="k">catch</span><span class="p">((</span><span class="nx">err</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="c1">// f4()
-</span><span class="c1"></span>    <span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nx">rollback</span><span class="p">();</span>
-  <span class="p">});</span>
-<span class="p">});</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="k">return</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">t</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// f1()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Bart&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Simpson&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">{</span><span class="nx">transaction</span><span class="o">:</span> <span class="nx">t</span><span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">user</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// f2()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="nx">user</span><span class="p">.</span><span class="nx">addSibling</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Lisa&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Simpson&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="p">{</span><span class="nx">transaction</span><span class="o">:</span> <span class="nx">t</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}).</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// f3()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nx">commit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}).</span><span class="k">catch</span><span class="p">((</span><span class="nx">err</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// f4()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nx">rollback</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这种写法其实很容易让人回忆起 callback hell. 如果换成 async/await 写法就漂亮得多。</p>
 <h3 id="asyncawait">async/await</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -258,36 +263,36 @@
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">t</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">()</span>
-<span class="k">try</span> <span class="p">{</span>
-  <span class="nx">f1</span><span class="p">()</span>
-  <span class="kr">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
-    <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Bart&#39;</span><span class="p">,</span>
-    <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Simpson&#39;</span>
-  <span class="p">},</span> <span class="p">{</span>
-    <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t</span>
-  <span class="p">})</span>
-  <span class="nx">f2</span><span class="p">()</span>
-  <span class="kr">await</span> <span class="nx">user</span><span class="p">.</span><span class="nx">addSibling</span><span class="p">({</span>
-    <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Lisa&#39;</span><span class="p">,</span>
-    <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Simpson&#39;</span>
-  <span class="p">},</span> <span class="p">{</span>
-    <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t</span>
-  <span class="p">})</span>
-  <span class="nx">f3</span><span class="p">()</span>
-  <span class="kr">await</span> <span class="nx">t</span><span class="p">.</span><span class="nx">commit</span><span class="p">()</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">f4</span><span class="p">()</span>
-  <span class="kr">await</span> <span class="nx">t</span><span class="p">.</span><span class="nx">rollback</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">t</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">f1</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Bart&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Simpson&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">f2</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">user</span><span class="p">.</span><span class="nx">addSibling</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Lisa&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Simpson&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">f3</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">t</span><span class="p">.</span><span class="nx">commit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">f4</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">t</span><span class="p">.</span><span class="nx">rollback</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这就是最基本的事务处理过程了。</p>
 <h3 id="多事务">多事务</h3>
 <p>多事务并行也非常简单。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -312,37 +317,37 @@
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">t1</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">()</span>
-<span class="kr">const</span> <span class="nx">t2</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">()</span>
-<span class="k">try</span> <span class="p">{</span>
-  <span class="kr">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">([</span>
-  <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
-    <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Bart&#39;</span><span class="p">,</span>
-    <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Simpson&#39;</span>
-  <span class="p">},</span> <span class="p">{</span>
-    <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t1</span>
-  <span class="p">}),</span>
-  <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
-    <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Lisa&#39;</span><span class="p">,</span>
-    <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Simpson&#39;</span>
-  <span class="p">},</span> <span class="p">{</span>
-    <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t2</span>
-  <span class="p">})</span>
-  <span class="p">])</span>
-  <span class="kr">await</span> <span class="nx">t1</span><span class="p">.</span><span class="nx">commit</span><span class="p">()</span>
-  <span class="kr">await</span> <span class="nx">t2</span><span class="p">.</span><span class="nx">commit</span><span class="p">()</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">await</span> <span class="nx">t1</span><span class="p">.</span><span class="nx">rollback</span><span class="p">()</span>
-  <span class="kr">await</span> <span class="nx">t2</span><span class="p">.</span><span class="nx">rollback</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">t1</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">t2</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Bart&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Simpson&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t1</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}),</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Lisa&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Simpson&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t2</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">])</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">t1</span><span class="p">.</span><span class="nx">commit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">t2</span><span class="p">.</span><span class="nx">commit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">t1</span><span class="p">.</span><span class="nx">rollback</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">t2</span><span class="p">.</span><span class="nx">rollback</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>但实际应用中，很少会出现在一个调用堆栈里出现多事务的，更多的是并发请求造成的，要尤其小心锁的运用。</p>
 <h3 id="保存点">保存点</h3>
 <p>保存点没有相关的文档说明，只能是看源码和相关的测试文件。首先看 <a href="https://github.com/sequelize/sequelize/blob/bd59b8729b8d898d2f3ce8deb764777bab7e57d5/lib/transaction.js#L37">Transaction 类的构造函数</a>.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -361,29 +366,29 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">class</span> <span class="nx">Transaction</span> <span class="p">{</span>
-  <span class="nx">constructor</span><span class="p">(</span><span class="nx">sequelize</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">savepoints</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">parent</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">transaction</span><span class="p">;</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parent</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">parent</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">parent</span><span class="p">.</span><span class="nx">savepoints</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb">-sp-</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">parent</span><span class="p">.</span><span class="nx">savepoints</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">generateTransactionId</span><span class="p">();</span>
-    <span class="p">}</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Transaction</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">constructor</span><span class="p">(</span><span class="nx">sequelize</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">savepoints</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">parent</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">transaction</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parent</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">parent</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">parent</span><span class="p">.</span><span class="nx">savepoints</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb">-sp-</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">parent</span><span class="p">.</span><span class="nx">savepoints</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">generateTransactionId</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>很明显，这段代码的意思是当构造参数 options 有 transaction 属性的时候，不开启新的事务(generateTransactionId)，而仅是向其“父事务”的保存点队列推入一个新的保存点。可以推测，保存点的创建方法如下。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -404,31 +409,31 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">t</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">()</span>
-<span class="k">try</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
-    <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Bart&#39;</span><span class="p">,</span>
-    <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Simpson&#39;</span>
-  <span class="p">},</span> <span class="p">{</span>
-    <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t</span>
-  <span class="p">})</span>
-  <span class="kr">const</span> <span class="nx">savepoint</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">({</span><span class="nx">transaction</span><span class="o">:</span> <span class="nx">t</span><span class="p">})</span>
-  <span class="kr">await</span> <span class="nx">user</span><span class="p">.</span><span class="nx">addSibling</span><span class="p">({</span>
-    <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Lisa&#39;</span><span class="p">,</span>
-    <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Simpson&#39;</span>
-  <span class="p">},</span> <span class="p">{</span>
-    <span class="nx">transaction</span><span class="o">:</span> <span class="nx">savepoint</span>
-  <span class="p">})</span>
-  <span class="kr">await</span> <span class="nx">t</span><span class="p">.</span><span class="nx">commit</span><span class="p">()</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">await</span> <span class="nx">t</span><span class="p">.</span><span class="nx">rollback</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">t</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Bart&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Simpson&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">savepoint</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">({</span><span class="nx">transaction</span><span class="o">:</span> <span class="nx">t</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">user</span><span class="p">.</span><span class="nx">addSibling</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Lisa&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Simpson&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">transaction</span><span class="o">:</span> <span class="nx">savepoint</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">t</span><span class="p">.</span><span class="nx">commit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">t</span><span class="p">.</span><span class="nx">rollback</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以在<a href="https://github.com/sequelize/sequelize/blob/7a90df5cd009024493a306f9a1314d9cbfcb1176/test/integration/sequelize.test.js#L1425">测试文件</a>里得到验证。尽管测试代码使用的是回调方式，但和上面的 async/await 示例没有本质区别。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -454,36 +459,36 @@
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;transaction&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="c1">// ...
-</span><span class="c1"></span>  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;supports nested transactions using savepoints&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">User</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">sequelizeWithTransaction</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;Users&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">username</span><span class="o">:</span> <span class="nx">DataTypes</span><span class="p">.</span><span class="nx">STRING</span> <span class="p">});</span>
-
-    <span class="k">return</span> <span class="nx">User</span><span class="p">.</span><span class="nx">sync</span><span class="p">({</span> <span class="nx">force</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}).</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">sequelizeWithTransaction</span><span class="p">.</span><span class="nx">transaction</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">t1</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="nx">username</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t1</span> <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">user</span> <span class="p">=&gt;</span> <span class="p">{</span>
-          <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">sequelizeWithTransaction</span><span class="p">.</span><span class="nx">transaction</span><span class="p">({</span> <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t1</span> <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">t2</span> <span class="p">=&gt;</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">user</span><span class="p">.</span><span class="nx">update</span><span class="p">({</span> <span class="nx">username</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t2</span> <span class="p">}).</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-              <span class="k">return</span> <span class="nx">t2</span><span class="p">.</span><span class="nx">commit</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="nx">user</span><span class="p">.</span><span class="nx">reload</span><span class="p">({</span> <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t1</span> <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">newUser</span> <span class="p">=&gt;</span> <span class="p">{</span>
-                  <span class="nx">expect</span><span class="p">(</span><span class="nx">newUser</span><span class="p">.</span><span class="nx">username</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">);</span>
-                  <span class="k">return</span> <span class="nx">t1</span><span class="p">.</span><span class="nx">commit</span><span class="p">();</span>
-                <span class="p">});</span>
-              <span class="p">});</span>
-            <span class="p">});</span>
-          <span class="p">});</span>
-        <span class="p">});</span>
-      <span class="p">});</span>
-    <span class="p">});</span>
-  <span class="p">});</span>
-  <span class="c1">// ...
-</span><span class="c1"></span><span class="p">})</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;transaction&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;supports nested transactions using savepoints&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">User</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">sequelizeWithTransaction</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;Users&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">username</span><span class="o">:</span> <span class="nx">DataTypes</span><span class="p">.</span><span class="nx">STRING</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">User</span><span class="p">.</span><span class="nx">sync</span><span class="p">({</span> <span class="nx">force</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}).</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">sequelizeWithTransaction</span><span class="p">.</span><span class="nx">transaction</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">t1</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="nx">username</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t1</span> <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">user</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">sequelizeWithTransaction</span><span class="p">.</span><span class="nx">transaction</span><span class="p">({</span> <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t1</span> <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">t2</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">user</span><span class="p">.</span><span class="nx">update</span><span class="p">({</span> <span class="nx">username</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t2</span> <span class="p">}).</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="k">return</span> <span class="nx">t2</span><span class="p">.</span><span class="nx">commit</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="nx">user</span><span class="p">.</span><span class="nx">reload</span><span class="p">({</span> <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t1</span> <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">newUser</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                  <span class="nx">expect</span><span class="p">(</span><span class="nx">newUser</span><span class="p">.</span><span class="nx">username</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                  <span class="k">return</span> <span class="nx">t1</span><span class="p">.</span><span class="nx">commit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="p">});</span>
+</span></span><span class="line"><span class="cl">              <span class="p">});</span>
+</span></span><span class="line"><span class="cl">            <span class="p">});</span>
+</span></span><span class="line"><span class="cl">          <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">      <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>测试文件还展示了如何回滚至保存点，实际和前面的事务(<code>await savepoint.rollback()</code>)回滚一致。代码过长，下面仅摘录一部分，可以自行到 <a href="https://github.com/sequelize/sequelize/blob/7a90df5cd009024493a306f9a1314d9cbfcb1176/test/integration/sequelize.test.js#L1425">github</a> 查看。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -494,37 +499,37 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;transaction&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="c1">// ...
-</span><span class="c1"></span>  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;supports nested transactions using savepoints&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// ... });
-</span><span class="c1"></span>  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;rolls back to the first savepoint, undoing everything&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// ... });
-</span><span class="c1"></span>  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;rolls back to the first savepoint, undoing everything&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// ... });
-</span><span class="c1"></span>  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;supports rolling back a nested transaction&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// ... });
-</span><span class="c1"></span>  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;supports rolling back outermost transaction&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// ... });
-</span><span class="c1"></span>  <span class="c1">// ...
-</span><span class="c1"></span><span class="p">})</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;transaction&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;supports nested transactions using savepoints&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// ... });
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;rolls back to the first savepoint, undoing everything&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// ... });
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;rolls back to the first savepoint, undoing everything&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// ... });
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;supports rolling back a nested transaction&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// ... });
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;supports rolling back outermost transaction&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// ... });
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="隔离级别">隔离级别</h3>
 <p>最后，在获取事务对象的时候可以设置隔离级别，但并不建议这么做。隔离级别最好是由 DBA 统一设置。至此，就介绍完了所有的事务相关的管理语句。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">({</span>
-  <span class="nx">isolationLevel</span><span class="o">:</span> <span class="nx">Sequelize</span><span class="p">.</span><span class="nx">Transaction</span><span class="p">.</span><span class="nx">ISOLATION_LEVELS</span><span class="p">.</span><span class="nx">SERIALIZABLE</span>
-<span class="p">})</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">isolationLevel</span><span class="o">:</span> <span class="nx">Sequelize</span><span class="p">.</span><span class="nx">Transaction</span><span class="p">.</span><span class="nx">ISOLATION_LEVELS</span><span class="p">.</span><span class="nx">SERIALIZABLE</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="自动管理事务">自动管理事务</h2>
 <h3 id="自动提交回滚">自动提交/回滚</h3>
 <p>由前面的例子看，所有的代码都要做 commit 和 rollback 的处理，Sequelize 能不能把这件事也做了呢。文档给出的例子如下。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -541,27 +546,27 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">return</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="nx">t</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
-    <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Abraham&#39;</span><span class="p">,</span>
-    <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Lincoln&#39;</span>
-  <span class="p">},</span> <span class="p">{</span><span class="nx">transaction</span><span class="o">:</span> <span class="nx">t</span><span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">user</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">()</span> <span class="p">{</span>
-      <span class="c1">// Woops, the query was successful but we still want to roll back!
-</span><span class="c1"></span>      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">();</span>
-    <span class="p">}</span>
-  <span class="p">});</span>
-<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="c1">// ...
-</span><span class="c1"></span><span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="c1">// ...
-</span><span class="c1"></span><span class="p">});</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="k">return</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="nx">t</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Abraham&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Lincoln&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">{</span><span class="nx">transaction</span><span class="o">:</span> <span class="nx">t</span><span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">user</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// Woops, the query was successful but we still want to roll back!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>我们转成 async/await 方式。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -580,24 +585,24 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">try</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="kr">async</span> <span class="nx">t</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
-      <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Abraham&#39;</span><span class="p">,</span>
-      <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Lincoln&#39;</span>
-    <span class="p">},</span> <span class="p">{</span>
-      <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t</span>
-    <span class="p">})</span>
-    <span class="k">if</span> <span class="p">()</span> <span class="p">{</span>
-      <span class="c1">// Woops, the query was successful but we still want to roll back!
-</span><span class="c1"></span>      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">();</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">user</span>
-  <span class="p">})</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// handle error
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="kr">async</span> <span class="nx">t</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Abraham&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Lincoln&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// Woops, the query was successful but we still want to roll back!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">user</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// handle error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>也就是说我们只要把一个 async function 作为 sequelize.transaction 方法的回调函数就可以自动提交/回滚。注意这种写法不能再手动提交/回滚。如果要强制回滚，抛出一个错误即可。</p>
 <h2 id="自动将查询加入事务">自动将查询加入事务</h2>
@@ -605,7 +610,7 @@
 <p>文档例子如下。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -617,23 +622,23 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">cls</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cls-hooked&#39;</span><span class="p">);</span>
-<span class="kr">const</span> <span class="nx">namespace</span> <span class="o">=</span> <span class="nx">cls</span><span class="p">.</span><span class="nx">createNamespace</span><span class="p">(</span><span class="s1">&#39;my-very-own-namespace&#39;</span><span class="p">);</span>
-<span class="kr">const</span> <span class="nx">Sequelize</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;sequelize&#39;</span><span class="p">);</span>
-<span class="nx">Sequelize</span><span class="p">.</span><span class="nx">useCLS</span><span class="p">(</span><span class="nx">namespace</span><span class="p">);</span>
-
-<span class="kr">const</span> <span class="nx">sequelize</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Sequelize</span><span class="p">(....);</span>
-
-<span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="kr">await</span> <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Alice&#39;</span><span class="p">})</span>
-<span class="p">})</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">cls</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cls-hooked&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">namespace</span> <span class="o">=</span> <span class="nx">cls</span><span class="p">.</span><span class="nx">createNamespace</span><span class="p">(</span><span class="s1">&#39;my-very-own-namespace&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Sequelize</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;sequelize&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Sequelize</span><span class="p">.</span><span class="nx">useCLS</span><span class="p">(</span><span class="nx">namespace</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">sequelize</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Sequelize</span><span class="p">(....);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Alice&#39;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="复杂场景并行部分事务">复杂场景：并行/部分事务</h3>
 <p>下面的例子来自文档，改用 async/await 写法。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -646,37 +651,37 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="kr">async</span> <span class="p">(</span><span class="nx">t1</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="kr">async</span> <span class="p">(</span><span class="nx">t2</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="c1">// With CLS enable, queries here will by default use t2
-</span><span class="c1"></span>    <span class="c1">// Pass in the `transaction` option to define/alter the transaction they belong to.
-</span><span class="c1"></span>    <span class="kr">await</span>  <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">([</span>
-        <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Bob&#39;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">transaction</span><span class="o">:</span> <span class="kc">null</span> <span class="p">}),</span> <span class="c1">// 不使用事务
-</span><span class="c1"></span>        <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Mallory&#39;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t1</span> <span class="p">}),</span> <span class="c1">// 在事务 t1 中执行
-</span><span class="c1"></span>        <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;John&#39;</span> <span class="p">})</span> <span class="c1">// this would default to t2
-</span><span class="c1"></span>    <span class="p">]);</span>
-  <span class="p">});</span>
-<span class="p">});</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="kr">async</span> <span class="p">(</span><span class="nx">t1</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="kr">async</span> <span class="p">(</span><span class="nx">t2</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// With CLS enable, queries here will by default use t2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// Pass in the `transaction` option to define/alter the transaction they belong to.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">await</span>  <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Bob&#39;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">transaction</span><span class="o">:</span> <span class="kc">null</span> <span class="p">}),</span> <span class="c1">// 不使用事务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Mallory&#39;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">transaction</span><span class="o">:</span> <span class="nx">t1</span> <span class="p">}),</span> <span class="c1">// 在事务 t1 中执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">User</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;John&#39;</span> <span class="p">})</span> <span class="c1">// this would default to t2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>多事务并行其实使用手动管理更好。</p>
 <h3 id="复杂场景保存点">复杂场景：保存点</h3>
 <p>sequelize 可传 options 和回调函数两个参数，都是可选的。用同时传两个参数的方法实现保存点。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="kr">async</span> <span class="p">(</span><span class="nx">transaction</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">({</span><span class="nx">transaction</span><span class="p">},</span> <span class="kr">async</span><span class="p">(</span><span class="nx">savepoint</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>  <span class="p">})</span>
-<span class="p">})</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="kr">async</span> <span class="p">(</span><span class="nx">transaction</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">transaction</span><span class="p">({</span><span class="nx">transaction</span><span class="p">},</span> <span class="kr">async</span><span class="p">(</span><span class="nx">savepoint</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -773,13 +778,10 @@
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">wenpin</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>wenpin</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -793,7 +795,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 <script type="application/javascript">

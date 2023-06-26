@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.76.5 with theme even" />
+<meta name="generator" content="Hugo 0.114.1 with theme even" />
 
 
 <link rel="canonical" href="https://wpchou.github.io/post/2020-06-12-powershell-style-aliases-for-unix-commands/" />
@@ -35,26 +35,21 @@
 
 
 
-<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Powershell style aliases for unix commands" />
 <meta property="og:description" content="最近基本把 Linux性能优化实战_Linux_性能调优-极客时间 给看完了，从某种角度来讲，可以说就是学习了很多 unix/Linux 命令。我一直觉得 unix 的命令行命" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://wpchou.github.io/post/2020-06-12-powershell-style-aliases-for-unix-commands/" />
+<meta property="og:url" content="https://wpchou.github.io/post/2020-06-12-powershell-style-aliases-for-unix-commands/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-06-12T17:55:00+08:00" />
 <meta property="article:modified_time" content="2020-06-30T14:29:16+08:00" />
 <meta itemprop="name" content="Powershell style aliases for unix commands">
-<meta itemprop="description" content="最近基本把 Linux性能优化实战_Linux_性能调优-极客时间 给看完了，从某种角度来讲，可以说就是学习了很多 unix/Linux 命令。我一直觉得 unix 的命令行命">
-<meta itemprop="datePublished" content="2020-06-12T17:55:00+08:00" />
+<meta itemprop="description" content="最近基本把 Linux性能优化实战_Linux_性能调优-极客时间 给看完了，从某种角度来讲，可以说就是学习了很多 unix/Linux 命令。我一直觉得 unix 的命令行命"><meta itemprop="datePublished" content="2020-06-12T17:55:00+08:00" />
 <meta itemprop="dateModified" content="2020-06-30T14:29:16+08:00" />
 <meta itemprop="wordCount" content="657">
-
-
-
-<meta itemprop="keywords" content="unix,Linux," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="unix,Linux," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Powershell style aliases for unix commands"/>
 <meta name="twitter:description" content="最近基本把 Linux性能优化实战_Linux_性能调优-极客时间 给看完了，从某种角度来讲，可以说就是学习了很多 unix/Linux 命令。我一直觉得 unix 的命令行命"/>
 
@@ -91,12 +86,21 @@
         <li class="mobile-menu-item">Categories</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">/home/wpchou/blog</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +115,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -145,7 +150,7 @@
 <p>但说实话，即使用了 <code>zsh-autosuggestions</code> 这类的工具，打完全称确实也比较累。日常使用还是原名（它本该是 alias)，不断地补充这个列表全当是为了方便记忆和加深理解吧。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -215,75 +220,75 @@
 </span><span class="lnt">68
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">alias</span> <span class="s1">&#39;advanced-top&#39;</span><span class="o">=</span><span class="s1">&#39;atop&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;block-device-trace&#39;</span><span class="o">=</span><span class="s1">&#39;blktrace&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;change-directory&#39;</span><span class="o">=</span><span class="s1">&#39;cd&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;change-mode&#39;</span><span class="o">=</span><span class="s1">&#39;chmod&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;change-owner&#39;</span><span class="o">=</span><span class="s1">&#39;chown&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;chronos-table&#39;</span><span class="o">=</span><span class="s1">&#39;crontab&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;client-url&#39;</span><span class="o">=</span><span class="s1">&#39;curl&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;concatenate&#39;</span><span class="o">=</span><span class="s1">&#39;cat&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;connection-track&#39;</span><span class="o">=</span><span class="s1">&#39;conntrack&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;copy&#39;</span><span class="o">=</span><span class="s1">&#39;cp&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;data-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;dstat&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;desktop-management-interface-decode&#39;</span><span class="o">=</span><span class="s1">&#39;dmidecode&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;diagnostic-message&#39;</span><span class="o">=</span><span class="s1">&#39;dmesg&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;disk-free&#39;</span><span class="o">=</span><span class="s1">&#39;df&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;disk-usage&#39;</span><span class="o">=</span><span class="s1">&#39;du&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;dns-interrogate&#39;</span><span class="o">=</span><span class="s1">&#39;dig&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;dns-lookup&#39;</span><span class="o">=</span><span class="s1">&#39;nslookup&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;execute&#39;</span><span class="o">=</span><span class="s1">&#39;exe&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;execute-arguments&#39;</span><span class="o">=</span><span class="s1">&#39;xargs&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;gnu-privacy-guard&#39;</span><span class="o">=</span><span class="s1">&#39;gpg&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;interface-config&#39;</span><span class="o">=</span><span class="s1">&#39;ifconfig&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;interface-top&#39;</span><span class="o">=</span><span class="s1">&#39;iftop&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;internet-procotol&#39;</span><span class="o">=</span><span class="s1">&#39;ip&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;interprocess-communication&#39;</span><span class="o">=</span><span class="s1">&#39;ipcs&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;io-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;iostat&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;list&#39;</span><span class="o">=</span><span class="s1">&#39;ls&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;list-block-devices&#39;</span><span class="o">=</span><span class="s1">&#39;lsblk&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;list-dynamic-dependencies&#39;</span><span class="o">=</span><span class="s1">&#39;ldd&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;list-open-files&#39;</span><span class="o">=</span><span class="s1">&#39;lsof&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;make-directory&#39;</span><span class="o">=</span><span class="s1">&#39;mkdir&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;manual&#39;</span><span class="o">=</span><span class="s1">&#39;man&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;member-leak&#39;</span><span class="o">=</span><span class="s1">&#39;memleak&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;move&#39;</span><span class="o">=</span><span class="s1">&#39;mv&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;net-concatenate&#39;</span><span class="o">=</span><span class="s1">&#39;netcat&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;net-top&#39;</span><span class="o">=</span><span class="s1">&#39;nethogs&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;network-hardware-tool&#39;</span><span class="o">=</span><span class="s1">&#39;ethtool&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;network-mapper&#39;</span><span class="o">=</span><span class="s1">&#39;nmap&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;network-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;netstat&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;performance&#39;</span><span class="o">=</span><span class="s1">&#39;perf&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;print-working-directory&#39;</span><span class="o">=</span><span class="s1">&#39;pwd&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;privacy-guard&#39;</span><span class="o">=</span><span class="s1">&#39;gpg&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;process-grep&#39;</span><span class="o">=</span><span class="s1">&#39;pgrep&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;process-kill&#39;</span><span class="o">=</span><span class="s1">&#39;pkill&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;process-memory-map&#39;</span><span class="o">=</span><span class="s1">&#39;pmap&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;process-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;pidstat&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;process-status&#39;</span><span class="o">=</span><span class="s1">&#39;ps&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;process-tree&#39;</span><span class="o">=</span><span class="s1">&#39;pstree&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;processor-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;mpstat&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;read-executable-linking-file&#39;</span><span class="o">=</span><span class="s1">&#39;readelf&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;remove&#39;</span><span class="o">=</span><span class="s1">&#39;rm&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;search-regular&#39;</span><span class="o">=</span><span class="s1">&#39;grep&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;secure-copy&#39;</span><span class="o">=</span><span class="s1">&#39;scp&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;secure-shell&#39;</span><span class="o">=</span><span class="s1">&#39;ssh&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;socket-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;ss&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;stream-editor&#39;</span><span class="o">=</span><span class="s1">&#39;sed&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;substitude-user&#39;</span><span class="o">=</span><span class="s1">&#39;su&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;system-activity-report&#39;</span><span class="o">=</span><span class="s1">&#39;sar&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;system-call-trace&#39;</span><span class="o">=</span><span class="s1">&#39;strace&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;table-of-processes&#39;</span><span class="o">=</span><span class="s1">&#39;top&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;tape-archive&#39;</span><span class="o">=</span><span class="s1">&#39;tar&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;traffic-control&#39;</span><span class="o">=</span><span class="s1">&#39;tc&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;translate&#39;</span><span class="o">=</span><span class="s1">&#39;tr&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;unique&#39;</span><span class="o">=</span><span class="s1">&#39;uniq&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;unix-limit&#39;</span><span class="o">=</span><span class="s1">&#39;ulimit&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;unix-name&#39;</span><span class="o">=</span><span class="s1">&#39;uname&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;virtual-memory-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;vmstat&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;web-get&#39;</span><span class="o">=</span><span class="s1">&#39;wget&#39;</span>
-<span class="nb">alias</span> <span class="s1">&#39;word-count&#39;</span><span class="o">=</span><span class="s1">&#39;wc&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;advanced-top&#39;</span><span class="o">=</span><span class="s1">&#39;atop&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;block-device-trace&#39;</span><span class="o">=</span><span class="s1">&#39;blktrace&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;change-directory&#39;</span><span class="o">=</span><span class="s1">&#39;cd&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;change-mode&#39;</span><span class="o">=</span><span class="s1">&#39;chmod&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;change-owner&#39;</span><span class="o">=</span><span class="s1">&#39;chown&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;chronos-table&#39;</span><span class="o">=</span><span class="s1">&#39;crontab&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;client-url&#39;</span><span class="o">=</span><span class="s1">&#39;curl&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;concatenate&#39;</span><span class="o">=</span><span class="s1">&#39;cat&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;connection-track&#39;</span><span class="o">=</span><span class="s1">&#39;conntrack&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;copy&#39;</span><span class="o">=</span><span class="s1">&#39;cp&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;data-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;dstat&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;desktop-management-interface-decode&#39;</span><span class="o">=</span><span class="s1">&#39;dmidecode&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;diagnostic-message&#39;</span><span class="o">=</span><span class="s1">&#39;dmesg&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;disk-free&#39;</span><span class="o">=</span><span class="s1">&#39;df&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;disk-usage&#39;</span><span class="o">=</span><span class="s1">&#39;du&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;dns-interrogate&#39;</span><span class="o">=</span><span class="s1">&#39;dig&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;dns-lookup&#39;</span><span class="o">=</span><span class="s1">&#39;nslookup&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;execute&#39;</span><span class="o">=</span><span class="s1">&#39;exe&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;execute-arguments&#39;</span><span class="o">=</span><span class="s1">&#39;xargs&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;gnu-privacy-guard&#39;</span><span class="o">=</span><span class="s1">&#39;gpg&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;interface-config&#39;</span><span class="o">=</span><span class="s1">&#39;ifconfig&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;interface-top&#39;</span><span class="o">=</span><span class="s1">&#39;iftop&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;internet-procotol&#39;</span><span class="o">=</span><span class="s1">&#39;ip&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;interprocess-communication&#39;</span><span class="o">=</span><span class="s1">&#39;ipcs&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;io-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;iostat&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;list&#39;</span><span class="o">=</span><span class="s1">&#39;ls&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;list-block-devices&#39;</span><span class="o">=</span><span class="s1">&#39;lsblk&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;list-dynamic-dependencies&#39;</span><span class="o">=</span><span class="s1">&#39;ldd&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;list-open-files&#39;</span><span class="o">=</span><span class="s1">&#39;lsof&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;make-directory&#39;</span><span class="o">=</span><span class="s1">&#39;mkdir&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;manual&#39;</span><span class="o">=</span><span class="s1">&#39;man&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;member-leak&#39;</span><span class="o">=</span><span class="s1">&#39;memleak&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;move&#39;</span><span class="o">=</span><span class="s1">&#39;mv&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;net-concatenate&#39;</span><span class="o">=</span><span class="s1">&#39;netcat&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;net-top&#39;</span><span class="o">=</span><span class="s1">&#39;nethogs&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;network-hardware-tool&#39;</span><span class="o">=</span><span class="s1">&#39;ethtool&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;network-mapper&#39;</span><span class="o">=</span><span class="s1">&#39;nmap&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;network-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;netstat&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;performance&#39;</span><span class="o">=</span><span class="s1">&#39;perf&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;print-working-directory&#39;</span><span class="o">=</span><span class="s1">&#39;pwd&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;privacy-guard&#39;</span><span class="o">=</span><span class="s1">&#39;gpg&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;process-grep&#39;</span><span class="o">=</span><span class="s1">&#39;pgrep&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;process-kill&#39;</span><span class="o">=</span><span class="s1">&#39;pkill&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;process-memory-map&#39;</span><span class="o">=</span><span class="s1">&#39;pmap&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;process-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;pidstat&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;process-status&#39;</span><span class="o">=</span><span class="s1">&#39;ps&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;process-tree&#39;</span><span class="o">=</span><span class="s1">&#39;pstree&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;processor-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;mpstat&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;read-executable-linking-file&#39;</span><span class="o">=</span><span class="s1">&#39;readelf&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;remove&#39;</span><span class="o">=</span><span class="s1">&#39;rm&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;search-regular&#39;</span><span class="o">=</span><span class="s1">&#39;grep&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;secure-copy&#39;</span><span class="o">=</span><span class="s1">&#39;scp&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;secure-shell&#39;</span><span class="o">=</span><span class="s1">&#39;ssh&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;socket-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;ss&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;stream-editor&#39;</span><span class="o">=</span><span class="s1">&#39;sed&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;substitude-user&#39;</span><span class="o">=</span><span class="s1">&#39;su&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;system-activity-report&#39;</span><span class="o">=</span><span class="s1">&#39;sar&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;system-call-trace&#39;</span><span class="o">=</span><span class="s1">&#39;strace&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;table-of-processes&#39;</span><span class="o">=</span><span class="s1">&#39;top&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;tape-archive&#39;</span><span class="o">=</span><span class="s1">&#39;tar&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;traffic-control&#39;</span><span class="o">=</span><span class="s1">&#39;tc&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;translate&#39;</span><span class="o">=</span><span class="s1">&#39;tr&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;unique&#39;</span><span class="o">=</span><span class="s1">&#39;uniq&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;unix-limit&#39;</span><span class="o">=</span><span class="s1">&#39;ulimit&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;unix-name&#39;</span><span class="o">=</span><span class="s1">&#39;uname&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;virtual-memory-statistics&#39;</span><span class="o">=</span><span class="s1">&#39;vmstat&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;web-get&#39;</span><span class="o">=</span><span class="s1">&#39;wget&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="s1">&#39;word-count&#39;</span><span class="o">=</span><span class="s1">&#39;wc&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -379,13 +384,10 @@
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">wenpin</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>wenpin</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -399,7 +401,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 <script type="application/javascript">

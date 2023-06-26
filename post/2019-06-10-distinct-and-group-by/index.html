@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="wenpin" /><meta name="description" content="在 MySQL 里面, DISTINCT 原则上可以用 GROUP BY 替换。 比如以下的 question 表是我们实际生产数据一个表的简化。 1 SHOW FULL COLUMNS FROM question; Field Type id int(10) unsigned type enum(&amp;lsquo;choice&amp;rsquo;,&amp;lsquo;single_choice&amp;rsquo;,&amp;lsquo;uncertain_choice&amp;rsquo;,&amp;lsquo;determine&amp;rsquo;,&amp;lsquo;fill&amp;rsquo;,&amp;lsquo;essay&amp;rsquo;,&amp;lsquo;material&amp;rsquo;) score float(10,1) unsigned 1 SHOW INDEX FROM question; Table Non_unique Key_name Seq_in_index Column_name Index_type question 0 PRIMARY" /><meta name="keywords" content="IT, blog" />
+<meta name="author" content="wenpin" /><meta name="description" content="在 MySQL 里面, DISTINCT 原则上可以用 GROUP BY 替换。 比如以下的 question 表是我们实际生产数据一个表的简化。 1 SHOW FULL COLUMNS FROM question; Field Type id int(10) unsigned type enum(&amp;lsquo;choice&amp;rsquo;,&amp;lsquo;single_choice&amp;rsquo;,&amp;lsquo;uncertain_choice&amp;rsquo;,&amp;lsquo;determine&amp;rsquo;,&amp;lsquo;fill&amp;rsquo;,&amp;rsquo;essay&amp;rsquo;,&amp;lsquo;material&amp;rsquo;) score float(10,1) unsigned 1 SHOW INDEX FROM question; Table Non_unique Key_name Seq_in_index Column_name Index_type question 0 PRIMARY" /><meta name="keywords" content="IT, blog" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.76.5 with theme even" />
+<meta name="generator" content="Hugo 0.114.1 with theme even" />
 
 
 <link rel="canonical" href="https://wpchou.github.io/post/2019-06-10-distinct-and-group-by/" />
@@ -35,28 +35,23 @@
 
 
 
-<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Distinct and Group By" />
-<meta property="og:description" content="在 MySQL 里面, DISTINCT 原则上可以用 GROUP BY 替换。 比如以下的 question 表是我们实际生产数据一个表的简化。 1 SHOW FULL COLUMNS FROM question; Field Type id int(10) unsigned type enum(&lsquo;choice&rsquo;,&lsquo;single_choice&rsquo;,&lsquo;uncertain_choice&rsquo;,&lsquo;determine&rsquo;,&lsquo;fill&rsquo;,&lsquo;essay&rsquo;,&lsquo;material&rsquo;) score float(10,1) unsigned 1 SHOW INDEX FROM question; Table Non_unique Key_name Seq_in_index Column_name Index_type question 0 PRIMARY" />
+<meta property="og:description" content="在 MySQL 里面, DISTINCT 原则上可以用 GROUP BY 替换。 比如以下的 question 表是我们实际生产数据一个表的简化。 1 SHOW FULL COLUMNS FROM question; Field Type id int(10) unsigned type enum(&lsquo;choice&rsquo;,&lsquo;single_choice&rsquo;,&lsquo;uncertain_choice&rsquo;,&lsquo;determine&rsquo;,&lsquo;fill&rsquo;,&rsquo;essay&rsquo;,&lsquo;material&rsquo;) score float(10,1) unsigned 1 SHOW INDEX FROM question; Table Non_unique Key_name Seq_in_index Column_name Index_type question 0 PRIMARY" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://wpchou.github.io/post/2019-06-10-distinct-and-group-by/" />
+<meta property="og:url" content="https://wpchou.github.io/post/2019-06-10-distinct-and-group-by/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2019-06-10T00:00:00+00:00" />
 <meta property="article:modified_time" content="2019-06-10T00:00:00+00:00" />
 <meta itemprop="name" content="Distinct and Group By">
-<meta itemprop="description" content="在 MySQL 里面, DISTINCT 原则上可以用 GROUP BY 替换。 比如以下的 question 表是我们实际生产数据一个表的简化。 1 SHOW FULL COLUMNS FROM question; Field Type id int(10) unsigned type enum(&lsquo;choice&rsquo;,&lsquo;single_choice&rsquo;,&lsquo;uncertain_choice&rsquo;,&lsquo;determine&rsquo;,&lsquo;fill&rsquo;,&lsquo;essay&rsquo;,&lsquo;material&rsquo;) score float(10,1) unsigned 1 SHOW INDEX FROM question; Table Non_unique Key_name Seq_in_index Column_name Index_type question 0 PRIMARY">
-<meta itemprop="datePublished" content="2019-06-10T00:00:00+00:00" />
+<meta itemprop="description" content="在 MySQL 里面, DISTINCT 原则上可以用 GROUP BY 替换。 比如以下的 question 表是我们实际生产数据一个表的简化。 1 SHOW FULL COLUMNS FROM question; Field Type id int(10) unsigned type enum(&lsquo;choice&rsquo;,&lsquo;single_choice&rsquo;,&lsquo;uncertain_choice&rsquo;,&lsquo;determine&rsquo;,&lsquo;fill&rsquo;,&rsquo;essay&rsquo;,&lsquo;material&rsquo;) score float(10,1) unsigned 1 SHOW INDEX FROM question; Table Non_unique Key_name Seq_in_index Column_name Index_type question 0 PRIMARY"><meta itemprop="datePublished" content="2019-06-10T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2019-06-10T00:00:00+00:00" />
 <meta itemprop="wordCount" content="489">
-
-
-
-<meta itemprop="keywords" content="mysql," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="mysql," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Distinct and Group By"/>
-<meta name="twitter:description" content="在 MySQL 里面, DISTINCT 原则上可以用 GROUP BY 替换。 比如以下的 question 表是我们实际生产数据一个表的简化。 1 SHOW FULL COLUMNS FROM question; Field Type id int(10) unsigned type enum(&lsquo;choice&rsquo;,&lsquo;single_choice&rsquo;,&lsquo;uncertain_choice&rsquo;,&lsquo;determine&rsquo;,&lsquo;fill&rsquo;,&lsquo;essay&rsquo;,&lsquo;material&rsquo;) score float(10,1) unsigned 1 SHOW INDEX FROM question; Table Non_unique Key_name Seq_in_index Column_name Index_type question 0 PRIMARY"/>
+<meta name="twitter:description" content="在 MySQL 里面, DISTINCT 原则上可以用 GROUP BY 替换。 比如以下的 question 表是我们实际生产数据一个表的简化。 1 SHOW FULL COLUMNS FROM question; Field Type id int(10) unsigned type enum(&lsquo;choice&rsquo;,&lsquo;single_choice&rsquo;,&lsquo;uncertain_choice&rsquo;,&lsquo;determine&rsquo;,&lsquo;fill&rsquo;,&rsquo;essay&rsquo;,&lsquo;material&rsquo;) score float(10,1) unsigned 1 SHOW INDEX FROM question; Table Non_unique Key_name Seq_in_index Column_name Index_type question 0 PRIMARY"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -91,12 +86,21 @@
         <li class="mobile-menu-item">Categories</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">/home/wpchou/blog</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +115,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -141,11 +146,11 @@
 <p>比如以下的 <code>question</code> 表是我们实际生产数据一个表的简化。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span> <span class="k">FULL</span> <span class="n">COLUMNS</span> <span class="k">FROM</span> <span class="n">question</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="k">FULL</span><span class="w"> </span><span class="n">COLUMNS</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">question</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><table>
 <thead>
@@ -161,7 +166,7 @@
 </tr>
 <tr>
 <td>type</td>
-<td>enum(&lsquo;choice&rsquo;,&lsquo;single_choice&rsquo;,&lsquo;uncertain_choice&rsquo;,&lsquo;determine&rsquo;,&lsquo;fill&rsquo;,&lsquo;essay&rsquo;,&lsquo;material&rsquo;)</td>
+<td>enum(&lsquo;choice&rsquo;,&lsquo;single_choice&rsquo;,&lsquo;uncertain_choice&rsquo;,&lsquo;determine&rsquo;,&lsquo;fill&rsquo;,&rsquo;essay&rsquo;,&lsquo;material&rsquo;)</td>
 </tr>
 <tr>
 <td>score</td>
@@ -171,11 +176,11 @@
 </table>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span> <span class="k">INDEX</span> <span class="k">FROM</span> <span class="n">question</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">question</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><table>
 <thead>
@@ -210,11 +215,11 @@
 <p>我们来看看在 <code>type</code> 上做 <code>DISTINCT</code> 和 <code>GROUP BY</code> 操作的结果。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="k">type</span> <span class="k">FROM</span> <span class="n">question</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">question</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><table>
 <thead>
@@ -248,11 +253,11 @@
 </table>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="k">type</span> <span class="k">FROM</span> <span class="n">questiton</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="k">type</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">questiton</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">type</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><table>
 <thead>
@@ -288,11 +293,11 @@
 <p>MySQL 是怎么实现的呢. Let&rsquo;s <code>EXPLAIN</code>.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">EXPLAIN</span> <span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="k">type</span> <span class="k">FROM</span> <span class="n">question</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">EXPLAIN</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">question</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><table>
 <thead>
@@ -326,11 +331,11 @@
 </table>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">EXPLAIN</span> <span class="k">SELECT</span> <span class="k">type</span> <span class="k">FROM</span> <span class="n">question</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="k">type</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">EXPLAIN</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">question</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">type</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><table>
 <thead>
@@ -366,11 +371,11 @@
 <p>如果是在 <code>score</code> 字段上呢？这次我们先 explain.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">EXPLAIN</span> <span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">score</span> <span class="k">FROM</span> <span class="n">question</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">EXPLAIN</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">question</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><table>
 <thead>
@@ -404,11 +409,11 @@
 </table>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">EXPLAIN</span> <span class="k">SELECT</span> <span class="n">score</span> <span class="k">FROM</span> <span class="n">question</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">score</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">EXPLAIN</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">question</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">score</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><table>
 <thead>
@@ -444,11 +449,11 @@
 <p>这样使得 <code>GROUP BY</code> 的结果是有序的，而 <code>DISTINCT</code> 不是. 因为 MySQL 的 <code>GROUP BY</code> 默认是有序的。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">score</span> <span class="k">FROM</span> <span class="n">question</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">question</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><table>
 <thead>
@@ -512,11 +517,11 @@
 </table>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">score</span> <span class="k">FROM</span> <span class="n">question</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">score</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">question</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">score</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><table>
 <thead>
@@ -673,13 +678,10 @@
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">wenpin</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>wenpin</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -693,7 +695,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 <script type="application/javascript">
